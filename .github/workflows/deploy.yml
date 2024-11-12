@@ -24,7 +24,7 @@ jobs:
           HOST: 158.180.17.176 
           REMOTE_PATH: /var/www/html   
         run: |
-          rsync -avz -e "ssh -o StrictHostKeyChecking=no" --delete --exclude='.git' --exclude='.htaccess' $USER@$HOST:$REMOTE_PATH
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no" --delete --exclude='.git' --exclude='.htaccess' --exclude='.github' ${{ github.workspace }}/ $USER@$HOST:$REMOTE_PATH
           ssh -o StrictHostKeyChecking=no $USER@$HOST "sudo systemctl restart apache2"
 
       - name: Verify Deployment
