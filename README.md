@@ -1,0 +1,2 @@
+# lokmanbaturayefe.com
+lokmanbaturayefe.com
