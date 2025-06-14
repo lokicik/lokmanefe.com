@@ -3,7 +3,7 @@ name: Deploy to Oracle Cloud
 on:
   push:
     branches:
-      - main
+      - main  
 
 jobs:
   deploy:
@@ -18,30 +18,19 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Set up Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        run: npm run build
-
       - name: Deploy to Oracle Server
         env:
-          USER: ubuntu
-          HOST: 158.180.17.176
-          REMOTE_PATH: /var/www/html
+          USER: ubuntu             
+          HOST: 158.180.17.176 
+          REMOTE_PATH: /var/www/html   
         run: |
-          rsync -avz -e "ssh -o StrictHostKeyChecking=no" --delete ${{ github.workspace }}/dist/ $USER@$HOST:$REMOTE_PATH
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no" --delete --exclude='.git' --exclude='.htaccess' --exclude='.github' ${{ github.workspace }}/ $USER@$HOST:$REMOTE_PATH
           ssh -o StrictHostKeyChecking=no $USER@$HOST "sudo systemctl restart apache2"
 
       - name: Verify Deployment
         env:
-          USER: ubuntu
-          HOST: 158.180.17.176
+          USER: ubuntu 
+          HOST: 158.180.17.176 
           REMOTE_PATH: /var/www/html
         run: |
           ssh $USER@$HOST "ls -la $REMOTE_PATH"

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>blog</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+      body {
+        margin: 0 auto;
+        padding: 1em;
+        max-width: 42em;
+        font-family: Verdana, sans-serif;
+        line-height: 1.5;
+        color: #333;
+      }
+      h1,
+      h2 {
+        font-family: Georgia, serif;
+        margin-top: 2em;
+      }
+      a {
+        color: #000066;
+      }
+      a:visited {
+        color: #660066;
+      }
+    </style>
+  </head>
+  <body>
+    <p><a href="index.html">Home</a></p>
+    <hr />
+    <div id="content"></div>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const markdownFile = params.get("file");
+
+      if (markdownFile) {
+        fetch(markdownFile)
+          .then((response) => response.text())
+          .then((markdown) => {
+            const html = marked.parse(markdown);
+            document.getElementById("content").innerHTML = html;
+
+            // Update title based on the first heading
+            const h1 = document.querySelector("h1");
+            if (h1) {
+              document.title = h1.textContent + " - John Doe";
+            }
+          })
+          .catch((error) => console.error("Error fetching markdown:", error));
+      } else {
+        document.getElementById("content").innerHTML =
+          "<p>Error: No file specified</p>";
+      }
+    </script>
+  </body>
+</html>
