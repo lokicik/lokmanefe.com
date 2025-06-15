@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Share2, Twitter, Linkedin, Facebook, Link, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,6 +18,12 @@ interface SocialShareProps {
 
 export function SocialShare({ title, url, description }: SocialShareProps) {
   const [copied, setCopied] = useState(false);
+  const [hasNativeShare, setHasNativeShare] = useState(false);
+
+  useEffect(() => {
+    // Check if native share is available (client-side only)
+    setHasNativeShare(typeof navigator !== "undefined" && "share" in navigator);
+  }, []);
 
   const encodedTitle = encodeURIComponent(title);
   const encodedUrl = encodeURIComponent(url);
@@ -69,7 +75,7 @@ export function SocialShare({ title, url, description }: SocialShareProps) {
   return (
     <div className="flex items-center gap-2">
       {/* Native share button (mobile) */}
-      {"share" in navigator && (
+      {hasNativeShare && (
         <Button
           variant="outline"
           size="sm"
