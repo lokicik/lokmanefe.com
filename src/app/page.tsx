@@ -1,14 +1,15 @@
-import Link from "next/link";
+import { CVButton } from "@/components/cv-button";
 
 export default function Home() {
   return (
     <div className="max-w-4xl mx-auto space-y-8">
-      <div>
+      <div className="text-center">
         <h1 className="text-4xl font-bold mb-4">Lokman Baturay Efe</h1>
-        <p className="text-lg text-muted-foreground">
+        <p className="text-lg text-muted-foreground mb-6">
           I&apos;m a software developer based in Edirne, Türkiye. I build
           things.
         </p>
+        <CVButton />
       </div>
 
       <section>
@@ -29,10 +30,10 @@ export default function Home() {
         <p className="text-muted-foreground">
           Email:{" "}
           <a
-            href="mailto:efelokman227@gmail.com"
+            href="mailto:lokman@lokmanbaturayefe.com"
             className="text-primary hover:underline"
           >
-            efelokman227@gmail.com
+            lokman@lokmanbaturayefe.com
           </a>
           <br />
           <a
@@ -140,21 +141,6 @@ export default function Home() {
               DTC Zoomcamp Q&A Challenge
             </a>{" "}
             - 21/54
-          </li>
-        </ul>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold mb-4">Writing</h2>
-        <ul className="space-y-3 text-muted-foreground">
-          <li>
-            <Link
-              href="/blog/welcome-to-my-blog"
-              className="text-primary hover:underline font-medium"
-            >
-              Welcome to My Blog
-            </Link>{" "}
-            - January 2024
           </li>
         </ul>
       </section>
