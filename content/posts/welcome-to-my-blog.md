@@ -25,7 +25,7 @@ I wanted a place to share my experiences as a developer, document my learning jo
 
 This blog is built with:
 
-- **Next.js 14** with App Router for the framework
+- **Next.js 15** with App Router for the framework
 - **Markdown files** for writing posts in my favorite code editor
 - **Tailwind CSS** for styling
 - **Dark mode support** for better reading experience

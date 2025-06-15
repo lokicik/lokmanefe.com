@@ -276,5 +276,30 @@
   .prose mark {
     @apply bg-yellow-400/20 text-yellow-400 font-medium rounded px-1;
   }
+
+  /* Legal document styling */
+  .prose .table-of-contents {
+    @apply bg-muted/30 border rounded-lg p-6 my-8;
+  }
+
+  .prose .table-of-contents h2 {
+    @apply text-xl font-bold mb-4 mt-0;
+  }
+
+  .prose .table-of-contents ol {
+    @apply list-decimal pl-6 space-y-1;
+  }
+
+  .prose .table-of-contents a {
+    @apply text-primary hover:underline;
+  }
+
+  .prose hr {
+    @apply border-border my-8;
+  }
+
+  .prose .section-anchor {
+    @apply scroll-mt-20;
+  }
 }
 /* ---------------------------------- */

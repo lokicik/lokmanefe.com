@@ -59,6 +59,9 @@ export const metadata: Metadata = {
     title: "Lokman Baturay Efe - Portfolio & Blog",
     description: "Software developer portfolio and personal blog",
   },
+  other: {
+    rss: "/blog/rss",
+  },
 };
 
 export default function RootLayout({
@@ -72,6 +75,14 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.variable} ${spaceGrotesk.variable} ${merriweather.variable} ${sourceCode.variable} ${playfair.variable}`}
     >
+      <head>
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="Lokman Baturay Efe - Blog RSS Feed"
+          href="/blog/rss"
+        />
+      </head>
       <body className={inter.className}>
         <Providers>
           <div className="min-h-screen bg-background">

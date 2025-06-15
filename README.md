@@ -1,6 +1,6 @@
 # Lokman Baturay Efe - Portfolio & Blog
 
-A clean, modern portfolio and blog built with Next.js 14, featuring markdown-based content management.
+A clean, modern portfolio and blog built with Next.js 15, featuring markdown-based content management.
 
 ## ✨ Features
 
@@ -9,7 +9,7 @@ A clean, modern portfolio and blog built with Next.js 14, featuring markdown-bas
 - **Dark Mode**: Toggle between light and dark themes
 - **Responsive Design**: Works perfectly on desktop and mobile
 - **SEO Optimized**: Proper meta tags and structured data
-- **Fast & Modern**: Built with Next.js 14, TypeScript, and Tailwind CSS
+- **Fast & Modern**: Built with Next.js 15, TypeScript, and Tailwind CSS
 
 ## 🚀 Getting Started
 
@@ -59,7 +59,7 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 
 ## 🛠️ Tech Stack
 
-- **Framework**: Next.js 14 with App Router
+- **Framework**: Next.js 15 with App Router
 - **Styling**: Tailwind CSS + shadcn/ui
 - **Content**: Markdown with gray-matter
 - **Theme**: next-themes for dark mode

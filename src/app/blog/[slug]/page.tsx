@@ -1,9 +1,14 @@
 import { notFound } from "next/navigation";
 import {
   getMarkdownPostBySlug,
+  getMarkdownPosts,
   renderMarkdownContent,
 } from "@/lib/markdown-posts";
 import { formatDate } from "@/lib/utils";
+import { SocialShare } from "@/components/social-share";
+import { RelatedPosts } from "@/components/related-posts";
+import { BlogPostContent } from "@/components/blog-post-content";
+import { Clock, Calendar } from "lucide-react";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -17,6 +22,9 @@ export default async function BlogPost({ params }: Props) {
     notFound();
   }
 
+  // Get all posts for related posts functionality
+  const allPosts = await getMarkdownPosts();
+
   const renderedContent = await renderMarkdownContent(post.content);
 
   if (!renderedContent || typeof renderedContent !== "string") {
@@ -28,14 +36,29 @@ export default async function BlogPost({ params }: Props) {
     );
   }
 
+  // Get the full URL for sharing
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL || "https://lokmanbaturayefe.com";
+  const postUrl = `${baseUrl}/blog/${post.slug}`;
+
   return (
     <article className="max-w-4xl mx-auto">
       {/* Header */}
       <header className="mb-12 text-center">
         <div className="mb-4">
-          <time className="text-sm text-muted-foreground font-medium">
-            Published {formatDate(post.date)}
-          </time>
+          <div className="flex items-center justify-center gap-4 text-sm text-muted-foreground mb-2">
+            <div className="flex items-center gap-1">
+              <Calendar className="h-4 w-4" />
+              <time>Published {formatDate(post.date)}</time>
+            </div>
+            <div className="flex items-center gap-1">
+              <Clock className="h-4 w-4" />
+              <span>{post.readingTime} min read</span>
+            </div>
+            {post.wordCount && (
+              <span>{post.wordCount.toLocaleString()} words</span>
+            )}
+          </div>
         </div>
 
         <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
@@ -43,13 +66,13 @@ export default async function BlogPost({ params }: Props) {
         </h1>
 
         {post.excerpt && (
-          <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto mb-6">
             {post.excerpt}
           </p>
         )}
 
         {post.tags && post.tags.length > 0 && (
-          <div className="flex flex-wrap gap-2 justify-center mt-6">
+          <div className="flex flex-wrap gap-2 justify-center mb-6">
             {post.tags.map((tag) => (
               <span
                 key={tag}
@@ -60,13 +83,36 @@ export default async function BlogPost({ params }: Props) {
             ))}
           </div>
         )}
+
+        {/* Social sharing */}
+        <div className="flex justify-center">
+          <SocialShare
+            title={post.title}
+            url={postUrl}
+            description={post.excerpt}
+          />
+        </div>
       </header>
 
-      {/* Content */}
-      <div
-        className="prose prose-lg prose-neutral dark:prose-invert max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-p:leading-relaxed prose-pre:bg-muted prose-pre:border prose-img:rounded-lg prose-img:shadow-lg"
-        dangerouslySetInnerHTML={{ __html: renderedContent }}
-      />
+      {/* Content with enhanced features */}
+      <BlogPostContent content={renderedContent} showComments={true} />
+
+      {/* Footer actions */}
+      <footer className="mt-12 pt-8 border-t">
+        <div className="flex items-center justify-between">
+          <div className="text-sm text-muted-foreground">
+            <p>Was this helpful? Share it with others!</p>
+          </div>
+          <SocialShare
+            title={post.title}
+            url={postUrl}
+            description={post.excerpt}
+          />
+        </div>
+      </footer>
+
+      {/* Related Posts */}
+      <RelatedPosts currentPost={post} allPosts={allPosts} />
     </article>
   );
 }

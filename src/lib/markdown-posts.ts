@@ -16,6 +16,8 @@ export type MarkdownPost = {
   source: "markdown";
   createdAt: Date;
   updatedAt: Date;
+  readingTime: number; // in minutes
+  wordCount: number;
 };
 
 export type CombinedPost = {
@@ -30,9 +32,104 @@ export type CombinedPost = {
   source: "database" | "markdown";
   author?: { name: string | null };
   tags?: string[];
+  readingTime?: number;
+  wordCount?: number;
 };
 
 const postsDirectory = path.join(process.cwd(), "content/posts");
+
+// Calculate reading time based on word count
+function calculateReadingTime(content: string): {
+  readingTime: number;
+  wordCount: number;
+} {
+  // Remove markdown syntax and HTML tags for accurate word count
+  const cleanContent = content
+    .replace(/!\[.*?\]\(.*?\)/g, "") // Remove images
+    .replace(/\[.*?\]\(.*?\)/g, "") // Remove links (keep text)
+    .replace(/```[\s\S]*?```/g, "") // Remove code blocks
+    .replace(/`.*?`/g, "") // Remove inline code
+    .replace(/#{1,6}\s/g, "") // Remove headers
+    .replace(/[*_~`]/g, "") // Remove markdown formatting
+    .replace(/<[^>]*>/g, "") // Remove HTML tags
+    .replace(/\s+/g, " ") // Normalize whitespace
+    .trim();
+
+  const words = cleanContent.split(" ").filter((word) => word.length > 0);
+  const wordCount = words.length;
+
+  // Average reading speed is 200-250 words per minute, using 225
+  const readingTime = Math.ceil(wordCount / 225);
+
+  return { readingTime: Math.max(1, readingTime), wordCount };
+}
+
+// Get all unique tags from posts
+export function getAllTags(posts: MarkdownPost[]): string[] {
+  const tagSet = new Set<string>();
+  posts.forEach((post) => {
+    if (post.tags) {
+      post.tags.forEach((tag) => tagSet.add(tag));
+    }
+  });
+  return Array.from(tagSet).sort();
+}
+
+// Get posts grouped by year and month for archive
+export function getPostsArchive(posts: MarkdownPost[]): {
+  [year: string]: { [month: string]: MarkdownPost[] };
+} {
+  const archive: { [year: string]: { [month: string]: MarkdownPost[] } } = {};
+
+  posts.forEach((post) => {
+    const year = post.createdAt.getFullYear().toString();
+    const month = post.createdAt.toLocaleDateString("en-US", { month: "long" });
+
+    if (!archive[year]) archive[year] = {};
+    if (!archive[year][month]) archive[year][month] = [];
+
+    archive[year][month].push(post);
+  });
+
+  return archive;
+}
+
+// Find related posts based on tags
+export function getRelatedPosts(
+  currentPost: MarkdownPost,
+  allPosts: MarkdownPost[],
+  limit: number = 3
+): MarkdownPost[] {
+  if (!currentPost.tags || currentPost.tags.length === 0) {
+    return [];
+  }
+
+  const otherPosts = allPosts.filter(
+    (post) => post.slug !== currentPost.slug && post.published
+  );
+
+  // Calculate similarity score based on shared tags
+  const postsWithScore = otherPosts.map((post) => {
+    if (!post.tags || post.tags.length === 0) {
+      return { post, score: 0 };
+    }
+
+    const sharedTags = post.tags.filter((tag) =>
+      currentPost.tags?.includes(tag)
+    );
+    const score =
+      sharedTags.length /
+      Math.max(post.tags.length, currentPost.tags?.length || 0);
+
+    return { post, score };
+  });
+
+  return postsWithScore
+    .filter((item) => item.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map((item) => item.post);
+}
 
 export async function getMarkdownPosts(): Promise<MarkdownPost[]> {
   try {
@@ -57,6 +154,9 @@ export async function getMarkdownPosts(): Promise<MarkdownPost[]> {
       // Get file stats for dates
       const stats = fs.statSync(fullPath);
 
+      // Calculate reading time and word count
+      const { readingTime, wordCount } = calculateReadingTime(content);
+
       posts.push({
         slug,
         title: data.title || slug,
@@ -68,6 +168,8 @@ export async function getMarkdownPosts(): Promise<MarkdownPost[]> {
         source: "markdown",
         createdAt: data.date ? new Date(data.date) : stats.birthtime,
         updatedAt: stats.mtime,
+        readingTime,
+        wordCount,
       });
     }
 
@@ -93,6 +195,9 @@ export async function getMarkdownPostBySlug(
     const { data, content } = matter(fileContents);
     const stats = fs.statSync(fullPath);
 
+    // Calculate reading time and word count
+    const { readingTime, wordCount } = calculateReadingTime(content);
+
     return {
       slug,
       title: data.title || slug,
@@ -104,6 +209,8 @@ export async function getMarkdownPostBySlug(
       source: "markdown",
       createdAt: data.date ? new Date(data.date) : stats.birthtime,
       updatedAt: stats.mtime,
+      readingTime,
+      wordCount,
     };
   } catch (error) {
     console.error("Error reading markdown post:", error);
@@ -111,16 +218,16 @@ export async function getMarkdownPostBySlug(
   }
 }
 
-export async function renderMarkdownContent(content: string) {
+export async function renderMarkdownContent(content: string): Promise<string> {
   try {
-    const processedContent = await remark()
+    const result = await remark()
       .use(remarkGfm)
       .use(html, { sanitize: false })
       .process(content);
 
-    return processedContent.toString();
+    return result.toString();
   } catch (error) {
     console.error("Error rendering markdown:", error);
-    return null;
+    return "";
   }
 }
