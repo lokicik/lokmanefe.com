@@ -27,6 +27,7 @@ const fonts = [
 export function FontPicker() {
   const [selectedFont, setSelectedFont] = React.useState(fonts[0]);
   const [isOpen, setIsOpen] = React.useState(false);
+  const dropdownRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     // Initialize with default font
@@ -48,8 +49,25 @@ export function FontPicker() {
     localStorage.setItem("selected-font", selectedFont.value);
   }, [selectedFont]);
 
+  React.useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+      return () =>
+        document.removeEventListener("mousedown", handleClickOutside);
+    }
+  }, [isOpen]);
+
   return (
-    <div className="relative">
+    <div className="relative" ref={dropdownRef}>
       <Button
         variant="ghost"
         size="sm"
@@ -61,7 +79,7 @@ export function FontPicker() {
       </Button>
 
       {isOpen && (
-        <div className="absolute top-full right-0 mt-2 w-48 bg-popover border rounded-md shadow-lg z-50">
+        <div className="absolute top-full right-0 mt-2 w-48 bg-popover border rounded-md shadow-lg z-[60] max-h-60 overflow-y-auto">
           {fonts.map((font) => (
             <button
               key={font.value}
