@@ -5,23 +5,31 @@ import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const fonts = [
-  { name: "Inter", value: "inter", cssVar: "--font-inter" },
+  { name: "Inter", shortName: "Inter", value: "inter", cssVar: "--font-inter" },
   {
     name: "Space Grotesk",
+    shortName: "Space",
     value: "space-grotesk",
     cssVar: "--font-space-grotesk",
   },
   {
     name: "Merriweather",
+    shortName: "Merri",
     value: "merriweather",
     cssVar: "--font-merriweather",
   },
   {
     name: "Source Code Pro",
+    shortName: "Code",
     value: "source-code",
     cssVar: "--font-source-code",
   },
-  { name: "Playfair Display", value: "playfair", cssVar: "--font-playfair" },
+  {
+    name: "Playfair Display",
+    shortName: "Play",
+    value: "playfair",
+    cssVar: "--font-playfair",
+  },
 ];
 
 export function FontPicker() {
@@ -72,14 +80,15 @@ export function FontPicker() {
         variant="ghost"
         size="sm"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2"
+        className="flex items-center gap-1 px-2"
       >
-        <span className="text-sm">{selectedFont.name}</span>
-        <ChevronDown className="h-4 w-4" />
+        <span className="text-sm hidden sm:inline">{selectedFont.name}</span>
+        <span className="text-sm sm:hidden">{selectedFont.shortName}</span>
+        <ChevronDown className="h-3 w-3 sm:h-4 sm:w-4" />
       </Button>
 
       {isOpen && (
-        <div className="absolute top-full right-0 mt-2 w-48 bg-popover border rounded-md shadow-lg z-[60] max-h-60 overflow-y-auto">
+        <div className="absolute top-full right-0 mt-2 w-36 sm:w-48 bg-popover border rounded-md shadow-lg z-[60] max-h-60 overflow-y-auto">
           {fonts.map((font) => (
             <button
               key={font.value}
