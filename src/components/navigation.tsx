@@ -35,6 +35,12 @@ export function Navigation() {
               >
                 Blog
               </Link>
+              <Link
+                href="/reading"
+                className="text-sm font-medium transition-colors hover:text-primary"
+              >
+                Reading
+              </Link>
             </div>
 
             <div className="flex items-center space-x-2 border-l pl-4">
@@ -80,6 +86,13 @@ export function Navigation() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Blog
+              </Link>
+              <Link
+                href="/reading"
+                className="block px-3 py-2 text-base font-medium transition-colors hover:text-primary hover:bg-muted rounded-md"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Reading
               </Link>
 
               {/* Mobile settings */}

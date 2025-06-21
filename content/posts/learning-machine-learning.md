@@ -4,6 +4,7 @@ date: "2024-01-20"
 excerpt: "Reflections on my first year diving into AI and machine learning, from CNN projects to Kaggle competitions."
 published: true
 tags: ["machine-learning", "ai", "kaggle", "learning"]
+relatedBooks: ["foundation", "sapiens"]
 ---
 
 ## My colourful section
