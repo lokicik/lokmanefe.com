@@ -1,5 +1,5 @@
 ---
-title: Bilim Kitabi
+title: Bilim Kitabı
 author: Kolektif
 isbn: "6051069305"
 publicationDate: 2023-08

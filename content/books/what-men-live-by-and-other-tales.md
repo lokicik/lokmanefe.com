@@ -1,13 +1,13 @@
 ---
 title: What Men Live by and Other Tales
-author: Count Leo Nikolayevich Tolstoy and Leo Tolstoy
-isbn: '1494812452'
-publicationDate: '2013-12-27'
+author: Leo Tolstoy
+isbn: "1494812452"
+publicationDate: "2013-12-27"
 pageCount: 52
 status: completed
 rating: null
 startDate: null
-completionDate: '2020'
+completionDate: "2020"
 coverImage: >-
   http://books.google.com/books/content?id=tNDMnQEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
 tags:
@@ -23,4 +23,4 @@ Tolstoy wrote some incredible novels, but these little fables are quick to read 
 
 I completed this book in 2020. Looking back, I don't have detailed notes from this read, but it was part of my reading journey during that time.
 
-*This is a placeholder - I may update this with more detailed thoughts if I revisit the book or have stronger memories of it.*
+_This is a placeholder - I may update this with more detailed thoughts if I revisit the book or have stronger memories of it._

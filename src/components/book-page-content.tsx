@@ -26,18 +26,23 @@ export function BookPageContent({ book, content }: Props) {
         </Link>
 
         <div className="flex flex-col lg:flex-row gap-6">
-          {/* Book Cover Placeholder */}
-          <div className="w-full lg:w-64 h-80 bg-muted rounded-lg flex items-center justify-center flex-shrink-0">
+          {/* Book Cover */}
+          <div className="w-full lg:w-64 flex justify-center lg:justify-start flex-shrink-0">
             {book.coverImage ? (
-              <Image
-                src={book.coverImage}
-                alt={`${book.title} cover`}
-                className="w-full h-full object-cover rounded-lg"
-                width={256}
-                height={384}
-              />
+              <div className="relative w-48 h-72 bg-muted rounded-lg overflow-hidden shadow-lg">
+                <Image
+                  src={book.coverImage}
+                  alt={`${book.title} cover`}
+                  className="object-contain w-full h-full"
+                  width={192}
+                  height={288}
+                  priority
+                />
+              </div>
             ) : (
-              <BookOpen className="h-16 w-16 text-muted-foreground" />
+              <div className="w-48 h-72 bg-muted rounded-lg flex items-center justify-center">
+                <BookOpen className="h-16 w-16 text-muted-foreground" />
+              </div>
             )}
           </div>
 

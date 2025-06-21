@@ -1,14 +1,14 @@
 ---
 title: The Curious Case of Benjamin Button
-author: Francis Scott Francis Scott Fitzgerald
-isbn: '1533650322'
-publicationDate: '2016-06-11'
+author: Francis Scott Fitzgerald
+isbn: "1533650322"
+publicationDate: "2016-06-11"
 pageCount: 56
 status: completed
 rating: null
 startDate: null
-completionDate: '2023'
-coverImage: 'https://img.kitapyurdu.com/v1/getImage/fn:11214358/wh:true/miw:200/mih:200'
+completionDate: "2023"
+coverImage: "https://img.kitapyurdu.com/v1/getImage/fn:11214358/wh:true/miw:200/mih:200"
 tags:
   - classic
   - fiction
