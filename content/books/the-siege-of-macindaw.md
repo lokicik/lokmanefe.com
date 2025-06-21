@@ -1,15 +1,18 @@
 ---
-title: "The Siege of Macindaw"
-author: "John Flanagan"
-isbn: "9780142415245"
-publicationDate: "2010-05-18"
+title: The Siege of Macindaw
+author: John Flanagan
+isbn: '9780142415245'
+publicationDate: '2010-05-18'
 pageCount: 338
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2016"
-coverImage: "http://books.google.com/books/content?id=dG2mDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2016'
+coverImage: >-
+  http://books.google.com/books/content?id=dG2mDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

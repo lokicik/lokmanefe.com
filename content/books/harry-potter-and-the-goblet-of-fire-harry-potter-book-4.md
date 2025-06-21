@@ -1,15 +1,17 @@
 ---
-title: "Harry Potter and the Goblet of Fire"
-author: "J. K. Rowling"
-isbn: "undefined"
-publicationDate: "5555"
+title: Harry Potter and the Goblet of Fire
+author: J. K. Rowling
+isbn: undefined
+publicationDate: '5555'
 pageCount: 664
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2021"
-coverImage: "https://covers.openlibrary.org/b/id/14852948-S.jpg"
-tags: []
+completionDate: '2021'
+coverImage: 'https://covers.openlibrary.org/b/id/14852948-S.jpg'
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

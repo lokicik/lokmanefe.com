@@ -1,15 +1,18 @@
 ---
-title: "A Dance with Dragons"
-author: "George R. R. Martin"
-isbn: "9780553801477"
-publicationDate: "2011-07-12"
+title: A Dance with Dragons
+author: George R. R. Martin
+isbn: '9780553801477'
+publicationDate: '2011-07-12'
 pageCount: 1041
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2018"
-coverImage: "http://books.google.com/books/content?id=tu2LDQAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2018'
+coverImage: >-
+  http://books.google.com/books/content?id=tu2LDQAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

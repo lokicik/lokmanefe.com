@@ -1,15 +1,17 @@
 ---
-title: "Siddhartha"
-author: "Hermann Hesse"
-isbn: "1774267543"
-publicationDate: "2022"
+title: Siddhartha
+author: Hermann Hesse
+isbn: '1774267543'
+publicationDate: '2022'
 pageCount: 152
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2023"
-coverImage: "https://m.media-amazon.com/images/I/61urry+xagL.jpg"
-tags: []
+completionDate: '2023'
+coverImage: 'https://m.media-amazon.com/images/I/61urry+xagL.jpg'
+tags:
+  - philosophy
+  - fiction
 ---
 
 ## About This Book

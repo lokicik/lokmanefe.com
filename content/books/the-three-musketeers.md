@@ -1,15 +1,18 @@
 ---
-title: "The Three Musketeers"
-author: "Alexandre Dumas"
-isbn: "1853260401"
-publicationDate: "1993"
+title: The Three Musketeers
+author: Alexandre Dumas
+isbn: '1853260401'
+publicationDate: '1993'
 pageCount: 596
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2018"
-coverImage: "http://books.google.com/books/content?id=vp--U7m0g-AC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
-tags: []
+completionDate: '2018'
+coverImage: >-
+  http://books.google.com/books/content?id=vp--U7m0g-AC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api
+tags:
+  - classic
+  - fiction
 ---
 
 ## About This Book

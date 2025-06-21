@@ -1,15 +1,18 @@
 ---
-title: "Shadow and Bone"
-author: "Leigh Bardugo"
-isbn: "9780805094596"
-publicationDate: "2012-06-05"
+title: Shadow and Bone
+author: Leigh Bardugo
+isbn: '9780805094596'
+publicationDate: '2012-06-05'
 pageCount: 369
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2017"
-coverImage: "http://books.google.com/books/content?id=kdNvXWMa5xoC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2017'
+coverImage: >-
+  http://books.google.com/books/content?id=kdNvXWMa5xoC&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

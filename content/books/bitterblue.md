@@ -1,15 +1,18 @@
 ---
-title: "Bitterblue"
-author: "Kristin Cashore"
-isbn: "0803734735"
-publicationDate: "2012"
+title: Bitterblue
+author: Kristin Cashore
+isbn: 0803734735
+publicationDate: '2012'
 pageCount: 608
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2019"
-coverImage: "http://books.google.com/books/content?id=9cd8ngEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2019'
+coverImage: >-
+  http://books.google.com/books/content?id=9cd8ngEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

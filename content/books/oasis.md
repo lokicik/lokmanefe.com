@@ -1,15 +1,17 @@
 ---
-title: "Oasis"
-author: "Eilis Barrett"
-isbn: "undefined"
-publicationDate: "Apr 13, 2017"
+title: Oasis
+author: Eilis Barrett
+isbn: undefined
+publicationDate: 'Apr 13, 2017'
 pageCount: 368
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2020"
-coverImage: "https://covers.openlibrary.org/b/id/10850528-S.jpg"
-tags: []
+completionDate: '2020'
+coverImage: 'https://covers.openlibrary.org/b/id/10850528-S.jpg'
+tags:
+  - novel
+  - fiction
 ---
 
 ## About This Book

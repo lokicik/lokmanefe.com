@@ -1,15 +1,17 @@
 ---
-title: "Genesis"
-author: "Eilis Barrett"
-isbn: "605082794X"
-publicationDate: "2018-03"
+title: Genesis
+author: Eilis Barrett
+isbn: 605082794X
+publicationDate: 2018-03
 pageCount: 336
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2020"
-coverImage: "https://images.isbndb.com/covers/10579233484342.jpg"
-tags: []
+completionDate: '2020'
+coverImage: 'https://images.isbndb.com/covers/10579233484342.jpg'
+tags:
+  - science-fiction
+  - fiction
 ---
 
 ## About This Book

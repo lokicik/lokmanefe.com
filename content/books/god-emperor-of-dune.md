@@ -1,15 +1,18 @@
 ---
-title: "God Emperor of Dune"
-author: "Frank Herbert"
-isbn: "9780593098257"
-publicationDate: "2019-06-04"
+title: God Emperor of Dune
+author: Frank Herbert
+isbn: '9780593098257'
+publicationDate: '2019-06-04'
 pageCount: 609
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2024"
-coverImage: "http://books.google.com/books/content?id=0ryWDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2024'
+coverImage: >-
+  http://books.google.com/books/content?id=0ryWDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - science-fiction
+  - fiction
 ---
 
 ## About This Book

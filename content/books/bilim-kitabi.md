@@ -1,15 +1,18 @@
 ---
-title: "Bilim Kitabi"
-author: "Kolektif"
+title: Bilim Kitabi
+author: Kolektif
 isbn: "6051069305"
-publicationDate: "2023-08"
+publicationDate: 2023-08
 pageCount: 355
-status: "completed"
+status: completed
 rating: null
 startDate: null
 completionDate: "2013"
-coverImage: "https://www.alfakitap.com/media/catalog/product/1/5/154772_9786051069302_43071.jpg"
-tags: []
+coverImage: >-
+  https://www.alfakitap.com/media/catalog/product/1/5/154772_9786051069302_43071.jpg
+tags:
+  - non-fiction
+  - science
 ---
 
 ## About This Book

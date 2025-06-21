@@ -1,15 +1,18 @@
 ---
-title: "The Ruins of Gorlan"
-author: "John Flanagan"
-isbn: "9780142406632"
-publicationDate: "2006-06-08"
+title: The Ruins of Gorlan
+author: John Flanagan
+isbn: '9780142406632'
+publicationDate: '2006-06-08'
 pageCount: 290
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2014"
-coverImage: "http://books.google.com/books/content?id=4I6RDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2014'
+coverImage: >-
+  http://books.google.com/books/content?id=4I6RDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

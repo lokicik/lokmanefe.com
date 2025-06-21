@@ -1,15 +1,18 @@
 ---
-title: "Six of Crows"
-author: "Leigh Bardugo"
-isbn: "162779509X"
-publicationDate: "2015"
+title: Six of Crows
+author: Leigh Bardugo
+isbn: 162779509X
+publicationDate: '2015'
 pageCount: 512
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2018"
-coverImage: "http://books.google.com/books/content?id=KTARrgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2018'
+coverImage: >-
+  http://books.google.com/books/content?id=KTARrgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

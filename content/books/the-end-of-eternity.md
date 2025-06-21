@@ -1,15 +1,18 @@
 ---
-title: "The End of Eternity"
-author: "Isaac Asimov"
-isbn: "9780593160022"
-publicationDate: "2020-09-01"
+title: The End of Eternity
+author: Isaac Asimov
+isbn: '9780593160022'
+publicationDate: '2020-09-01'
 pageCount: 240
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2021"
-coverImage: "http://books.google.com/books/content?id=HB-OEAAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2021'
+coverImage: >-
+  http://books.google.com/books/content?id=HB-OEAAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - science-fiction
+  - fiction
 ---
 
 ## About This Book

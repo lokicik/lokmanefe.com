@@ -1,15 +1,18 @@
 ---
-title: "The Rule of Knowledge"
-author: "Scott Baker"
-isbn: "0733634478"
-publicationDate: "2015-06-30"
+title: The Rule of Knowledge
+author: Scott Baker
+isbn: 0733634478
+publicationDate: '2015-06-30'
 pageCount: 536
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2018"
-coverImage: "http://books.google.com/books/content?id=ttI5rgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2018'
+coverImage: >-
+  http://books.google.com/books/content?id=ttI5rgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - thriller
+  - fiction
 ---
 
 ## About This Book

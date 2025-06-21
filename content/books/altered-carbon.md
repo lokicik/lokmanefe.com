@@ -1,15 +1,18 @@
 ---
-title: "Altered Carbon"
-author: "Richard K. Morgan"
-isbn: "UOM:39015056817003"
-publicationDate: "2003-03-04"
+title: Altered Carbon
+author: Richard K. Morgan
+isbn: 'UOM:39015056817003'
+publicationDate: '2003-03-04'
 pageCount: 392
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2020"
-coverImage: "http://books.google.com/books/content?id=rSNbAAAAMAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2020'
+coverImage: >-
+  http://books.google.com/books/content?id=rSNbAAAAMAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - science-fiction
+  - fiction
 ---
 
 ## About This Book

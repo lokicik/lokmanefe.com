@@ -1,15 +1,18 @@
 ---
-title: "Through the Dark"
-author: "Alexandra Bracken"
-isbn: "1368022480"
-publicationDate: "2018-01-02"
+title: Through the Dark
+author: Alexandra Bracken
+isbn: '1368022480'
+publicationDate: '2018-01-02'
 pageCount: 476
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2019"
-coverImage: "http://books.google.com/books/content?id=J5IUuAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2019'
+coverImage: >-
+  http://books.google.com/books/content?id=J5IUuAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - young-adult
+  - fiction
 ---
 
 ## About This Book

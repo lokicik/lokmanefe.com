@@ -1,15 +1,18 @@
 ---
-title: "Scorpion Mountain"
-author: "John Flanagan"
-isbn: "9780142427279"
-publicationDate: "2015-09-08"
+title: Scorpion Mountain
+author: John Flanagan
+isbn: '9780142427279'
+publicationDate: '2015-09-08'
 pageCount: 482
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2017"
-coverImage: "http://books.google.com/books/content?id=sZyaDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2017'
+coverImage: >-
+  http://books.google.com/books/content?id=sZyaDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

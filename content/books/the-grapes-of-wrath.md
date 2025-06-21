@@ -1,15 +1,18 @@
 ---
-title: "The Grapes of Wrath"
-author: "John Steinbeck"
-isbn: "9780143039433"
-publicationDate: "2006-03-28"
+title: The Grapes of Wrath
+author: John Steinbeck
+isbn: '9780143039433'
+publicationDate: '2006-03-28'
 pageCount: 530
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2022"
-coverImage: "http://books.google.com/books/content?id=dM_-DwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2022'
+coverImage: >-
+  http://books.google.com/books/content?id=dM_-DwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - classic
+  - fiction
 ---
 
 ## About This Book

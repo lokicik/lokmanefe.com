@@ -1,15 +1,18 @@
 ---
-title: "Siege and Storm"
-author: "Leigh Bardugo"
-isbn: "9781250044433"
-publicationDate: "2014-06-17"
+title: Siege and Storm
+author: Leigh Bardugo
+isbn: '9781250044433'
+publicationDate: '2014-06-17'
 pageCount: 497
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2017"
-coverImage: "http://books.google.com/books/content?id=SHo2DwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2017'
+coverImage: >-
+  http://books.google.com/books/content?id=SHo2DwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

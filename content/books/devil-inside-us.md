@@ -1,15 +1,18 @@
 ---
-title: "Devil Inside Us"
-author: "Sabahattin Ali"
-isbn: "undefined"
-publicationDate: "2022"
+title: Devil Inside Us
+author: Sabahattin Ali
+isbn: undefined
+publicationDate: '2022'
 pageCount: 304
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2021"
-coverImage: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1664832852i/62873228.jpg"
-tags: []
+completionDate: '2021'
+coverImage: >-
+  https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1664832852i/62873228.jpg
+tags:
+  - horror
+  - fiction
 ---
 
 ## About This Book

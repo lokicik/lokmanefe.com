@@ -1,15 +1,18 @@
 ---
-title: "Ecce Homo"
-author: "Friedrich Nietzsche"
-isbn: "1522054073"
-publicationDate: "2017-08-08"
+title: Ecce Homo
+author: Friedrich Nietzsche
+isbn: '1522054073'
+publicationDate: '2017-08-08'
 pageCount: 65
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2020"
-coverImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThrgf0Dg7dfMSikMkusbyciwQ3FCkdQtElIQ&s"
-tags: []
+completionDate: '2020'
+coverImage: >-
+  https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThrgf0Dg7dfMSikMkusbyciwQ3FCkdQtElIQ&s
+tags:
+  - philosophy
+  - non-fiction
 ---
 
 ## About This Book

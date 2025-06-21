@@ -1,15 +1,17 @@
 ---
-title: "Puslu Kıtalar Atlası"
-author: "İhsan Oktay Anar"
-isbn: "9789754704723"
-publicationDate: "1995"
+title: Puslu Kıtalar Atlası
+author: İhsan Oktay Anar
+isbn: '9789754704723'
+publicationDate: '1995'
 pageCount: 238
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2021"
-coverImage: "https://img.kitapyurdu.com/v1/getImage/fn:11422412/wh:true/wi:220"
-tags: []
+completionDate: '2021'
+coverImage: 'https://img.kitapyurdu.com/v1/getImage/fn:11422412/wh:true/wi:220'
+tags:
+  - novel
+  - fiction
 ---
 
 ## About This Book

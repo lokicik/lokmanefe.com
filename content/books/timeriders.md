@@ -1,15 +1,18 @@
 ---
-title: "TimeRiders"
-author: "Alex Scarrow"
-isbn: "0802723314"
-publicationDate: "2011-09-13"
+title: TimeRiders
+author: Alex Scarrow
+isbn: 0802723314
+publicationDate: '2011-09-13'
 pageCount: 414
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2018"
-coverImage: "http://books.google.com/books/content?id=2OtgzgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2018'
+coverImage: >-
+  http://books.google.com/books/content?id=2OtgzgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - science-fiction
+  - fiction
 ---
 
 ## About This Book

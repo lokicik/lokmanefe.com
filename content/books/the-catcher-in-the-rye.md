@@ -1,15 +1,18 @@
 ---
-title: "The Catcher in the Rye"
-author: "J.D. Salinger"
-isbn: "UOM:39015047545176"
-publicationDate: "2001-01-30"
+title: The Catcher in the Rye
+author: J.D. Salinger
+isbn: 'UOM:39015047545176'
+publicationDate: '2001-01-30'
 pageCount: 232
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2021"
-coverImage: "http://books.google.com/books/content?id=UdnSAAAAMAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2021'
+coverImage: >-
+  http://books.google.com/books/content?id=UdnSAAAAMAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - classic
+  - fiction
 ---
 
 ## About This Book

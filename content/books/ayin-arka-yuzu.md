@@ -1,15 +1,17 @@
 ---
-title: "Ayin Arka Yuzu"
-author: "Mehmet Güler"
-isbn: "undefined"
-publicationDate: "Nov 04, 2008"
+title: Ayin Arka Yuzu
+author: Mehmet Güler
+isbn: undefined
+publicationDate: 'Nov 04, 2008'
 pageCount: 80
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2012"
-coverImage: "https://covers.openlibrary.org/b/id/12314977-S.jpg"
-tags: []
+completionDate: '2012'
+coverImage: 'https://covers.openlibrary.org/b/id/12314977-S.jpg'
+tags:
+  - science
+  - non-fiction
 ---
 
 ## About This Book

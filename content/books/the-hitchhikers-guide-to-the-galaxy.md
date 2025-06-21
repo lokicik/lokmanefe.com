@@ -1,15 +1,18 @@
 ---
-title: "The Hitchhiker's Guide to the Galaxy"
-author: "Douglas Adams"
-isbn: "9780345391803"
-publicationDate: "1995-09-27"
+title: The Hitchhiker's Guide to the Galaxy
+author: Douglas Adams
+isbn: '9780345391803'
+publicationDate: '1995-09-27'
 pageCount: 850
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2021"
-coverImage: "http://books.google.com/books/content?id=PkKTEAAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2021'
+coverImage: >-
+  http://books.google.com/books/content?id=PkKTEAAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - novel
+  - fiction
 ---
 
 ## About This Book

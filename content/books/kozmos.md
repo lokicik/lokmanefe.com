@@ -1,15 +1,18 @@
 ---
-title: "Kozmos"
-author: "Carl Sagan"
-isbn: "9752107834"
-publicationDate: "2014-03-01"
+title: Kozmos
+author: Carl Sagan
+isbn: '9752107834'
+publicationDate: '2014-03-01'
 pageCount: 400
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2017"
-coverImage: "http://books.google.com/books/content?id=U9aSoAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2017'
+coverImage: >-
+  http://books.google.com/books/content?id=U9aSoAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - science
+  - non-fiction
 ---
 
 ## About This Book

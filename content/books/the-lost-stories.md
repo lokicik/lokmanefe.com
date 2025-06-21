@@ -1,15 +1,18 @@
 ---
-title: "The Lost Stories"
-author: "John Flanagan"
-isbn: "9780142421956"
-publicationDate: "2013-08-06"
+title: The Lost Stories
+author: John Flanagan
+isbn: '9780142421956'
+publicationDate: '2013-08-06'
 pageCount: 465
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2016"
-coverImage: "http://books.google.com/books/content?id=23KmDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2016'
+coverImage: >-
+  http://books.google.com/books/content?id=23KmDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

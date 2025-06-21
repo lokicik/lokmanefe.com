@@ -4,202 +4,259 @@ const matter = require("gray-matter");
 
 const booksDirectory = path.join("content", "books");
 
-// Genre mapping based on titles, authors, and common book classifications
-const genreRules = [
-  // Science Fiction
+/*──────────────── helpers ────────────────*/
+const normalize = (s) =>
+  s
+    .replace(/[-_]+/g, " ") // dashes / underscores → space
+    .replace(/\s+/g, " ") // collapse multiple spaces
+    .trim() // tidy ends
+    .toLowerCase(); // case-insensitive match base
+
+/*─────────────── 2-tag rules ─────────────*/
+const typeRules = [
+  { pattern: /\b1984\b/i, tags: ["dystopian", "fiction"] },
+  { pattern: /\ba brief history of time\b/i, tags: ["science", "non-fiction"] },
+  { pattern: /\ba clash of kings\b/i, tags: ["fantasy", "fiction"] },
+  { pattern: /\ba clockwork orange\b/i, tags: ["dystopian", "fiction"] },
+  { pattern: /\ba dance with dragons\b/i, tags: ["fantasy", "fiction"] },
+  { pattern: /\ba feast for crows\b/i, tags: ["fantasy", "fiction"] },
+  { pattern: /\ba game of thrones\b/i, tags: ["fantasy", "fiction"] },
+  { pattern: /\ba storm of swords\b/i, tags: ["fantasy", "fiction"] },
+  { pattern: /\ba tale of two cities\b/i, tags: ["classic", "fiction"] },
+  { pattern: /\baltered carbon\b/i, tags: ["science-fiction", "fiction"] },
+  { pattern: /\bamok\b/i, tags: ["classic", "fiction"] },
+  { pattern: /\banimal farm\b/i, tags: ["dystopian", "fiction"] },
+  { pattern: /\batomic habits\b/i, tags: ["self-help", "non-fiction"] },
+  { pattern: /\bayin arka yuzu\b/i, tags: ["science", "non-fiction"] },
+  { pattern: /\bbeyond good and evil\b/i, tags: ["philosophy", "non-fiction"] },
+  { pattern: /\bbilim kitabi ciltli\b/i, tags: ["science", "non-fiction"] },
+  { pattern: /\bbitterblue\b/i, tags: ["fantasy", "fiction"] },
+  { pattern: /\bbrave new world\b/i, tags: ["dystopian", "fiction"] },
   {
-    pattern:
-      /(dune|foundation|hitchhiker|time machine|end of eternity|genesis)/i,
+    pattern: /\bcabin fever diary of a wimpy kid 6\b/i,
+    tags: ["children", "fiction"],
+  },
+  { pattern: /\bchapterhouse dune\b/i, tags: ["science-fiction", "fiction"] },
+  { pattern: /\bchildren of dune\b/i, tags: ["science-fiction", "fiction"] },
+  {
+    pattern: /\bchronicle of a death foretold\b/i,
+    tags: ["magical-realism", "fiction"],
+  },
+  {
+    pattern: /\bcomputer system architecture\b/i,
+    tags: ["technology", "non-fiction"],
+  },
+  { pattern: /\bdevil inside us\b/i, tags: ["horror", "fiction"] },
+  { pattern: /\bdiary of a wimpy kid\b/i, tags: ["children", "fiction"] },
+  {
+    pattern: /\bdog days diary of a wimpy kid 4\b/i,
+    tags: ["children", "fiction"],
+  },
+  { pattern: /\bdune messiah\b/i, tags: ["science-fiction", "fiction"] },
+  { pattern: /\bdune\b/i, tags: ["science-fiction", "fiction"] },
+  {
+    pattern: /\bdunyanin en gizli 100 deneyi\b/i,
+    tags: ["science", "non-fiction"],
+  },
+  { pattern: /\becce homo\b/i, tags: ["philosophy", "non-fiction"] },
+  {
+    pattern: /\bendgame rules of the game\b/i,
+    tags: ["young-adult", "fiction"],
+  },
+  { pattern: /\bendgame sky key\b/i, tags: ["young-adult", "fiction"] },
+  { pattern: /\bendgame the calling\b/i, tags: ["young-adult", "fiction"] },
+  { pattern: /\beraks ransom\b/i, tags: ["fantasy", "fiction"] },
+  { pattern: /\bfire\b/i, tags: ["fantasy", "fiction"] },
+  { pattern: /\bgenesis\b/i, tags: ["science-fiction", "fiction"] },
+  { pattern: /\bgod emperor of dune\b/i, tags: ["science-fiction", "fiction"] },
+  { pattern: /\bgraceling\b/i, tags: ["fantasy", "fiction"] },
+  { pattern: /\bguns germs and steel\b/i, tags: ["history", "non-fiction"] },
+  { pattern: /\bhalts peril\b/i, tags: ["fantasy", "fiction"] },
+  {
+    pattern: /\bharry potter and the chamber of secrets\b/i,
+    tags: ["fantasy", "fiction"],
+  },
+  {
+    pattern: /\bharry potter and the cursed child\b/i,
+    tags: ["fantasy", "fiction"],
+  },
+  {
+    pattern: /\bharry potter and the deathly hallows\b/i,
+    tags: ["fantasy", "fiction"],
+  },
+  {
+    pattern: /\bharry potter and the goblet of fire\b/i,
+    tags: ["fantasy", "fiction"],
+  },
+  {
+    pattern: /\bharry potter and the half blood prince\b/i,
+    tags: ["fantasy", "fiction"],
+  },
+  {
+    pattern: /\bharry potter and the order of the phoenix\b/i,
+    tags: ["fantasy", "fiction"],
+  },
+  {
+    pattern: /\bharry potter and the philosophers stone\b/i,
+    tags: ["fantasy", "fiction"],
+  },
+  {
+    pattern: /\bharry potter and the prisoner of azkaban\b/i,
+    tags: ["fantasy", "fiction"],
+  },
+  { pattern: /\bheretics of dune\b/i, tags: ["science-fiction", "fiction"] },
+  { pattern: /\bin the afterlight\b/i, tags: ["young-adult", "fiction"] },
+  { pattern: /\bkozmos\b/i, tags: ["science", "non-fiction"] },
+  { pattern: /\bkuyucakli yusuf\b/i, tags: ["classic", "fiction"] },
+  { pattern: /\blord of the flies\b/i, tags: ["classic", "fiction"] },
+  { pattern: /\bmadonna in a fur coat\b/i, tags: ["classic", "fiction"] },
+  {
+    pattern: /\bmaster zacharius gil braltar a drama in the air\b/i,
+    tags: ["classic", "fiction"],
+  },
+  { pattern: /\bmemoria\b/i, tags: ["science-fiction", "fiction"] },
+  { pattern: /\bmultiversum\b/i, tags: ["science-fiction", "fiction"] },
+  { pattern: /\bmy sweet orange tree\b/i, tags: ["classic", "fiction"] },
+  { pattern: /\bno longer human\b/i, tags: ["classic", "fiction"] },
+  { pattern: /\boakleaf bearers\b/i, tags: ["fantasy", "fiction"] },
+  { pattern: /\boasis\b/i, tags: ["novel", "fiction"] },
+  {
+    pattern: /\bone hundred years of solitude\b/i,
+    tags: ["magical-realism", "fiction"],
+  },
+  { pattern: /\bosmancik\b/i, tags: ["historical-fiction", "fiction"] },
+  { pattern: /\bpuslu kitalar atlasi\b/i, tags: ["fantasy", "fiction"] },
+  {
+    pattern: /\brodrick rules diary of a wimpy kid 2\b/i,
+    tags: ["children", "fiction"],
+  },
+  { pattern: /\bruin and rising\b/i, tags: ["fantasy", "fiction"] },
+  { pattern: /\bsapiens\b/i, tags: ["history", "non-fiction"] },
+  { pattern: /\bscorpion mountain\b/i, tags: ["fantasy", "fiction"] },
+  { pattern: /\bshadow and bone\b/i, tags: ["fantasy", "fiction"] },
+  { pattern: /\bsiddhartha\b/i, tags: ["philosophy", "fiction"] },
+  { pattern: /\bsiege and storm\b/i, tags: ["fantasy", "fiction"] },
+  { pattern: /\bsimdiki cocuklar harika\b/i, tags: ["children", "fiction"] },
+  { pattern: /\bsix of crows\b/i, tags: ["fantasy", "fiction"] },
+  { pattern: /\bslaves of socorro\b/i, tags: ["fantasy", "fiction"] },
+  { pattern: /\bsokratesin savunmasi\b/i, tags: ["philosophy", "non-fiction"] },
+  { pattern: /\bsu cilgin turkler\b/i, tags: ["history", "non-fiction"] },
+  { pattern: /\b100 startup\b/i, tags: ["business", "non-fiction"] },
+  { pattern: /\bthe alchemist\b/i, tags: ["philosophy", "fiction"] },
+  { pattern: /\bthe art of war\b/i, tags: ["strategy", "non-fiction"] },
+  { pattern: /\bthe burning bridge\b/i, tags: ["fantasy", "fiction"] },
+  { pattern: /\bthe catcher in the rye\b/i, tags: ["classic", "fiction"] },
+  { pattern: /\bthe crime trade\b/i, tags: ["thriller", "fiction"] },
+  {
+    pattern: /\bthe curious case of benjamin button\b/i,
+    tags: ["classic", "fiction"],
+  },
+  { pattern: /\bthe da vinci code\b/i, tags: ["thriller", "fiction"] },
+  {
+    pattern: /\bthe darkest minds never fade\b/i,
+    tags: ["young-adult", "fiction"],
+  },
+  { pattern: /\bthe darkest minds\b/i, tags: ["young-adult", "fiction"] },
+  { pattern: /\bthe devils disciple\b/i, tags: ["classic", "fiction"] },
+  { pattern: /\bthe emperor of nihon ja\b/i, tags: ["fantasy", "fiction"] },
+  { pattern: /\bthe end of eternity\b/i, tags: ["science-fiction", "fiction"] },
+  { pattern: /\bthe fellowship of the ring\b/i, tags: ["fantasy", "fiction"] },
+  { pattern: /\bthe grapes of wrath\b/i, tags: ["classic", "fiction"] },
+  { pattern: /\bthe great gatsby\b/i, tags: ["classic", "fiction"] },
+  {
+    pattern: /\bthe hitchhikers guide to the galaxy\b/i,
     tags: ["science-fiction", "fiction"],
   },
   {
-    pattern: /brave new world/i,
-    tags: ["science-fiction", "dystopian", "fiction"],
+    pattern: /\bthe hundred page machine learning book\b/i,
+    tags: ["technology", "non-fiction"],
   },
+  { pattern: /\bthe hunters\b/i, tags: ["fantasy", "fiction"] },
+  { pattern: /\bthe icebound land\b/i, tags: ["fantasy", "fiction"] },
+  { pattern: /\bthe idiot\b/i, tags: ["classic", "fiction"] },
+  { pattern: /\bthe invaders\b/i, tags: ["fantasy", "fiction"] },
+  { pattern: /\bthe journey to the east\b/i, tags: ["philosophy", "fiction"] },
+  { pattern: /\bthe kings of clonmel\b/i, tags: ["fantasy", "fiction"] },
   {
-    pattern: /1984|nineteen eighty/i,
-    tags: ["dystopian", "political", "fiction"],
+    pattern: /\bthe last straw diary of a wimpy kid 3\b/i,
+    tags: ["children", "fiction"],
   },
-
-  // Fantasy
+  { pattern: /\bthe little prince\b/i, tags: ["children", "fiction"] },
+  { pattern: /\bthe lost stories\b/i, tags: ["fantasy", "fiction"] },
+  { pattern: /\bthe midnight library\b/i, tags: ["contemporary", "fiction"] },
+  { pattern: /\bthe outcasts\b/i, tags: ["fantasy", "fiction"] },
   {
-    pattern:
-      /(harry potter|lord of the rings|fellowship|two towers|return of the king|silmarillion)/i,
+    pattern: /\bthe pragmatic programmer\b/i,
+    tags: ["technology", "non-fiction"],
+  },
+  { pattern: /\bthe return of the king\b/i, tags: ["fantasy", "fiction"] },
+  {
+    pattern: /\bthe royal ranger a new beginning\b/i,
     tags: ["fantasy", "fiction"],
   },
+  { pattern: /\bthe ruins of gorlan\b/i, tags: ["fantasy", "fiction"] },
+  { pattern: /\bthe rule of knowledge\b/i, tags: ["thriller", "fiction"] },
+  { pattern: /\bthe siege of macindaw\b/i, tags: ["fantasy", "fiction"] },
+  { pattern: /\bthe silmarillion\b/i, tags: ["fantasy", "fiction"] },
+  { pattern: /\bthe sorcerer of the north\b/i, tags: ["fantasy", "fiction"] },
+  { pattern: /\bthe stranger\b/i, tags: ["classic", "fiction"] },
+  { pattern: /\bthe third chimpanzee\b/i, tags: ["science", "non-fiction"] },
   {
-    pattern: /(game of thrones|graceling|fire|bitterblue)/i,
-    tags: ["fantasy", "fiction"],
+    pattern: /\bthe third wheel diary of a wimpy kid 7\b/i,
+    tags: ["children", "fiction"],
   },
+  { pattern: /\bthe three musketeers\b/i, tags: ["classic", "fiction"] },
+  { pattern: /\bthe time machine\b/i, tags: ["science-fiction", "fiction"] },
+  { pattern: /\bthe trial\b/i, tags: ["classic", "fiction"] },
+  { pattern: /\bthe two towers\b/i, tags: ["fantasy", "fiction"] },
   {
-    pattern:
-      /(rangers apprentice|ruins of gorlan|burning bridge|icebound land|oakleaf bearers|siege of macindaw|eraks ransom|kings of clonmel|halts peril|emperor of nihon|lost stories|royal ranger|outcasts|invaders|hunters|slaves of socorro|scorpion mountain)/i,
-    tags: ["fantasy", "young-adult", "fiction"],
+    pattern: /\bthe ugly truth diary of a wimpy kid 5\b/i,
+    tags: ["children", "fiction"],
   },
-  { pattern: /six of crows/i, tags: ["fantasy", "young-adult", "fiction"] },
-
-  // Young Adult
+  { pattern: /\bthrough the dark\b/i, tags: ["young-adult", "fiction"] },
   {
-    pattern:
-      /(diary of a wimpy kid|darkest minds|afterlight|through the dark)/i,
-    tags: ["young-adult", "fiction"],
+    pattern: /\bthus spoke zarathustra\b/i,
+    tags: ["philosophy", "non-fiction"],
   },
+  { pattern: /\btimeriders\b/i, tags: ["science-fiction", "fiction"] },
+  { pattern: /\bturklerin tarihi 2\b/i, tags: ["history", "non-fiction"] },
+  { pattern: /\bturklerin tarihi\b/i, tags: ["history", "non-fiction"] },
+  { pattern: /\butopia\b/i, tags: ["philosophy", "fiction"] },
   {
-    pattern: /timeriders/i,
-    tags: ["young-adult", "science-fiction", "fiction"],
-  },
-
-  // Classic Literature
-  {
-    pattern:
-      /(great gatsby|tale of two cities|lord of the flies|trial|stranger)/i,
+    pattern: /\bwhat men live by and other tales\b/i,
     tags: ["classic", "fiction"],
   },
-  {
-    pattern: /(no longer human|madonna in a fur coat|my sweet orange tree)/i,
-    tags: ["classic", "fiction"],
-  },
-  {
-    pattern:
-      /(siddhartha|thus spoke zarathustra|beyond good and evil|ecce homo)/i,
-    tags: ["philosophy", "classic"],
-  },
-
-  // Philosophy
-  {
-    pattern: /(nietzsche|zarathustra|sokrates|socrates)/i,
-    tags: ["philosophy"],
-  },
-  { pattern: /art of war/i, tags: ["philosophy", "strategy", "classic"] },
-
-  // Non-fiction
-  {
-    pattern:
-      /(sapiens|brief history of time|guns germs steel|third chimpanzee)/i,
-    tags: ["non-fiction", "history", "science"],
-  },
-  {
-    pattern: /(atomic habits|100 startup|pragmatic programmer)/i,
-    tags: ["non-fiction", "self-help", "business"],
-  },
-  {
-    pattern: /machine learning book/i,
-    tags: ["non-fiction", "technology", "programming"],
-  },
-  {
-    pattern: /(kozmos|bilim kitabi|ayin arka yuzu)/i,
-    tags: ["non-fiction", "science"],
-  },
-
-  // Mystery/Thriller
-  { pattern: /da vinci code/i, tags: ["mystery", "thriller", "fiction"] },
-  { pattern: /midnight library/i, tags: ["fiction", "contemporary"] },
-
-  // Turkish Literature
-  {
-    pattern:
-      /(kuyucakli yusuf|puslu kitalar|su cilgin turkler|turklerin tarihi|osmancik|simdiki cocuklar)/i,
-    tags: ["turkish-literature", "fiction"],
-  },
-
-  // Dystopian
-  { pattern: /clockwork orange/i, tags: ["dystopian", "fiction", "classic"] },
-
-  // Magical Realism
-  {
-    pattern: /(hundred years of solitude|chronicle of a death)/i,
-    tags: ["magical-realism", "fiction", "classic"],
-  },
-
-  // Endgame series
-  {
-    pattern: /endgame.*rules/i,
-    tags: ["young-adult", "science-fiction", "fiction"],
-  },
-
-  // Multiversum series
-  {
-    pattern: /(multiversum|memoria)/i,
-    tags: ["science-fiction", "young-adult", "fiction"],
-  },
+  { pattern: /\byou dont know js\b/i, tags: ["technology", "non-fiction"] },
 ];
 
-function determineGenres(title, author) {
-  const tags = new Set();
-
-  // Check against genre rules
-  for (const rule of genreRules) {
-    if (rule.pattern.test(title) || rule.pattern.test(author)) {
-      rule.tags.forEach((tag) => tags.add(tag));
-    }
+/*──────── determineTags with normalization ────────*/
+function determineTags(rawTitle) {
+  const title = normalize(rawTitle);
+  for (const rule of typeRules) {
+    if (rule.pattern.test(title)) return rule.tags;
   }
-
-  // Default to fiction if no specific genre found and it's not clearly non-fiction
-  if (
-    tags.size === 0 &&
-    !/(history|science|programming|business|self-help|philosophy)/.test(
-      title.toLowerCase()
-    )
-  ) {
-    tags.add("fiction");
-  }
-
-  return Array.from(tags);
+  return ["novel", "fiction"]; // should never hit, but safe
 }
 
+/*──────── batch updater ─────────────*/
 function updateBookTags() {
-  try {
-    const files = fs.readdirSync(booksDirectory);
-    const markdownFiles = files.filter((file) => file.endsWith(".md"));
+  const files = fs.readdirSync(booksDirectory).filter((f) => f.endsWith(".md"));
+  let updated = 0;
 
-    let updatedCount = 0;
+  for (const file of files) {
+    const filePath = path.join(booksDirectory, file);
+    const raw = fs.readFileSync(filePath, "utf8");
+    const parsed = matter(raw);
 
-    for (const file of markdownFiles) {
-      const filePath = path.join(booksDirectory, file);
-      const content = fs.readFileSync(filePath, "utf8");
-      const { data, content: markdownContent } = matter(content);
+    const fileTitle = parsed.data.title || file.replace(/\.md$/, "");
+    parsed.data.tags = determineTags(fileTitle);
 
-      // Only update if tags array is empty
-      if (!data.tags || data.tags.length === 0) {
-        const newTags = determineGenres(data.title || "", data.author || "");
-
-        if (newTags.length > 0) {
-          data.tags = newTags;
-
-          const updatedContent = matter.stringify(markdownContent, data);
-          fs.writeFileSync(filePath, updatedContent);
-
-          console.log(`✓ Updated ${file}: [${newTags.join(", ")}]`);
-          updatedCount++;
-        }
-      }
-    }
-
-    console.log(`\n✅ Updated ${updatedCount} books with genre tags!`);
-    console.log("\nGenre distribution:");
-
-    // Show genre distribution
-    const allTags = {};
-    for (const file of markdownFiles) {
-      const filePath = path.join(booksDirectory, file);
-      const content = fs.readFileSync(filePath, "utf8");
-      const { data } = matter(content);
-
-      if (data.tags && data.tags.length > 0) {
-        data.tags.forEach((tag) => {
-          allTags[tag] = (allTags[tag] || 0) + 1;
-        });
-      }
-    }
-
-    Object.entries(allTags)
-      .sort(([, a], [, b]) => b - a)
-      .forEach(([tag, count]) => {
-        console.log(`  ${tag}: ${count} books`);
-      });
-  } catch (error) {
-    console.error("Error updating tags:", error);
+    fs.writeFileSync(filePath, matter.stringify(parsed.content, parsed.data));
+    console.log(`✓ ${file}: [${parsed.data.tags.join(", ")}]`);
+    updated++;
   }
+
+  console.log(`\n✅ Updated ${updated} files.`);
 }
 
 updateBookTags();

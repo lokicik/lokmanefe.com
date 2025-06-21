@@ -1,15 +1,18 @@
 ---
-title: "Rodrick Rules (Diary of a Wimpy Kid #2)"
-author: "Jeff Kinney"
-isbn: "1419741861"
-publicationDate: "2008-02"
+title: 'Rodrick Rules (Diary of a Wimpy Kid #2)'
+author: Jeff Kinney
+isbn: '1419741861'
+publicationDate: 2008-02
 pageCount: 224
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2014"
-coverImage: "http://books.google.com/books/content?id=a0amxgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2014'
+coverImage: >-
+  http://books.google.com/books/content?id=a0amxgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - children
+  - fiction
 ---
 
 ## About This Book

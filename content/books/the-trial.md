@@ -1,15 +1,18 @@
 ---
-title: "The Trial"
-author: "Franz Kafka"
-isbn: "9780241678893"
-publicationDate: "2024-07-09"
+title: The Trial
+author: Franz Kafka
+isbn: '9780241678893'
+publicationDate: '2024-07-09'
 pageCount: 248
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2023"
-coverImage: "http://books.google.com/books/content?id=PTPTEAAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2023'
+coverImage: >-
+  http://books.google.com/books/content?id=PTPTEAAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - classic
+  - fiction
 ---
 
 ## About This Book

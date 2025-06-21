@@ -1,15 +1,18 @@
 ---
-title: "The Silmarillion"
-author: "J.R.R Tolkien"
-isbn: "0063280779"
-publicationDate: "2022-11-08"
+title: The Silmarillion
+author: J.R.R Tolkien
+isbn: 0063280779
+publicationDate: '2022-11-08'
 pageCount: 512
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2020"
-coverImage: "http://books.google.com/books/content?id=0yH5zgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2020'
+coverImage: >-
+  http://books.google.com/books/content?id=0yH5zgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

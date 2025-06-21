@@ -1,15 +1,17 @@
 ---
-title: "The Hundred-Page Machine Learning Book"
-author: "Andriy Burkov"
-isbn: "1777005477"
-publicationDate: "2019"
+title: The Hundred-Page Machine Learning Book
+author: Andriy Burkov
+isbn: '1777005477'
+publicationDate: '2019'
 pageCount: 100
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2024"
-coverImage: "https://m.media-amazon.com/images/I/61d47UrjRtL._UF1000,1000_QL80_.jpg"
-tags: []
+completionDate: '2024'
+coverImage: 'https://m.media-amazon.com/images/I/61d47UrjRtL._UF1000,1000_QL80_.jpg'
+tags:
+  - technology
+  - non-fiction
 ---
 
 ## About This Book

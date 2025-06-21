@@ -1,15 +1,18 @@
 ---
-title: "Chronicle of a Death Foretold"
-author: "Gabriel García Márquez"
+title: Chronicle of a Death Foretold
+author: Gabriel García Márquez
 isbn: "9781400034710"
 publicationDate: "2003-10-07"
 pageCount: 130
-status: "completed"
+status: completed
 rating: null
 startDate: null
 completionDate: "2021"
-coverImage: "http://books.google.com/books/content?id=c7g6i1DvUUgC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+coverImage: >-
+  http://books.google.com/books/content?id=c7g6i1DvUUgC&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - novel
+  - fiction
 ---
 
 ## About This Book
@@ -20,4 +23,4 @@ NOBEL PRIZE WINNER • From the author of One Hundred Years of Solitude comes th
 
 I completed this book in 2021. Looking back, I don't have detailed notes from this read, but it was part of my reading journey during that time.
 
-*This is a placeholder - I may update this with more detailed thoughts if I revisit the book or have stronger memories of it.*
+_This is a placeholder - I may update this with more detailed thoughts if I revisit the book or have stronger memories of it._

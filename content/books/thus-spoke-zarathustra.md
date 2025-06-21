@@ -1,15 +1,18 @@
 ---
-title: "Thus Spoke Zarathustra"
-author: "Friedrich Nietzsche"
-isbn: "0140441182"
-publicationDate: "1961-11-30"
+title: Thus Spoke Zarathustra
+author: Friedrich Nietzsche
+isbn: 0140441182
+publicationDate: '1961-11-30'
 pageCount: 352
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2020"
-coverImage: "http://books.google.com/books/content?id=Jglf0QEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2020'
+coverImage: >-
+  http://books.google.com/books/content?id=Jglf0QEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - philosophy
+  - non-fiction
 ---
 
 ## About This Book

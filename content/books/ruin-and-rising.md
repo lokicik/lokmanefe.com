@@ -1,15 +1,18 @@
 ---
-title: "Ruin and Rising"
-author: "Leigh Bardugo"
-isbn: "9781250063168"
-publicationDate: "2015-08-18"
+title: Ruin and Rising
+author: Leigh Bardugo
+isbn: '9781250063168'
+publicationDate: '2015-08-18'
 pageCount: 481
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2017"
-coverImage: "http://books.google.com/books/content?id=Sno2DwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2017'
+coverImage: >-
+  http://books.google.com/books/content?id=Sno2DwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

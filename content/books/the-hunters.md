@@ -1,15 +1,18 @@
 ---
-title: "The Hunters"
-author: "John Flanagan"
-isbn: "9780142426647"
-publicationDate: "2014-06-03"
+title: The Hunters
+author: John Flanagan
+isbn: '9780142426647'
+publicationDate: '2014-06-03'
 pageCount: 450
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2017"
-coverImage: "http://books.google.com/books/content?id=3o6RDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2017'
+coverImage: >-
+  http://books.google.com/books/content?id=3o6RDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

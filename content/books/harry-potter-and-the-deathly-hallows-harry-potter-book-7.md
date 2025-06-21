@@ -1,15 +1,18 @@
 ---
-title: "Harry Potter and the Deathly Hallows (Harry Potter, Book 7)"
-author: "J. K. Rowling"
-isbn: "1338878980"
-publicationDate: "2023-05-02"
+title: 'Harry Potter and the Deathly Hallows (Harry Potter, Book 7)'
+author: J. K. Rowling
+isbn: '1338878980'
+publicationDate: '2023-05-02'
 pageCount: 692
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2021"
-coverImage: "http://books.google.com/books/content?id=dHhMzwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2021'
+coverImage: >-
+  http://books.google.com/books/content?id=dHhMzwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

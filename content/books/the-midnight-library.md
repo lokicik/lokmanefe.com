@@ -1,15 +1,17 @@
 ---
-title: "The Midnight Library"
-author: "Matt Haig"
-isbn: "0525559493"
-publicationDate: "2023-05-09"
+title: The Midnight Library
+author: Matt Haig
+isbn: 0525559493
+publicationDate: '2023-05-09'
 pageCount: 288
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2024"
-coverImage: "https://m.media-amazon.com/images/I/71FsIkGF3pL.jpg"
-tags: []
+completionDate: '2024'
+coverImage: 'https://m.media-amazon.com/images/I/71FsIkGF3pL.jpg'
+tags:
+  - contemporary
+  - fiction
 ---
 
 ## About This Book

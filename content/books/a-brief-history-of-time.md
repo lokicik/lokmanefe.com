@@ -1,15 +1,18 @@
 ---
-title: "A Brief History of Time"
-author: "Stephen Hawking"
-isbn: "0553380168"
-publicationDate: "1998-09-01"
+title: A Brief History of Time
+author: Stephen Hawking
+isbn: 0553380168
+publicationDate: '1998-09-01'
 pageCount: 228
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2017"
-coverImage: "http://books.google.com/books/content?id=YmGxbPHFO_EC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2017'
+coverImage: >-
+  http://books.google.com/books/content?id=YmGxbPHFO_EC&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - science
+  - non-fiction
 ---
 
 ## About This Book

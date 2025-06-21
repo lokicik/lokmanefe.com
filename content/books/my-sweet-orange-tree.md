@@ -1,15 +1,18 @@
 ---
-title: "My Sweet Orange Tree"
-author: "José Mauro de Vasconcelos and Alison Entrekin"
-isbn: "1782692452"
-publicationDate: "2019-08"
+title: My Sweet Orange Tree
+author: José Mauro de Vasconcelos and Alison Entrekin
+isbn: '1782692452'
+publicationDate: 2019-08
 pageCount: 192
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2022"
-coverImage: "http://books.google.com/books/content?id=uA5FxQEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2022'
+coverImage: >-
+  http://books.google.com/books/content?id=uA5FxQEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - classic
+  - fiction
 ---
 
 ## About This Book

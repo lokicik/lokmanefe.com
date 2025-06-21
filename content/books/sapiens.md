@@ -1,15 +1,18 @@
 ---
-title: "Sapiens"
-author: "Yuval Noah Harari"
-isbn: "0099590085"
-publicationDate: "2015-04-01"
+title: Sapiens
+author: Yuval Noah Harari
+isbn: 0099590085
+publicationDate: '2015-04-01'
 pageCount: 512
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2019"
-coverImage: "http://books.google.com/books/content?id=uJ_CoAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2019'
+coverImage: >-
+  http://books.google.com/books/content?id=uJ_CoAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - history
+  - non-fiction
 ---
 
 ## About This Book

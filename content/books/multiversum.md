@@ -1,15 +1,17 @@
 ---
-title: "Multiversum"
-author: "Leonardo Patrignani"
-isbn: "2070665631"
-publicationDate: "2015-06-05"
+title: Multiversum
+author: Leonardo Patrignani
+isbn: '2070665631'
+publicationDate: '2015-06-05'
 pageCount: 416
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2020"
-coverImage: "https://inchiostroeparole.it/wp-content/uploads/2021/12/multiversum.jpg"
-tags: []
+completionDate: '2020'
+coverImage: 'https://inchiostroeparole.it/wp-content/uploads/2021/12/multiversum.jpg'
+tags:
+  - science-fiction
+  - fiction
 ---
 
 ## About This Book

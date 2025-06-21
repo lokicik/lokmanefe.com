@@ -1,15 +1,18 @@
 ---
-title: "Madonna in a Fur Coat"
-author: "Sabahattin Ali"
-isbn: "9780241422267"
-publicationDate: "2021-04-27"
+title: Madonna in a Fur Coat
+author: Sabahattin Ali
+isbn: '9780241422267'
+publicationDate: '2021-04-27'
 pageCount: 160
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2019"
-coverImage: "http://books.google.com/books/content?id=5sKMEAAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2019'
+coverImage: >-
+  http://books.google.com/books/content?id=5sKMEAAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - classic
+  - fiction
 ---
 
 ## About This Book

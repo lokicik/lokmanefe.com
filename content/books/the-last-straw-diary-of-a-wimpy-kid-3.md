@@ -1,15 +1,18 @@
 ---
-title: "The Last Straw (Diary of a Wimpy Kid #3)"
-author: "Jeff Kinney"
-isbn: "141974187X"
-publicationDate: "2009"
+title: 'The Last Straw (Diary of a Wimpy Kid #3)'
+author: Jeff Kinney
+isbn: 141974187X
+publicationDate: '2009'
 pageCount: 224
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2015"
-coverImage: "http://books.google.com/books/content?id=IUKkxgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2015'
+coverImage: >-
+  http://books.google.com/books/content?id=IUKkxgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - children
+  - fiction
 ---
 
 ## About This Book

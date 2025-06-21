@@ -1,15 +1,18 @@
 ---
-title: "The Da Vinci Code"
-author: "Dan Brown"
-isbn: "9780307277671"
-publicationDate: "2006-03-28"
+title: The Da Vinci Code
+author: Dan Brown
+isbn: '9780307277671'
+publicationDate: '2006-03-28'
 pageCount: 481
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2022"
-coverImage: "http://books.google.com/books/content?id=hbZ0Yfz-NG8C&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2022'
+coverImage: >-
+  http://books.google.com/books/content?id=hbZ0Yfz-NG8C&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - thriller
+  - fiction
 ---
 
 ## About This Book

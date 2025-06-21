@@ -1,15 +1,18 @@
 ---
-title: "Lord of the Flies"
-author: "William Golding"
-isbn: "0399501487"
-publicationDate: "2003-12-16"
+title: Lord of the Flies
+author: William Golding
+isbn: 0399501487
+publicationDate: '2003-12-16'
 pageCount: 312
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2019"
-coverImage: "http://books.google.com/books/content?id=3C-4dsIGlEgC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2019'
+coverImage: >-
+  http://books.google.com/books/content?id=3C-4dsIGlEgC&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - classic
+  - fiction
 ---
 
 ## About This Book

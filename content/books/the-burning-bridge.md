@@ -1,15 +1,18 @@
 ---
-title: "The Burning Bridge"
-author: "John Flanagan"
-isbn: "9780142408421"
-publicationDate: "2007-06-26"
+title: The Burning Bridge
+author: John Flanagan
+isbn: '9780142408421'
+publicationDate: '2007-06-26'
 pageCount: 309
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2015"
-coverImage: "http://books.google.com/books/content?id=BbxvDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2015'
+coverImage: >-
+  http://books.google.com/books/content?id=BbxvDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

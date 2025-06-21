@@ -1,15 +1,18 @@
 ---
-title: "Oakleaf Bearers"
-author: "John Flanagan"
-isbn: "9781864719079"
-publicationDate: "2009"
+title: Oakleaf Bearers
+author: John Flanagan
+isbn: '9781864719079'
+publicationDate: '2009'
 pageCount: 337
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2016"
-coverImage: "http://books.google.com/books/content?id=b5X4LRllIMAC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2016'
+coverImage: >-
+  http://books.google.com/books/content?id=b5X4LRllIMAC&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

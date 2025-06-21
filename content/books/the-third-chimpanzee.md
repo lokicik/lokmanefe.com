@@ -1,15 +1,18 @@
 ---
-title: "The Third Chimpanzee"
-author: "Jared M. Diamond"
-isbn: "9780060845506"
-publicationDate: "2006-01-03"
+title: The Third Chimpanzee
+author: Jared M. Diamond
+isbn: '9780060845506'
+publicationDate: '2006-01-03'
 pageCount: 434
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2021"
-coverImage: "http://books.google.com/books/content?id=9TVNmDojtzUC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2021'
+coverImage: >-
+  http://books.google.com/books/content?id=9TVNmDojtzUC&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - science
+  - non-fiction
 ---
 
 ## About This Book

@@ -1,15 +1,18 @@
 ---
-title: "The Time Machine"
-author: "H. G. Wells"
-isbn: "8175992956"
-publicationDate: "2015-07"
+title: The Time Machine
+author: H. G. Wells
+isbn: '8175992956'
+publicationDate: 2015-07
 pageCount: 120
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2020"
-coverImage: "http://books.google.com/books/content?id=PqTijgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2020'
+coverImage: >-
+  http://books.google.com/books/content?id=PqTijgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - science-fiction
+  - fiction
 ---
 
 ## About This Book

@@ -1,15 +1,18 @@
 ---
-title: "Şimdiki çocuklar harika"
-author: "Aziz Nesin"
-isbn: "9759038455"
-publicationDate: "2007"
+title: Şimdiki çocuklar harika
+author: Aziz Nesin
+isbn: '9759038455'
+publicationDate: '2007'
 pageCount: 211
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2016"
-coverImage: "http://books.google.com/books/content?id=nTLLOwAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2016'
+coverImage: >-
+  http://books.google.com/books/content?id=nTLLOwAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - novel
+  - fiction
 ---
 
 ## About This Book

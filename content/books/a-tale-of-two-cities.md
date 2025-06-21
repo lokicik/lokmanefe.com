@@ -1,15 +1,18 @@
 ---
-title: "A Tale of Two Cities"
-author: "Charles Dickens"
-isbn: "0141439602"
-publicationDate: "2003-05-27"
+title: A Tale of Two Cities
+author: Charles Dickens
+isbn: 0141439602
+publicationDate: '2003-05-27'
 pageCount: 546
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2020"
-coverImage: "http://books.google.com/books/content?id=FcOsBmJCJXsC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2020'
+coverImage: >-
+  http://books.google.com/books/content?id=FcOsBmJCJXsC&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - classic
+  - fiction
 ---
 
 ## About This Book

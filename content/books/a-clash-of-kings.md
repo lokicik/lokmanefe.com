@@ -1,15 +1,18 @@
 ---
-title: "A Clash of Kings"
-author: "George R. R. Martin"
-isbn: "9780553381696"
-publicationDate: "2002-05-28"
+title: A Clash of Kings
+author: George R. R. Martin
+isbn: '9780553381696'
+publicationDate: '2002-05-28'
 pageCount: 785
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2018"
-coverImage: "http://books.google.com/books/content?id=NnE07xtwhqYC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2018'
+coverImage: >-
+  http://books.google.com/books/content?id=NnE07xtwhqYC&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

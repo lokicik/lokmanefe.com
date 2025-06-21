@@ -1,15 +1,18 @@
 ---
-title: "Harry Potter and the Prisoner of Azkaban (Harry Potter, Book 3)"
-author: "J. K. Rowling"
-isbn: "1338878948"
-publicationDate: "2023-05-02"
+title: 'Harry Potter and the Prisoner of Azkaban (Harry Potter, Book 3)'
+author: J. K. Rowling
+isbn: '1338878948'
+publicationDate: '2023-05-02'
 pageCount: 396
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2021"
-coverImage: "http://books.google.com/books/content?id=Hl1MzwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2021'
+coverImage: >-
+  http://books.google.com/books/content?id=Hl1MzwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

@@ -1,15 +1,18 @@
 ---
-title: "In the Afterlight"
-author: "Alexandra Bracken"
-isbn: "1423159349"
-publicationDate: "2015-12-29"
+title: In the Afterlight
+author: Alexandra Bracken
+isbn: '1423159349'
+publicationDate: '2015-12-29'
 pageCount: 592
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2018"
-coverImage: "http://books.google.com/books/content?id=9fgaswEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2018'
+coverImage: >-
+  http://books.google.com/books/content?id=9fgaswEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - young-adult
+  - fiction
 ---
 
 ## About This Book

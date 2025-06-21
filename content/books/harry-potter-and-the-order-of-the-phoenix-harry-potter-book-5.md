@@ -1,15 +1,18 @@
 ---
-title: "Harry Potter and the Order of the Phoenix (Harry Potter, Book 5)"
-author: "J. K. Rowling"
-isbn: "1338878964"
-publicationDate: "2023-05-02"
+title: 'Harry Potter and the Order of the Phoenix (Harry Potter, Book 5)'
+author: J. K. Rowling
+isbn: '1338878964'
+publicationDate: '2023-05-02'
 pageCount: 976
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2021"
-coverImage: "http://books.google.com/books/content?id=XPlLzwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2021'
+coverImage: >-
+  http://books.google.com/books/content?id=XPlLzwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

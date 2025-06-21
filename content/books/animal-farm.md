@@ -1,17 +1,21 @@
 ---
-title: "Animal Farm"
-author: "George Orwell"
-isbn: "9780451526342"
+title: Animal Farm
+author: George Orwell
+isbn: '9780451526342'
 pages: 112
 currentPage: 112
-status: "completed"
-startDate: ""
-completedDate: ""
-rating: 4.0
-tags: ["allegory", "politics", "revolution", "classic"]
-genre: "fiction"
-description: "An allegorical novella about farm animals who rebel against their human farmer, hoping to create an equal society."
-coverImage: ""
+status: completed
+startDate: ''
+completedDate: ''
+rating: 4
+tags:
+  - dystopian
+  - fiction
+genre: fiction
+description: >-
+  An allegorical novella about farm animals who rebel against their human
+  farmer, hoping to create an equal society.
+coverImage: ''
 ---
 
 # Animal Farm by George Orwell

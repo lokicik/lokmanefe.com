@@ -1,15 +1,18 @@
 ---
-title: "The Return of the King"
-author: "J. R. R. Tolkien"
-isbn: "0358380251"
-publicationDate: "2020-10-06"
+title: The Return of the King
+author: J. R. R. Tolkien
+isbn: 0358380251
+publicationDate: '2020-10-06'
 pageCount: 544
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2019"
-coverImage: "http://books.google.com/books/content?id=DDjFywEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2019'
+coverImage: >-
+  http://books.google.com/books/content?id=DDjFywEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

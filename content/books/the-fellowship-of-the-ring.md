@@ -1,15 +1,18 @@
 ---
-title: "The Fellowship of the Ring"
-author: "J.R.R. Tolkien"
-isbn: "0547928211"
-publicationDate: "1994"
+title: The Fellowship of the Ring
+author: J.R.R. Tolkien
+isbn: 0547928211
+publicationDate: '1994'
 pageCount: 398
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2019"
-coverImage: "http://books.google.com/books/content?id=pVRUswEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2019'
+coverImage: >-
+  http://books.google.com/books/content?id=pVRUswEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

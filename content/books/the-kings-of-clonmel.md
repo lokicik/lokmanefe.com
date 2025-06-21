@@ -1,15 +1,18 @@
 ---
-title: "The Kings of Clonmel"
-author: "John Flanagan"
-isbn: "9780142418574"
-publicationDate: "2011-09-06"
+title: The Kings of Clonmel
+author: John Flanagan
+isbn: '9780142418574'
+publicationDate: '2011-09-06'
 pageCount: 402
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2016"
-coverImage: "http://books.google.com/books/content?id=RK6ZDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2016'
+coverImage: >-
+  http://books.google.com/books/content?id=RK6ZDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

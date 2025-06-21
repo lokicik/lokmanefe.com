@@ -1,15 +1,18 @@
 ---
-title: "The Darkest Minds"
-author: "Alexandra Bracken"
-isbn: "1423159322"
-publicationDate: "2013-10-22"
+title: The Darkest Minds
+author: Alexandra Bracken
+isbn: '1423159322'
+publicationDate: '2013-10-22'
 pageCount: 528
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2018"
-coverImage: "http://books.google.com/books/content?id=XA-NmAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2018'
+coverImage: >-
+  http://books.google.com/books/content?id=XA-NmAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - young-adult
+  - fiction
 ---
 
 ## About This Book

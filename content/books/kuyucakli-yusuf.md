@@ -1,15 +1,18 @@
 ---
-title: "Kuyucakli Yusuf"
-author: "Sabahattin Ali"
-isbn: "9798311035279"
-publicationDate: "2025-02-16"
+title: Kuyucakli Yusuf
+author: Sabahattin Ali
+isbn: '9798311035279'
+publicationDate: '2025-02-16'
 pageCount: 221
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2022"
-coverImage: "http://books.google.com/books/content?id=u4cj0QEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2022'
+coverImage: >-
+  http://books.google.com/books/content?id=u4cj0QEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - classic
+  - fiction
 ---
 
 ## About This Book

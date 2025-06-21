@@ -1,15 +1,18 @@
 ---
-title: "Harry Potter and the Cursed Child"
-author: "Jack Thorne, J. K. Rowling, and John Tiffany"
-isbn: "133821666X"
-publicationDate: "2017"
+title: Harry Potter and the Cursed Child
+author: 'Jack Thorne, J. K. Rowling, and John Tiffany'
+isbn: 133821666X
+publicationDate: '2017'
 pageCount: 372
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2021"
-coverImage: "http://books.google.com/books/content?id=eTjatwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2021'
+coverImage: >-
+  http://books.google.com/books/content?id=eTjatwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

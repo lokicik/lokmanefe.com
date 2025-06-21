@@ -1,15 +1,18 @@
 ---
-title: "The Emperor of Nihon-Ja"
-author: "John Flanagan"
-isbn: "9780142418598"
-publicationDate: "2012-03-20"
+title: The Emperor of Nihon-Ja
+author: John Flanagan
+isbn: '9780142418598'
+publicationDate: '2012-03-20'
 pageCount: 466
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2016"
-coverImage: "http://books.google.com/books/content?id=aq-ZDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2016'
+coverImage: >-
+  http://books.google.com/books/content?id=aq-ZDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

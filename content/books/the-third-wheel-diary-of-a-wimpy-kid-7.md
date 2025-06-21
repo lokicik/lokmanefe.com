@@ -1,15 +1,18 @@
 ---
-title: "The Third Wheel (Diary of a Wimpy Kid #7)"
-author: "Jeff Kinney"
-isbn: "1419741934"
-publicationDate: "2012-11-13"
+title: 'The Third Wheel (Diary of a Wimpy Kid #7)'
+author: Jeff Kinney
+isbn: '1419741934'
+publicationDate: '2012-11-13'
 pageCount: 224
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2015"
-coverImage: "http://books.google.com/books/content?id=vkikxgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2015'
+coverImage: >-
+  http://books.google.com/books/content?id=vkikxgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - children
+  - fiction
 ---
 
 ## About This Book

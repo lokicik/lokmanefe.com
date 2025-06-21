@@ -1,15 +1,18 @@
 ---
-title: "The Invaders"
-author: "John Flanagan"
-isbn: "9780142426630"
-publicationDate: "2013-04-09"
+title: The Invaders
+author: John Flanagan
+isbn: '9780142426630'
+publicationDate: '2013-04-09'
 pageCount: 450
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2017"
-coverImage: "http://books.google.com/books/content?id=Lmp0DwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2017'
+coverImage: >-
+  http://books.google.com/books/content?id=Lmp0DwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

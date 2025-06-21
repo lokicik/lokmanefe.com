@@ -1,15 +1,18 @@
 ---
-title: "The Devil's Disciple"
-author: "Shirō Hamao"
-isbn: "1843918579"
-publicationDate: "2011"
+title: The Devil's Disciple
+author: Shirō Hamao
+isbn: '1843918579'
+publicationDate: '2011'
 pageCount: 111
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2023"
-coverImage: "http://books.google.com/books/content?id=W7TexwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2023'
+coverImage: >-
+  http://books.google.com/books/content?id=W7TexwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - novel
+  - fiction
 ---
 
 ## About This Book

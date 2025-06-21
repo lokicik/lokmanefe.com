@@ -1,15 +1,18 @@
 ---
-title: "The Royal Ranger: A New Beginning"
-author: "John Flanagan"
-isbn: "9780142427316"
-publicationDate: "2014-09-02"
+title: 'The Royal Ranger: A New Beginning'
+author: John Flanagan
+isbn: '9780142427316'
+publicationDate: '2014-09-02'
 pageCount: 482
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2016"
-coverImage: "http://books.google.com/books/content?id=Q85VDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2016'
+coverImage: >-
+  http://books.google.com/books/content?id=Q85VDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - novel
+  - fiction
 ---
 
 ## About This Book

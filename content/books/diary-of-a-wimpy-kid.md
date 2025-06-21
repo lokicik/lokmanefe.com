@@ -1,15 +1,18 @@
 ---
-title: "Diary of a Wimpy Kid"
-author: "Jeff Kinney"
-isbn: "9780143303831"
-publicationDate: "2007"
+title: Diary of a Wimpy Kid
+author: Jeff Kinney
+isbn: '9780143303831'
+publicationDate: '2007'
 pageCount: 247
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2014"
-coverImage: "http://books.google.com/books/content?id=XQcOCAAXj0MC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2014'
+coverImage: >-
+  http://books.google.com/books/content?id=XQcOCAAXj0MC&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - children
+  - fiction
 ---
 
 ## About This Book

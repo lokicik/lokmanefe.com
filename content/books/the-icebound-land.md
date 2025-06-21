@@ -1,15 +1,18 @@
 ---
-title: "The Icebound Land"
-author: "John Flanagan"
-isbn: "9780142410752"
-publicationDate: "2008-02-05"
+title: The Icebound Land
+author: John Flanagan
+isbn: '9780142410752'
+publicationDate: '2008-02-05'
 pageCount: 305
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2016"
-coverImage: "http://books.google.com/books/content?id=A7xvDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2016'
+coverImage: >-
+  http://books.google.com/books/content?id=A7xvDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

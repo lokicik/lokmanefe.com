@@ -1,15 +1,18 @@
 ---
-title: "Endgame: Rules of the Game"
-author: "James Frey and Nils Johnson-Shelton"
-isbn: "0062332651"
-publicationDate: "2017-06-06"
+title: 'Endgame: Rules of the Game'
+author: James Frey and Nils Johnson-Shelton
+isbn: '0062332651'
+publicationDate: '2017-06-06'
 pageCount: 392
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2021"
-coverImage: "http://books.google.com/books/content?id=DN1DvgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2021'
+coverImage: >-
+  http://books.google.com/books/content?id=DN1DvgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - novel
+  - fiction
 ---
 
 ## About This Book

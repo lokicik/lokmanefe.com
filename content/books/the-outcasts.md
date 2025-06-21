@@ -1,15 +1,18 @@
 ---
-title: "The Outcasts"
-author: "John Flanagan"
-isbn: "9780399256196"
-publicationDate: "2011-11-01"
+title: The Outcasts
+author: John Flanagan
+isbn: '9780399256196'
+publicationDate: '2011-11-01'
 pageCount: 436
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2017"
-coverImage: "http://books.google.com/books/content?id=Fk5zDgAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2017'
+coverImage: >-
+  http://books.google.com/books/content?id=Fk5zDgAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

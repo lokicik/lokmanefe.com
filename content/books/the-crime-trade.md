@@ -1,15 +1,18 @@
 ---
-title: "The Crime Trade"
-author: "Simon Kernick"
-isbn: "0312340591"
-publicationDate: "2005-05"
+title: The Crime Trade
+author: Simon Kernick
+isbn: 0312340591
+publicationDate: 2005-05
 pageCount: 398
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2019"
-coverImage: "http://books.google.com/books/content?id=psui8XyhmtUC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2019'
+coverImage: >-
+  http://books.google.com/books/content?id=psui8XyhmtUC&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - thriller
+  - fiction
 ---
 
 ## About This Book

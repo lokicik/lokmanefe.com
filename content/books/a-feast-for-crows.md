@@ -1,15 +1,18 @@
 ---
-title: "A Feast for Crows"
-author: "George R. R. Martin"
-isbn: "9780007447862"
-publicationDate: "2011"
+title: A Feast for Crows
+author: George R. R. Martin
+isbn: '9780007447862'
+publicationDate: '2011'
 pageCount: 866
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2018"
-coverImage: "http://books.google.com/books/content?id=SXl4vGVF3IsC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2018'
+coverImage: >-
+  http://books.google.com/books/content?id=SXl4vGVF3IsC&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

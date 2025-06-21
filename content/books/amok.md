@@ -1,15 +1,18 @@
 ---
-title: "Amok"
-author: "Stefan Zweig"
-isbn: "9783961897391"
-publicationDate: "2017-05-12"
+title: Amok
+author: Stefan Zweig
+isbn: '9783961897391'
+publicationDate: '2017-05-12'
 pageCount: 66
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2022"
-coverImage: "http://books.google.com/books/content?id=sct4DwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2022'
+coverImage: >-
+  http://books.google.com/books/content?id=sct4DwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - classic
+  - fiction
 ---
 
 ## About This Book

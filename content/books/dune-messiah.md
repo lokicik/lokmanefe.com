@@ -1,15 +1,18 @@
 ---
-title: "Dune Messiah"
-author: "Frank Herbert"
-isbn: "9780593098233"
-publicationDate: "2019-06-04"
+title: Dune Messiah
+author: Frank Herbert
+isbn: '9780593098233'
+publicationDate: '2019-06-04'
 pageCount: 354
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2023"
-coverImage: "http://books.google.com/books/content?id=uryWDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2023'
+coverImage: >-
+  http://books.google.com/books/content?id=uryWDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - science-fiction
+  - fiction
 ---
 
 ## About This Book

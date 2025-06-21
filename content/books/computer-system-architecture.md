@@ -1,15 +1,18 @@
 ---
-title: "Computer System Architecture"
-author: "M. Morris Mano"
-isbn: "UOM:39015058760706"
-publicationDate: "1993"
+title: Computer System Architecture
+author: M. Morris Mano
+isbn: 'UOM:39015058760706'
+publicationDate: '1993'
 pageCount: 552
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2025"
-coverImage: "http://books.google.com/books/content?id=pNxQAAAAMAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2025'
+coverImage: >-
+  http://books.google.com/books/content?id=pNxQAAAAMAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - technology
+  - non-fiction
 ---
 
 ## About This Book

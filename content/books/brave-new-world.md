@@ -1,15 +1,17 @@
 ---
-title: "Brave New World"
-author: "Aldous Huxley"
-isbn: "	978-0099477464"
-publicationDate: "1932"
+title: Brave New World
+author: Aldous Huxley
+isbn: "\t978-0099477464"
+publicationDate: '1932'
 pageCount: 281
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2019"
-coverImage: "https://covers.openlibrary.org/b/id/12992919-S.jpg"
-tags: []
+completionDate: '2019'
+coverImage: 'https://covers.openlibrary.org/b/id/12992919-S.jpg'
+tags:
+  - dystopian
+  - fiction
 ---
 
 ## About This Book

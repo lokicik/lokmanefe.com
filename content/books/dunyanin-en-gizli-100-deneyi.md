@@ -1,15 +1,17 @@
 ---
-title: "Dunyanin En Gizli 100 Deneyi"
-author: "Fatih Alemdar"
-isbn: "undefined"
-publicationDate: "Oct 29, 2015"
+title: Dunyanin En Gizli 100 Deneyi
+author: Fatih Alemdar
+isbn: undefined
+publicationDate: 'Oct 29, 2015'
 pageCount: 304
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2015"
-coverImage: "https://covers.openlibrary.org/b/id/12232718-S.jpg"
-tags: []
+completionDate: '2015'
+coverImage: 'https://covers.openlibrary.org/b/id/12232718-S.jpg'
+tags:
+  - science
+  - non-fiction
 ---
 
 ## About This Book

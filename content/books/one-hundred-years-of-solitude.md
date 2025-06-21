@@ -1,15 +1,18 @@
 ---
-title: "One Hundred Years of Solitude"
-author: "Gabriel Garcia Marquez"
-isbn: "0060883286"
-publicationDate: "2006-02-21"
+title: One Hundred Years of Solitude
+author: Gabriel Garcia Marquez
+isbn: 0060883286
+publicationDate: '2006-02-21'
 pageCount: 448
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2022"
-coverImage: "http://books.google.com/books/content?id=Rtk8PgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2022'
+coverImage: >-
+  http://books.google.com/books/content?id=Rtk8PgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - magical-realism
+  - fiction
 ---
 
 ## About This Book

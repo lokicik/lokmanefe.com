@@ -1,15 +1,18 @@
 ---
-title: "Beyond Good and Evil"
-author: "Friedrich Wilhelm Nietzsche"
-isbn: "1503250881"
-publicationDate: "2014-11-28"
+title: Beyond Good and Evil
+author: Friedrich Wilhelm Nietzsche
+isbn: '1503250881'
+publicationDate: '2014-11-28'
 pageCount: 240
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2021"
-coverImage: "http://books.google.com/books/content?id=4Bq9rQEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2021'
+coverImage: >-
+  http://books.google.com/books/content?id=4Bq9rQEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - philosophy
+  - non-fiction
 ---
 
 ## About This Book

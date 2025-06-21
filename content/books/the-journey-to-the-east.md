@@ -1,15 +1,18 @@
 ---
-title: "The Journey to the East"
-author: "Hermann Hesse"
-isbn: "1891396889"
-publicationDate: "2011-02"
+title: The Journey to the East
+author: Hermann Hesse
+isbn: '1891396889'
+publicationDate: 2011-02
 pageCount: 124
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2023"
-coverImage: "http://books.google.com/books/content?id=AqtatwAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2023'
+coverImage: >-
+  http://books.google.com/books/content?id=AqtatwAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - philosophy
+  - fiction
 ---
 
 ## About This Book

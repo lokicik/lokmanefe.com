@@ -1,15 +1,18 @@
 ---
-title: "The $100 Startup"
-author: "Chris Guillebeau"
-isbn: "9780307951526"
-publicationDate: "2012-05-08"
+title: The $100 Startup
+author: Chris Guillebeau
+isbn: '9780307951526'
+publicationDate: '2012-05-08'
 pageCount: 305
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2023"
-coverImage: "http://books.google.com/books/content?id=2YeBy-RlgkQC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2023'
+coverImage: >-
+  http://books.google.com/books/content?id=2YeBy-RlgkQC&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - business
+  - non-fiction
 ---
 
 ## About This Book

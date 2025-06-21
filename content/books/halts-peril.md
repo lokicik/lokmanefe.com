@@ -1,15 +1,18 @@
 ---
-title: "Halt's Peril"
-author: "John Flanagan"
-isbn: "9780142418581"
-publicationDate: "2012-03-20"
+title: Halt's Peril
+author: John Flanagan
+isbn: '9780142418581'
+publicationDate: '2012-03-20'
 pageCount: 418
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2016"
-coverImage: "http://books.google.com/books/content?id=gm2mDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2016'
+coverImage: >-
+  http://books.google.com/books/content?id=gm2mDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - novel
+  - fiction
 ---
 
 ## About This Book

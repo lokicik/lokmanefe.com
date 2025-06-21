@@ -1,15 +1,18 @@
 ---
-title: "No Longer Human"
-author: "Osamu Dazai"
-isbn: "0811204812"
-publicationDate: "1958"
+title: No Longer Human
+author: Osamu Dazai
+isbn: 0811204812
+publicationDate: '1958'
 pageCount: 196
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2024"
-coverImage: "http://books.google.com/books/content?id=l5WuGOrS5wQC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
-tags: []
+completionDate: '2024'
+coverImage: >-
+  http://books.google.com/books/content?id=l5WuGOrS5wQC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api
+tags:
+  - classic
+  - fiction
 ---
 
 ## About This Book

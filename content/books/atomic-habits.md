@@ -1,15 +1,18 @@
 ---
-title: "Atomic Habits"
-author: "James Clear"
-isbn: "9780735211292"
-publicationDate: "2018-10-16"
+title: Atomic Habits
+author: James Clear
+isbn: '9780735211292'
+publicationDate: '2018-10-16'
 pageCount: 321
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2024"
-coverImage: "http://books.google.com/books/content?id=XfFvDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2024'
+coverImage: >-
+  http://books.google.com/books/content?id=XfFvDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - self-help
+  - non-fiction
 ---
 
 ## About This Book

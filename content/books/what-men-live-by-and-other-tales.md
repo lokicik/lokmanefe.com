@@ -1,15 +1,18 @@
 ---
-title: "What Men Live by and Other Tales"
-author: "Count Leo Nikolayevich Tolstoy and Leo Tolstoy"
-isbn: "1494812452"
-publicationDate: "2013-12-27"
+title: What Men Live by and Other Tales
+author: Count Leo Nikolayevich Tolstoy and Leo Tolstoy
+isbn: '1494812452'
+publicationDate: '2013-12-27'
 pageCount: 52
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2020"
-coverImage: "http://books.google.com/books/content?id=tNDMnQEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2020'
+coverImage: >-
+  http://books.google.com/books/content?id=tNDMnQEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - classic
+  - fiction
 ---
 
 ## About This Book

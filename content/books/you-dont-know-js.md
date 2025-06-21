@@ -1,16 +1,21 @@
 ---
-title: "You Don't Know JS: Scope & Closures"
-author: "Kyle Simpson"
-isbn: "978-1449335588"
+title: 'You Don''t Know JS: Scope & Closures'
+author: Kyle Simpson
+isbn: 978-1449335588
 pages: 174
 currentPage: 174
-status: "want-to-read"
-startDate: "2024-11-01"
-completedDate: "2024-11-15"
+status: want-to-read
+startDate: '2024-11-01'
+completedDate: '2024-11-15'
 rating: 4.5
-description: "A deep dive into JavaScript's most fundamental concepts. This book completely changed how I understand scope, closures, and the inner workings of JavaScript."
-coverImage: "https://m.media-amazon.com/images/I/51-5ZZXfKVL._SX379_BO1,204,203,200_.jpg"
-tags: ["javascript", "programming", "web-development", "fundamentals"]
+description: >-
+  A deep dive into JavaScript's most fundamental concepts. This book completely
+  changed how I understand scope, closures, and the inner workings of
+  JavaScript.
+coverImage: 'https://m.media-amazon.com/images/I/51-5ZZXfKVL._SX379_BO1,204,203,200_.jpg'
+tags:
+  - novel
+  - fiction
 ---
 
 # You Don't Know JS: Scope & Closures

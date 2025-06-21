@@ -1,15 +1,18 @@
 ---
-title: "The Stranger"
-author: "Albert Camus"
-isbn: "9780679720201"
-publicationDate: "1989-03-13"
+title: The Stranger
+author: Albert Camus
+isbn: '9780679720201'
+publicationDate: '1989-03-13'
 pageCount: 134
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2022"
-coverImage: "http://books.google.com/books/content?id=iVV7bKVUNBAC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2022'
+coverImage: >-
+  http://books.google.com/books/content?id=iVV7bKVUNBAC&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - classic
+  - fiction
 ---
 
 ## About This Book

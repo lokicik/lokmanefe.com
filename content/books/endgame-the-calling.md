@@ -1,15 +1,18 @@
 ---
-title: "Endgame: The Calling"
-author: "James Frey and Nils Johnson-Shelton"
-isbn: "9780062332608"
-publicationDate: "2014-10-07"
+title: 'Endgame: The Calling'
+author: James Frey and Nils Johnson-Shelton
+isbn: '9780062332608'
+publicationDate: '2014-10-07'
 pageCount: 426
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2021"
-coverImage: "http://books.google.com/books/content?id=dvZzAwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
-tags: []
+completionDate: '2021'
+coverImage: >-
+  http://books.google.com/books/content?id=dvZzAwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api
+tags:
+  - novel
+  - fiction
 ---
 
 ## About This Book

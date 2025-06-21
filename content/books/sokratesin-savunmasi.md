@@ -1,15 +1,18 @@
 ---
-title: "Sokratesin Savunmasi"
-author: "PlatonEflatun Platon(Eflatun)"
-isbn: "6053607029"
-publicationDate: "2014-04-01"
+title: Sokratesin Savunmasi
+author: PlatonEflatun Platon(Eflatun)
+isbn: '6053607029'
+publicationDate: '2014-04-01'
 pageCount: 200
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2020"
-coverImage: "http://books.google.com/books/content?id=48lurgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2020'
+coverImage: >-
+  http://books.google.com/books/content?id=48lurgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - philosophy
+  - non-fiction
 ---
 
 ## About This Book

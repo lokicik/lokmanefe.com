@@ -1,15 +1,18 @@
 ---
-title: "Endgame: Sky Key"
-author: "James Frey and Nils Johnson-Shelton"
-isbn: "9780062332639"
-publicationDate: "2015-10-06"
+title: 'Endgame: Sky Key'
+author: James Frey and Nils Johnson-Shelton
+isbn: '9780062332639'
+publicationDate: '2015-10-06'
 pageCount: 440
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2021"
-coverImage: "http://books.google.com/books/content?id=JDInBgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
-tags: []
+completionDate: '2021'
+coverImage: >-
+  http://books.google.com/books/content?id=JDInBgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api
+tags:
+  - novel
+  - fiction
 ---
 
 ## About This Book

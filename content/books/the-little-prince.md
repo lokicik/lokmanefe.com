@@ -1,15 +1,18 @@
 ---
-title: "The Little Prince"
-author: "Antoine de Saint-Exupéry"
-isbn: "0156012197"
-publicationDate: "2000"
+title: The Little Prince
+author: Antoine de Saint-Exupéry
+isbn: 0156012197
+publicationDate: '2000'
 pageCount: 100
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2020"
-coverImage: "http://books.google.com/books/content?id=vlr0uqedlWcC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2020'
+coverImage: >-
+  http://books.google.com/books/content?id=vlr0uqedlWcC&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - children
+  - fiction
 ---
 
 ## About This Book

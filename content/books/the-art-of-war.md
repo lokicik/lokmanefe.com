@@ -1,15 +1,18 @@
 ---
-title: "The Art of War"
-author: "Sun Tzu"
-isbn: "9780486832944"
-publicationDate: "2019-04-17"
+title: The Art of War
+author: Sun Tzu
+isbn: '9780486832944'
+publicationDate: '2019-04-17'
 pageCount: 100
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2021"
-coverImage: "http://books.google.com/books/content?id=ZcKJDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
-tags: []
+completionDate: '2021'
+coverImage: >-
+  http://books.google.com/books/content?id=ZcKJDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api
+tags:
+  - strategy
+  - non-fiction
 ---
 
 ## About This Book

@@ -1,15 +1,17 @@
 ---
-title: "Utopia"
-author: "Thomas Thomas More"
-isbn: "1979644195"
-publicationDate: "2017-11-11"
+title: Utopia
+author: Thomas Thomas More
+isbn: '1979644195'
+publicationDate: '2017-11-11'
 pageCount: 100
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2020"
-coverImage: "https://i.dr.com.tr/cache/600x600-0/originals/0002004772001-1.jpg"
-tags: []
+completionDate: '2020'
+coverImage: 'https://i.dr.com.tr/cache/600x600-0/originals/0002004772001-1.jpg'
+tags:
+  - philosophy
+  - fiction
 ---
 
 ## About This Book

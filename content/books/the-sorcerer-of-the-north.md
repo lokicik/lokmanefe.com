@@ -1,15 +1,18 @@
 ---
-title: "The Sorcerer of the North"
-author: "John Flanagan"
-isbn: "9780142414293"
-publicationDate: "2009-06-25"
+title: The Sorcerer of the North
+author: John Flanagan
+isbn: '9780142414293'
+publicationDate: '2009-06-25'
 pageCount: 362
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2016"
-coverImage: "http://books.google.com/books/content?id=3JiMEAAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2016'
+coverImage: >-
+  http://books.google.com/books/content?id=3JiMEAAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

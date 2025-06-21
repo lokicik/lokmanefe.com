@@ -1,15 +1,18 @@
 ---
-title: "The Idiot"
-author: "Fyodor Dostoyevsky"
-isbn: "1853261750"
-publicationDate: "1996"
+title: The Idiot
+author: Fyodor Dostoyevsky
+isbn: '1853261750'
+publicationDate: '1996'
 pageCount: 596
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2019"
-coverImage: "http://books.google.com/books/content?id=HvguO_Mf3NIC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
-tags: []
+completionDate: '2019'
+coverImage: >-
+  http://books.google.com/books/content?id=HvguO_Mf3NIC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api
+tags:
+  - classic
+  - fiction
 ---
 
 ## About This Book

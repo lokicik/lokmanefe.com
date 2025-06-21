@@ -1,15 +1,18 @@
 ---
-title: "Slaves of Socorro"
-author: "John Flanagan"
-isbn: "9780142427262"
-publicationDate: "2015-04-07"
+title: Slaves of Socorro
+author: John Flanagan
+isbn: '9780142427262'
+publicationDate: '2015-04-07'
 pageCount: 498
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2017"
-coverImage: "http://books.google.com/books/content?id=qsKSDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2017'
+coverImage: >-
+  http://books.google.com/books/content?id=qsKSDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

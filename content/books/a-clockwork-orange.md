@@ -1,15 +1,18 @@
 ---
-title: "A Clockwork Orange"
-author: "Anthony Burgess"
-isbn: "0393312836"
-publicationDate: "1995-04-17"
+title: A Clockwork Orange
+author: Anthony Burgess
+isbn: 0393312836
+publicationDate: '1995-04-17'
 pageCount: 212
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2021"
-coverImage: "http://books.google.com/books/content?id=Kb5_Q0_AILIC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2021'
+coverImage: >-
+  http://books.google.com/books/content?id=Kb5_Q0_AILIC&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - dystopian
+  - fiction
 ---
 
 ## About This Book

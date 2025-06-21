@@ -1,15 +1,18 @@
 ---
-title: "Memoria"
-author: "Leonardo Patrignani"
-isbn: "2070650146"
-publicationDate: "2014-04-03"
+title: Memoria
+author: Leonardo Patrignani
+isbn: '2070650146'
+publicationDate: '2014-04-03'
 pageCount: 316
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2020"
-coverImage: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1422998686i/24820547.jpg"
-tags: []
+completionDate: '2020'
+coverImage: >-
+  https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1422998686i/24820547.jpg
+tags:
+  - science-fiction
+  - fiction
 ---
 
 ## About This Book

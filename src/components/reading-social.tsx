@@ -182,7 +182,7 @@ export function ReadingSocial({ books, goal, streak }: ReadingSocialProps) {
         onOpenChange={setShareDialogOpen}
         achievement={
           selectedAchievement
-            ? achievements.find((a) => a.id === selectedAchievement)
+            ? achievements.find((a) => a.id === selectedAchievement) || null
             : null
         }
         stats={{
@@ -261,6 +261,18 @@ function ShareDialog({
   const shareText = achievement
     ? `🎉 Achievement Unlocked: ${achievement.title}! ${achievement.description} #ReadingGoals #BookLover`
     : `📚 My Reading Stats: ${stats.completedBooks} books completed, ${stats.streak}-day streak, ${stats.goal.progress}% goal progress! #ReadingJourney #BookLover`;
+
+  const shareUrls = {
+    twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+      shareText
+    )}`,
+    linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+      window.location.href
+    )}&title=${encodeURIComponent(shareText)}`,
+    facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+      window.location.href
+    )}&quote=${encodeURIComponent(shareText)}`,
+  };
 
   const handleCopy = async () => {
     try {

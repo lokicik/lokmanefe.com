@@ -1,15 +1,18 @@
 ---
-title: "Graceling"
-author: "Kristin Cashore"
-isbn: "2253157635"
-publicationDate: "2011-05-01"
+title: Graceling
+author: Kristin Cashore
+isbn: '2253157635'
+publicationDate: '2011-05-01'
 pageCount: 414
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2019"
-coverImage: "http://books.google.com/books/content?id=dWXzZwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2019'
+coverImage: >-
+  http://books.google.com/books/content?id=dWXzZwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

@@ -1,15 +1,18 @@
 ---
-title: "A Storm of Swords"
-author: "George R. R. Martin"
-isbn: "9780553381702"
-publicationDate: "2002-05-28"
+title: A Storm of Swords
+author: George R. R. Martin
+isbn: '9780553381702'
+publicationDate: '2002-05-28'
 pageCount: 1009
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2018"
-coverImage: "http://books.google.com/books/content?id=Jw0exdlwSeMC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2018'
+coverImage: >-
+  http://books.google.com/books/content?id=Jw0exdlwSeMC&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - fantasy
+  - fiction
 ---
 
 ## About This Book

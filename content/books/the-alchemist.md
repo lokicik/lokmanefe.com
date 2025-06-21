@@ -1,15 +1,18 @@
 ---
-title: "The Alchemist"
-author: "Paulo Coelho"
-isbn: "0062315005"
-publicationDate: "2014-04-15"
+title: The Alchemist
+author: Paulo Coelho
+isbn: '0062315005'
+publicationDate: '2014-04-15'
 pageCount: 208
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2023"
-coverImage: "http://books.google.com/books/content?id=ZI3gAQAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2023'
+coverImage: >-
+  http://books.google.com/books/content?id=ZI3gAQAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - philosophy
+  - fiction
 ---
 
 ## About This Book

@@ -1,15 +1,18 @@
 ---
-title: "Erak's Ransom"
-author: "John Flanagan"
-isbn: "9780440869733"
-publicationDate: "2011"
+title: Erak's Ransom
+author: John Flanagan
+isbn: '9780440869733'
+publicationDate: '2011'
 pageCount: 468
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2016"
-coverImage: "http://books.google.com/books/content?id=DkOrl53RfzIC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2016'
+coverImage: >-
+  http://books.google.com/books/content?id=DkOrl53RfzIC&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - novel
+  - fiction
 ---
 
 ## About This Book

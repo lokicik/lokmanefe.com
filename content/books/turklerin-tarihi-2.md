@@ -1,15 +1,17 @@
 ---
-title: "Türklerin Tarihi 2"
-author: "Ilber Ortayli"
+title: Türklerin Tarihi 2
+author: Ilber Ortayli
 isbn: "6258431836"
-publicationDate: "2022-09"
+publicationDate: 2022-09
 pageCount: 286
-status: "completed"
+status: completed
 rating: null
 startDate: null
 completionDate: "2019"
 coverImage: "https://img.kitapyurdu.com/v1/getImage/fn:1160169/wh:true/wi:800"
-tags: []
+tags:
+  - history
+  - non-fiction
 ---
 
 ## About This Book

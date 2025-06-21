@@ -1,15 +1,18 @@
 ---
-title: "Master Zacharius"
-author: "Jules Verne"
-isbn: "0648337928"
-publicationDate: "2024-06-11"
+title: Master Zacharius
+author: Jules Verne
+isbn: 0648337928
+publicationDate: '2024-06-11'
 pageCount: 100
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2023"
-coverImage: "http://books.google.com/books/content?id=2bPJ0AEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2023'
+coverImage: >-
+  http://books.google.com/books/content?id=2bPJ0AEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - novel
+  - fiction
 ---
 
 ## About This Book

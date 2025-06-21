@@ -1,15 +1,18 @@
 ---
-title: "The Ugly Truth (Diary of a Wimpy Kid #5)"
-author: "Jeff Kinney"
-isbn: "1419741896"
-publicationDate: "2010-11"
+title: 'The Ugly Truth (Diary of a Wimpy Kid #5)'
+author: Jeff Kinney
+isbn: '1419741896'
+publicationDate: 2010-11
 pageCount: 224
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2015"
-coverImage: "http://books.google.com/books/content?id=UZSyxgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2015'
+coverImage: >-
+  http://books.google.com/books/content?id=UZSyxgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - children
+  - fiction
 ---
 
 ## About This Book

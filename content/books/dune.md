@@ -1,15 +1,18 @@
 ---
-title: "Dune"
-author: "Frank Herbert"
-isbn: "9780441172719"
-publicationDate: "1990-09-01"
+title: Dune
+author: Frank Herbert
+isbn: '9780441172719'
+publicationDate: '1990-09-01'
 pageCount: 897
-status: "completed"
+status: completed
 rating: null
 startDate: null
-completionDate: "2023"
-coverImage: "http://books.google.com/books/content?id=nrRKDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-tags: []
+completionDate: '2023'
+coverImage: >-
+  http://books.google.com/books/content?id=nrRKDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
+tags:
+  - science-fiction
+  - fiction
 ---
 
 ## About This Book
