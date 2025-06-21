@@ -99,8 +99,8 @@ export function ReadingPageContent({
               {stats.currentlyReading}
             </strong>{" "}
             {stats.currentlyReading === 1 ? "book" : "books"}, completed{" "}
-            <strong className="text-foreground">{stats.completed}</strong> this
-            year. Goal:{" "}
+            <strong className="text-foreground">{stats.completed}</strong>{" "}
+            total. This year:{" "}
             <strong className="text-foreground">
               {goal.completedBooks}/{goal.targetBooks}
             </strong>{" "}
