@@ -300,6 +300,61 @@
 
   .prose .section-anchor {
     @apply scroll-mt-20;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  /* Decorative bird animations */
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes gentle-sway {
+    0%,
+    100% {
+      transform: translateX(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateX(5px) rotate(2deg);
+    }
+  }
+
+  @keyframes feather-drift {
+    0%,
+    100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    33% {
+      transform: translateY(-8px) rotate(5deg);
+    }
+    66% {
+      transform: translateY(3px) rotate(-3deg);
+    }
+  }
+
+  .bird-decoration {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .bird-decoration:nth-child(1) {
+    animation: float 6s ease-in-out infinite;
+    animation-delay: -1s;
+  }
+
+  .bird-decoration:nth-child(2) {
+    animation: gentle-sway 8s ease-in-out infinite;
+    animation-delay: -2s;
+  }
+
+  .bird-decoration:nth-child(3) {
+    animation: feather-drift 10s ease-in-out infinite;
+    animation-delay: -3s;
   }
 }
 /* ---------------------------------- */

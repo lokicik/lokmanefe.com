@@ -15,13 +15,12 @@ export default function Home() {
       <section>
         <h2 className="text-2xl font-bold mb-4">About</h2>
         <p className="text-muted-foreground leading-relaxed">
-          I&apos;ve been programming for nearly a year, focusing on web
+          I&apos;ve been programming for nearly two years, focusing on web
           technologies and artificial intelligence. Did some work voluntarily
           for startups about ai (image processing, ocr, data labeling, object
           detection) and frontend (react). Currently working at a startup doing
-          backend (finally getting paid!). I&apos;m eager to learn about
-          creating custom ASIC and FPGA chip design for LLM-based systems. I am
-          active in uni student clubs like IEEE and GDG On Campus.
+          backend (finally getting paid!). I am active in uni student clubs like
+          IEEE and GDG.
         </p>
       </section>
 
