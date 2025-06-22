@@ -124,7 +124,7 @@ export function GiscusComments({
   }, [resolvedTheme]);
 
   return (
-    <section className="mt-16 pt-12 border-t">
+    <section className="mt-16 pt-12 border-t relative z-20 pb-16 mb-8">
       <div className="mb-6">
         <h2 className="text-2xl font-bold mb-2">Comments</h2>
         <p className="text-muted-foreground text-sm">
@@ -141,7 +141,7 @@ export function GiscusComments({
         </p>
       </div>
 
-      <div ref={ref} className="giscus-container" />
+      <div ref={ref} className="giscus-container relative z-20 min-h-[400px]" />
     </section>
   );
 }

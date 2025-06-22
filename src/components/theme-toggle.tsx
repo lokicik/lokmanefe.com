@@ -25,14 +25,13 @@ export function ThemeToggle() {
   // Prevent layout shifts when dropdown opens
   React.useEffect(() => {
     if (isOpen) {
-      // Store original body width to prevent shifts
-      const originalWidth = document.body.style.width;
-      const bodyWidth = document.body.offsetWidth;
-      document.body.style.width = `${bodyWidth}px`;
+      // Prevent horizontal scrollbar
+      const originalOverflow = document.body.style.overflowX;
+      document.body.style.overflowX = "hidden";
 
       return () => {
-        // Restore original width
-        document.body.style.width = originalWidth;
+        // Restore original overflow
+        document.body.style.overflowX = originalOverflow;
       };
     }
   }, [isOpen]);

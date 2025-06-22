@@ -358,3 +358,11 @@
   }
 }
 /* ---------------------------------- */
+
+/* Decorative SVG color tweaks for special themes */
+html.dark .decorative-svg,
+html.soft-dark .decorative-svg,
+html.blue .decorative-svg {
+  filter: brightness(0) invert(1) !important; /* makes them white */
+  opacity: 0.4 !important; /* ensure visibility */
+}
