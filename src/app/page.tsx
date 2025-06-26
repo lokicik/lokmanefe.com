@@ -60,64 +60,54 @@ export default function Home() {
 
       <section>
         <h2 className="text-2xl font-bold mb-4">Projects</h2>
-        <ul className="space-y-3 text-muted-foreground">
+        <p className="text-muted-foreground mb-4">
+          I&apos;ve built various applications ranging from full-stack web apps
+          to AI/ML projects and desktop tools. Here are some highlights:
+        </p>
+        <ul className="space-y-3 text-muted-foreground mb-6">
           <li>
             <a
-              href="https://github.com/lokicik/ikigai-discord-bot"
+              href="https://github.com/lokicik/eyedoro"
               className="text-primary hover:underline font-medium"
             >
-              ikigai
+              Eyedoro
             </a>{" "}
-            - A discord bot with music support
+            - Open-source Electron alternative for lookaway.app
           </li>
           <li>
             <a
-              href="https://github.com/lokicik/easyscreenocr-clone"
+              href="https://github.com/lokicik/gochop"
               className="text-primary hover:underline font-medium"
             >
-              easyscreenocr-clone
+              GoChop
             </a>{" "}
-            - An open-source solution for a paid app
+            - Privacy-respecting link shortener with advanced features
           </li>
           <li>
             <a
-              href="https://github.com/lokicik/dog_or_cat_image_classification"
+              href="https://saas-kit-eosin.vercel.app/"
               className="text-primary hover:underline font-medium"
             >
-              Dog or Cat Classification
+              SaaS Kit
             </a>{" "}
-            - A deep learning model for classifying images of dogs and cats with
-            CNN
+            - Next.js 15 SaaS template with authentication and billing
           </li>
           <li>
             <a
-              href="https://github.com/lokicik/midterm_project_ml_zoomcamp"
+              href="https://github.com/orgs/Chimera-Platform/repositories"
               className="text-primary hover:underline font-medium"
             >
-              Drinking or Smoking Classification
+              Chimera
             </a>{" "}
-            - A deep learning project for drinking or smoking prediction with
-            ensemble learning (LGBM, XGB and RF)
-          </li>
-          <li>
-            <a
-              href="https://github.com/lokicik/Aygaz_Deep_Learning_Project"
-              className="text-primary hover:underline font-medium"
-            >
-              Dog Breed Classification
-            </a>{" "}
-            - A deep learning project for classifying dog breeds with CNN
-          </li>
-          <li>
-            <a
-              href="https://github.com/lokicik/Akbank_Machine_Learning_Project"
-              className="text-primary hover:underline font-medium"
-            >
-              Melbourne Housing Regression
-            </a>{" "}
-            - A machine learning project for house price prediction with RF
+            - AI-powered chat application with real-time messaging
           </li>
         </ul>
+        <a
+          href="/projects"
+          className="text-primary hover:underline font-medium inline-flex items-center"
+        >
+          View all projects →
+        </a>
       </section>
 
       <section>
