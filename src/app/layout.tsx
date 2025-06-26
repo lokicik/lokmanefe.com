@@ -63,6 +63,11 @@ export const metadata: Metadata = {
   other: {
     rss: "/blog/rss",
   },
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({

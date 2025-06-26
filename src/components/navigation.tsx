@@ -7,6 +7,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { FontPicker } from "@/components/font-picker";
 import { FontSizePicker } from "@/components/font-size-picker";
 import { Button } from "@/components/ui/button";
+import { ParrotIcon } from "@/components/parrot-icon";
 
 export function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -16,8 +17,11 @@ export function Navigation() {
       <div className="max-w-4xl mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="text-2xl font-bold flex-shrink-0">
-            △
+          <Link
+            href="/"
+            className="text-2xl font-bold flex-shrink-0 flex items-center"
+          >
+            <ParrotIcon size={32} className="text-primary" />
           </Link>
 
           {/* Desktop Navigation */}
