@@ -51,7 +51,7 @@
   --card-foreground: oklch(0.08 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.08 0 0);
-  --primary: oklch(0.18 0 0);
+  --primary: oklch(0.4 0.15 260);
   --primary-foreground: oklch(0.98 0 0);
   --secondary: oklch(0.95 0 0);
   --secondary-foreground: oklch(0.08 0 0);
@@ -121,7 +121,7 @@
   --card-foreground: oklch(0.25 0.02 85);
   --popover: oklch(0.92 0.02 85);
   --popover-foreground: oklch(0.25 0.02 85);
-  --primary: oklch(0.45 0.08 85);
+  --primary: oklch(0.45 0.12 85);
   --primary-foreground: oklch(0.95 0.02 85);
   --secondary: oklch(0.88 0.02 85);
   --secondary-foreground: oklch(0.25 0.02 85);
@@ -140,7 +140,7 @@
   --chart-5: oklch(0.769 0.188 70.08);
   --sidebar: oklch(0.92 0.02 85);
   --sidebar-foreground: oklch(0.25 0.02 85);
-  --sidebar-primary: oklch(0.45 0.08 85);
+  --sidebar-primary: oklch(0.45 0.12 85);
   --sidebar-primary-foreground: oklch(0.95 0.02 85);
   --sidebar-accent: oklch(0.88 0.02 85);
   --sidebar-accent-foreground: oklch(0.25 0.02 85);
@@ -156,7 +156,7 @@
   --card-foreground: #ffffff;
   --popover: oklch(0.35 0.08 220);
   --popover-foreground: #ffffff;
-  --primary: oklch(0.7 0.15 220);
+  --primary: #ffffff;
   --primary-foreground: oklch(0.2 0.1 220);
   --secondary: oklch(0.4 0.08 220);
   --secondary-foreground: #ffffff;
@@ -277,7 +277,7 @@
     @apply bg-yellow-400/20 text-yellow-400 font-medium rounded px-1;
   }
 
-  /* Legal document styling */
+  /* Table of Contents specific styles */
   .prose .table-of-contents {
     @apply bg-muted/30 border rounded-lg p-6 my-8;
   }
@@ -357,9 +357,8 @@
     animation-delay: -3s;
   }
 }
-/* ---------------------------------- */
 
-/* Decorative SVG color tweaks for special themes */
+/* Decorative SVG color tweaks for themes */
 html.dark .decorative-svg,
 html.soft-dark .decorative-svg,
 html.blue .decorative-svg {

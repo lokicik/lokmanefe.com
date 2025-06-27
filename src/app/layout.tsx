@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     description: "Software developer portfolio and personal blog",
   },
   other: {
-    rss: "/blog/rss",
+    rss: "/rss",
   },
   icons: {
     icon: "/favicon.svg",
@@ -87,22 +87,22 @@ export default function RootLayout({
           rel="alternate"
           type="application/rss+xml"
           title="Lokman Baturay Efe - Blog RSS Feed"
-          href="/blog/rss"
+          href="/rss"
         />
       </head>
       <body className={inter.className}>
         <Providers>
-          <div className="min-h-screen bg-background relative flex flex-col">
+          <div className="min-h-screen bg-background relative grid grid-rows-[auto_1fr_auto]">
             {/* Scattered decorative elements */}
             <SideSvgs />
 
             <Navigation />
-            <main className="max-w-4xl mx-auto px-4 py-8 relative z-10 pb-16 flex-1">
+            <main className="max-w-4xl mx-auto px-4 py-8 relative z-10 pb-16 w-full">
               {children}
             </main>
 
             {/* Footer */}
-            <footer className="border-t bg-background/80 backdrop-blur-sm mt-auto">
+            <footer className="border-t bg-background/80 backdrop-blur-sm">
               <div className="max-w-4xl mx-auto px-4 py-6">
                 <div className="text-center text-sm text-muted-foreground space-y-2">
                   <div>
@@ -130,7 +130,7 @@ export default function RootLayout({
                     </a>
                     <span>•</span>
                     <a
-                      href="/blog/rss"
+                      href="/rss"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:text-primary transition-colors"

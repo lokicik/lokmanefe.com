@@ -3,38 +3,21 @@
 import * as React from "react";
 import { Moon, Sun, Palette, Monitor, Droplets } from "lucide-react";
 import { useTheme } from "next-themes";
-
 import { Button } from "@/components/ui/button";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 export function ThemeToggle() {
   const { setTheme, theme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
   const [isOpen, setIsOpen] = React.useState(false);
 
-  // Ensure component is mounted before rendering
   React.useEffect(() => {
     setMounted(true);
   }, []);
-
-  // Prevent layout shifts when dropdown opens
-  React.useEffect(() => {
-    if (isOpen) {
-      // Prevent horizontal scrollbar
-      const originalOverflow = document.body.style.overflowX;
-      document.body.style.overflowX = "hidden";
-
-      return () => {
-        // Restore original overflow
-        document.body.style.overflowX = originalOverflow;
-      };
-    }
-  }, [isOpen]);
 
   const themes = [
     { name: "Light", value: "light", icon: Sun },
@@ -55,37 +38,36 @@ export function ThemeToggle() {
   }
 
   return (
-    <DropdownMenu modal={false} onOpenChange={setIsOpen}>
-      <DropdownMenuTrigger asChild>
+    <Popover open={isOpen} onOpenChange={setIsOpen}>
+      <PopoverTrigger asChild>
         <Button variant="ghost" size="sm" className="relative">
           <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
           <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
           <span className="sr-only">Toggle theme</span>
         </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent
-        align="end"
-        className="z-[60] min-w-[140px]"
-        sideOffset={8}
-        avoidCollisions={false}
-        side="bottom"
-        alignOffset={-4}
-        collisionPadding={16}
-      >
-        {themes.map((themeOption) => {
-          const Icon = themeOption.icon;
-          return (
-            <DropdownMenuItem
-              key={themeOption.value}
-              onClick={() => setTheme(themeOption.value)}
-              className={theme === themeOption.value ? "bg-accent" : ""}
-            >
-              <Icon className="mr-2 h-4 w-4" />
-              <span>{themeOption.name}</span>
-            </DropdownMenuItem>
-          );
-        })}
-      </DropdownMenuContent>
-    </DropdownMenu>
+      </PopoverTrigger>
+      <PopoverContent align="end" className="z-[51] w-36 p-1" sideOffset={8}>
+        <div className="space-y-1">
+          {themes.map((themeOption) => {
+            const Icon = themeOption.icon;
+            return (
+              <Button
+                key={themeOption.value}
+                variant={theme === themeOption.value ? "secondary" : "ghost"}
+                size="sm"
+                onClick={() => {
+                  setTheme(themeOption.value);
+                  setIsOpen(false);
+                }}
+                className="w-full justify-start"
+              >
+                <Icon className="mr-2 h-4 w-4" />
+                <span>{themeOption.name}</span>
+              </Button>
+            );
+          })}
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 }
