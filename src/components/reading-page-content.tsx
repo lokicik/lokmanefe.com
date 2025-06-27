@@ -76,16 +76,8 @@ export function ReadingPageContent({
     <div className="max-w-4xl mx-auto space-y-8">
       {/* Header */}
       <div>
-        <div className="flex items-center justify-between mb-4">
+        <div className="mb-4">
           <h1 className="text-4xl font-bold">Reading</h1>
-          <a
-            href="/reading/rss"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-muted-foreground hover:text-primary transition-colors"
-          >
-            RSS Feed
-          </a>
         </div>
         <p className="text-lg text-muted-foreground mb-4">
           Books I&apos;m reading, have completed, and want to explore.

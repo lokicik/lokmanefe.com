@@ -23,6 +23,7 @@ import {
   Brain,
   Smartphone,
   Sparkles,
+  ChevronDown,
 } from "lucide-react";
 
 interface Project {
@@ -232,6 +233,7 @@ const categoryColors = {
 export function ProjectsPageContent() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [showOtherProjects, setShowOtherProjects] = useState(false);
 
   const filteredProjects = projects.filter((project) => {
     const matchesSearch =
@@ -313,13 +315,33 @@ export function ProjectsPageContent() {
       {/* Other Projects */}
       {otherProjects.length > 0 && (
         <section>
-          <h2 className="text-2xl font-bold mb-6">
-            {featuredProjects.length > 0 ? "Other Projects" : "All Projects"}
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-            {otherProjects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
-            ))}
+          <div className="space-y-6">
+            <button
+              onClick={() => setShowOtherProjects(!showOtherProjects)}
+              className="flex items-center gap-2 text-2xl font-bold hover:text-primary transition-colors"
+            >
+              <span>
+                {featuredProjects.length > 0
+                  ? "Other Projects"
+                  : "All Projects"}
+              </span>
+              <span className="text-sm text-muted-foreground">
+                ({otherProjects.length})
+              </span>
+              <ChevronDown
+                className={`w-5 h-5 transition-transform ${
+                  showOtherProjects ? "rotate-180" : ""
+                }`}
+              />
+            </button>
+
+            {showOtherProjects && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                {otherProjects.map((project) => (
+                  <ProjectCard key={project.id} project={project} />
+                ))}
+              </div>
+            )}
           </div>
         </section>
       )}

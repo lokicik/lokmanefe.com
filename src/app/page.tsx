@@ -15,12 +15,27 @@ export default function Home() {
       <section>
         <h2 className="text-2xl font-bold mb-4">About</h2>
         <p className="text-muted-foreground leading-relaxed">
-          I&apos;ve been programming for nearly two years, focusing on web
-          technologies and artificial intelligence. Did some work voluntarily
-          for startups about ai (image processing, ocr, data labeling, object
-          detection) and frontend (react). Currently working at a startup doing
-          backend (finally getting paid!). I am active in uni student clubs like
-          IEEE and GDG.
+          I&apos;m an AI Product Engineer with 1+ year of professional
+          experience building scalable applications and intelligent systems.
+          Currently specializing in full-stack development with{" "}
+          <span className="text-foreground font-medium">
+            Next.js, Go, TypeScript, and Python
+          </span>
+          , while architecting AI-powered solutions that solve real-world
+          problems.
+        </p>
+        <p className="text-muted-foreground leading-relaxed mt-4">
+          As an active leader in the tech community, I&apos;ve organized
+          workshops reaching{" "}
+          <span className="text-foreground font-medium">
+            100+ local developers
+          </span>{" "}
+          on topics like RAG systems and computer vision. My GitHub showcases{" "}
+          <span className="text-foreground font-medium">12+ repositories</span>{" "}
+          spanning from production SaaS applications to AI/ML competition
+          projects. I&apos;m passionate about the intersection of generative AI
+          and product engineering—currently building toward launching my own
+          SaaS venture focused on AI-driven developer tools and automations.
         </p>
       </section>
 
@@ -50,10 +65,10 @@ export default function Home() {
           </a>{" "}
           |{" "}
           <a
-            href="https://www.kaggle.com/lokmanefe"
+            href="https://leetcode.com/u/lokicik/"
             className="text-primary hover:underline"
           >
-            Kaggle
+            LeetCode
           </a>
         </p>
       </section>

@@ -6,7 +6,7 @@ import { MarkdownPost } from "@/lib/markdown-posts";
 import { formatDate } from "@/lib/utils";
 import { BlogSearch } from "@/components/blog-search";
 import { BlogArchive } from "@/components/blog-archive";
-import { Clock, Calendar, Rss } from "lucide-react";
+import { Clock, Calendar } from "lucide-react";
 
 interface BlogPageContentProps {
   initialPosts: MarkdownPost[];
@@ -34,17 +34,8 @@ export function BlogPageContent({
   return (
     <div className="max-w-4xl mx-auto">
       <div className="mb-12">
-        <div className="flex items-center justify-between mb-4">
+        <div className="mb-4">
           <h1 className="text-4xl font-bold">Blog</h1>
-          <a
-            href="/blog/rss"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
-          >
-            <Rss className="h-4 w-4" />
-            RSS Feed
-          </a>
         </div>
         <p className="text-lg text-muted-foreground">
           Thoughts on development, technology, and more.

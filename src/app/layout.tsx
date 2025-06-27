@@ -12,6 +12,7 @@ import { Navigation } from "@/components/navigation";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SideSvgs } from "@/components/side-svgs";
+import { Github } from "lucide-react";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const spaceGrotesk = Space_Grotesk({
@@ -91,14 +92,55 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <Providers>
-          <div className="min-h-screen bg-background relative">
+          <div className="min-h-screen bg-background relative flex flex-col">
             {/* Scattered decorative elements */}
             <SideSvgs />
 
             <Navigation />
-            <main className="max-w-4xl mx-auto px-4 py-8 relative z-10 pb-16">
+            <main className="max-w-4xl mx-auto px-4 py-8 relative z-10 pb-16 flex-1">
               {children}
             </main>
+
+            {/* Footer */}
+            <footer className="border-t bg-background/80 backdrop-blur-sm mt-auto">
+              <div className="max-w-4xl mx-auto px-4 py-6">
+                <div className="text-center text-sm text-muted-foreground space-y-2">
+                  <div>
+                    Built with ❤️ by{" "}
+                    <a
+                      href="https://github.com/lokicik"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-medium text-foreground hover:text-primary transition-colors"
+                    >
+                      Lokman Baturay Efe
+                    </a>
+                  </div>
+                  <div className="flex items-center justify-center gap-2">
+                    <span>© 2025</span>
+                    <span>•</span>
+                    <a
+                      href="https://github.com/lokicik/lokmanbaturayefe.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-primary transition-colors"
+                      title="View Source"
+                    >
+                      <Github className="w-4 h-4" />
+                    </a>
+                    <span>•</span>
+                    <a
+                      href="/blog/rss"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-primary transition-colors"
+                    >
+                      RSS Feed
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </footer>
           </div>
         </Providers>
         <Analytics />
