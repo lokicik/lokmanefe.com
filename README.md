@@ -1,8 +1,8 @@
-# 🚀 lokmanbaturayefe.com
+# 🚀 lokmanefe.com
 
 > A modern, full-featured personal portfolio and digital presence built with Next.js 15
 
-**Live Site**: [lokmanbaturayefe.com](https://lokmanbaturayefe.com)
+**Live Site**: [lokmanefe.com](https://lokmanefe.com)
 
 A comprehensive personal website showcasing projects, technical writing, and reading journey. Built with modern web technologies and optimized for performance, SEO, and user experience.
 
@@ -75,8 +75,8 @@ A comprehensive personal website showcasing projects, technical writing, and rea
 
 ```bash
 # Clone the repository
-git clone https://github.com/lokicik/lokmanbaturayefe.com.git
-cd lokmanbaturayefe.com
+git clone https://github.com/lokmanbefe/lokmanefe.com.git
+cd lokmanefe.com
 
 # Install dependencies
 npm install
@@ -159,7 +159,7 @@ Configure projects in `src/components/projects-page-content.tsx`:
 ## 📁 Project Structure
 
 ```
-lokmanbaturayefe.com/
+lokmanefe.com/
 ├── content/                  # Content management
 │   ├── posts/               # Blog posts (markdown)
 │   ├── books/               # Book reviews (markdown)
@@ -271,6 +271,6 @@ MIT License - See [LICENSE](LICENSE) for details.
 
 ---
 
-**Built with ❤️ by [Lokman Baturay Efe](https://github.com/lokicik)**
+**Built with ❤️ by [Lokman Efe](https://github.com/lokmanbefe)**
 
 _If you found this portfolio inspiring, feel free to star ⭐ the repository!_

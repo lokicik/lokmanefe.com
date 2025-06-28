@@ -37,8 +37,7 @@ export default async function BlogPost({ params }: Props) {
   }
 
   // Get the full URL for sharing
-  const baseUrl =
-    process.env.NEXT_PUBLIC_BASE_URL || "https://lokmanbaturayefe.com";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://lokmanefe.com";
   const postUrl = `${baseUrl}/blog/${post.slug}`;
 
   return (

@@ -11,7 +11,7 @@ import { ReadingPageContent } from "@/components/reading-page-content";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Reading - Lokman Baturay Efe",
+  title: "Reading - Lokman Efe",
   description: "My reading journey, book notes, goals, and analytics tracking",
 };
 

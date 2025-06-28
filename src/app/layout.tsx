@@ -34,7 +34,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Lokman Baturay Efe - Portfolio & Blog",
+  title: "Lokman Efe",
   description: "Software developer portfolio and personal blog",
   keywords: [
     "developer",
@@ -46,19 +46,19 @@ export const metadata: Metadata = {
     "AI",
     "machine learning",
   ],
-  authors: [{ name: "Lokman Baturay Efe" }],
-  creator: "Lokman Baturay Efe",
+  authors: [{ name: "Lokman Efe" }],
+  creator: "Lokman Efe",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://lokmanbaturayefe.com",
-    title: "Lokman Baturay Efe - Portfolio & Blog",
+    url: "https://lokmanefe.com",
+    title: "Lokman Efe",
     description: "Software developer portfolio and personal blog",
-    siteName: "Lokman Baturay Efe",
+    siteName: "Lokman Efe",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Lokman Baturay Efe - Portfolio & Blog",
+    title: "Lokman Efe",
     description: "Software developer portfolio and personal blog",
   },
   other: {
@@ -86,7 +86,7 @@ export default function RootLayout({
         <link
           rel="alternate"
           type="application/rss+xml"
-          title="Lokman Baturay Efe - Blog RSS Feed"
+          title="Lokman Efe - Blog RSS Feed"
           href="/rss"
         />
       </head>
@@ -108,19 +108,19 @@ export default function RootLayout({
                   <div>
                     Built with ❤️ by{" "}
                     <a
-                      href="https://github.com/lokicik"
+                      href="https://github.com/lokmanbefe"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="font-medium text-foreground hover:text-primary transition-colors"
                     >
-                      Lokman Baturay Efe
+                      Lokman Efe
                     </a>
                   </div>
                   <div className="flex items-center justify-center gap-2">
                     <span>© 2025</span>
                     <span>•</span>
                     <a
-                      href="https://github.com/lokicik/lokmanbaturayefe.com"
+                      href="https://github.com/lokmanbefe/lokmanefe.com"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:text-primary transition-colors"

@@ -150,7 +150,7 @@ export function GiscusComments({
 export function BlogComments() {
   // Your actual GitHub repository configuration
   const GISCUS_CONFIG = {
-    repo: "lokicik/lokmanbaturayefe.com", // Your repository
+    repo: "lokmanbefe/lokmanefe.com", // Your repository
     repoId: "R_kgDONOXVwQ", // Your repo ID
     category: "Blog Comments", // Your category name
     categoryId: "DIC_kwDONOXVwc4Crhvw", // Your category ID

@@ -8,7 +8,7 @@ export function CVButton() {
     // Direct download link to the latest CV
     // GitHub's raw content URL for direct download
     const cvUrl =
-      "https://github.com/lokicik/CV/raw/main/15-06-2025-Lokman-Efe-CV.pdf";
+      "https://github.com/lokmanbefe/CV/raw/main/15-06-2025-Lokman-Efe-CV.pdf";
 
     // Create a temporary link element
     const link = document.createElement("a");

@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <div className="max-w-4xl mx-auto space-y-8">
       <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Lokman Baturay Efe</h1>
+        <h1 className="text-4xl font-bold mb-4">Lokman Efe</h1>
         <p className="text-lg text-muted-foreground mb-6">
           I&apos;m a software developer based in Edirne, Türkiye. I build
           things.
@@ -44,14 +44,14 @@ export default function Home() {
         <p className="text-muted-foreground">
           Email:{" "}
           <a
-            href="mailto:lokman@lokmanbaturayefe.com"
+            href="mailto:lokman@lokmanefe.com"
             className="text-primary hover:underline"
           >
-            lokman@lokmanbaturayefe.com
+            lokman@lokmanefe.com
           </a>
           <br />
           <a
-            href="https://github.com/lokicik"
+            href="https://github.com/lokmanbefe"
             className="text-primary hover:underline"
           >
             GitHub
@@ -65,7 +65,7 @@ export default function Home() {
           </a>{" "}
           |{" "}
           <a
-            href="https://leetcode.com/u/lokicik/"
+            href="https://leetcode.com/u/lokmanefe/"
             className="text-primary hover:underline"
           >
             LeetCode
@@ -82,7 +82,7 @@ export default function Home() {
         <ul className="space-y-3 text-muted-foreground mb-6">
           <li>
             <a
-              href="https://github.com/lokicik/eyedoro"
+              href="https://github.com/lokmanbefe/eyedoro"
               className="text-primary hover:underline font-medium"
             >
               Eyedoro
@@ -91,7 +91,7 @@ export default function Home() {
           </li>
           <li>
             <a
-              href="https://github.com/lokicik/gochop"
+              href="https://github.com/lokmanbefe/gochop"
               className="text-primary hover:underline font-medium"
             >
               GoChop

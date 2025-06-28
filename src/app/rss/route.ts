@@ -30,10 +30,10 @@ export async function GET() {
   const rss = `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Lokman Baturay Efe</title>
-    <description>Blog posts and reading updates from Lokman Baturay Efe</description>
-    <link>https://lokmanbaturayefe.com</link>
-    <atom:link href="https://lokmanbaturayefe.com/rss" rel="self" type="application/rss+xml" />
+    <title>Lokman Efe</title>
+    <description>Blog posts and reading updates from Lokman Efe</description>
+    <link>https://lokmanefe.com</link>
+    <atom:link href="https://lokmanefe.com/rss" rel="self" type="application/rss+xml" />
     <language>en-us</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     ${allItems
@@ -50,9 +50,9 @@ export async function GET() {
     <item>
       <title>${title}</title>
       <description>${description}</description>
-      <link>https://lokmanbaturayefe.com${item.url}</link>
+      <link>https://lokmanefe.com${item.url}</link>
       <pubDate>${new Date(item.date).toUTCString()}</pubDate>
-      <guid>https://lokmanbaturayefe.com${item.url}</guid>
+      <guid>https://lokmanefe.com${item.url}</guid>
     </item>`;
       })
       .join("")}

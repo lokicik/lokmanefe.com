@@ -2,11 +2,11 @@
   "redirects": [
     {
       "source": "/(.*)",
-      "destination": "https://www.lokmanbaturayefe.com/$1",
+      "destination": "https://www.lokmanefe.com/$1",
       "has": [
         {
           "type": "host",
-          "value": "lokmanbaturayefe.com"
+          "value": "lokmanefe.com"
         }
       ],
       "permanent": true
