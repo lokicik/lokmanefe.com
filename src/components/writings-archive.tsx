@@ -3,14 +3,15 @@
 import Link from "next/link";
 import { useState } from "react";
 import { ChevronDown, ChevronRight, Calendar } from "lucide-react";
-import { MarkdownPost } from "@/lib/markdown-posts";
+import { MarkdownWriting } from "@/lib/markdown-writings";
 import { formatDate } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
 
-interface BlogArchiveProps {
-  archive: { [year: string]: { [month: string]: MarkdownPost[] } };
+interface WritingsArchiveProps {
+  archive: { [year: string]: { [month: string]: MarkdownWriting[] } };
 }
 
-export function BlogArchive({ archive }: BlogArchiveProps) {
+export function WritingsArchive({ archive }: WritingsArchiveProps) {
   const [expandedYears, setExpandedYears] = useState<Set<string>>(new Set());
 
   const years = Object.keys(archive).sort((a, b) => parseInt(b) - parseInt(a));
@@ -29,7 +30,7 @@ export function BlogArchive({ archive }: BlogArchiveProps) {
     return (
       <div className="text-center py-8">
         <Calendar className="h-12 w-12 mx-auto text-muted-foreground/50 mb-4" />
-        <p className="text-muted-foreground">No posts found.</p>
+        <p className="text-muted-foreground">No writings found.</p>
       </div>
     );
   }
@@ -59,7 +60,7 @@ export function BlogArchive({ archive }: BlogArchiveProps) {
             return monthOrder.indexOf(b) - monthOrder.indexOf(a);
           });
 
-          const totalPosts = months.reduce(
+          const totalWritings = months.reduce(
             (sum, month) => sum + archive[year][month].length,
             0
           );
@@ -79,7 +80,7 @@ export function BlogArchive({ archive }: BlogArchiveProps) {
                   <h3 className="text-lg font-semibold">{year}</h3>
                 </div>
                 <span className="text-sm text-muted-foreground">
-                  {totalPosts} post{totalPosts !== 1 ? "s" : ""}
+                  {totalWritings} writing{totalWritings !== 1 ? "s" : ""}
                 </span>
               </button>
 
@@ -91,43 +92,38 @@ export function BlogArchive({ archive }: BlogArchiveProps) {
                         {month} {year}
                       </h4>
                       <div className="space-y-2">
-                        {archive[year][month].map((post) => (
+                        {archive[year][month].map((writing) => (
                           <Link
-                            key={post.slug}
-                            href={`/blog/${post.slug}`}
+                            key={writing.slug}
+                            href={`/writings/${writing.slug}`}
                             className="block group"
                           >
                             <div className="flex items-start justify-between gap-4 p-2 rounded hover:bg-muted/30 transition-colors">
                               <div className="flex-1 min-w-0">
                                 <h5 className="font-medium group-hover:text-primary transition-colors line-clamp-2">
-                                  {post.title}
+                                  {writing.title}
                                 </h5>
-                                {post.excerpt && (
-                                  <p className="text-sm text-muted-foreground mt-1 line-clamp-1">
-                                    {post.excerpt}
-                                  </p>
-                                )}
-                                {post.tags && post.tags.length > 0 && (
-                                  <div className="flex flex-wrap gap-1 mt-2">
-                                    {post.tags.slice(0, 3).map((tag) => (
-                                      <span
-                                        key={tag}
-                                        className="bg-muted/70 text-muted-foreground px-2 py-0.5 rounded text-xs"
-                                      >
-                                        {tag}
-                                      </span>
-                                    ))}
-                                    {post.tags.length > 3 && (
-                                      <span className="text-xs text-muted-foreground">
-                                        +{post.tags.length - 3} more
-                                      </span>
-                                    )}
-                                  </div>
-                                )}
+                                <div className="flex items-center gap-2 mt-2">
+                                  <Badge
+                                    variant={
+                                      writing.type === "article"
+                                        ? "default"
+                                        : "secondary"
+                                    }
+                                    className="capitalize text-xs"
+                                  >
+                                    {writing.type}
+                                  </Badge>
+                                  {writing.excerpt && (
+                                    <p className="text-sm text-muted-foreground line-clamp-1">
+                                      {writing.excerpt}
+                                    </p>
+                                  )}
+                                </div>
                               </div>
                               <div className="flex flex-col items-end text-xs text-muted-foreground space-y-1 flex-shrink-0">
-                                <time>{formatDate(post.date)}</time>
-                                <span>{post.readingTime} min read</span>
+                                <time>{formatDate(writing.date)}</time>
+                                <span>{writing.readingTime} min read</span>
                               </div>
                             </div>
                           </Link>

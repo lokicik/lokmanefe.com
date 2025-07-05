@@ -5,7 +5,9 @@ import { remark } from "remark";
 import html from "remark-html";
 import remarkGfm from "remark-gfm";
 
-export type MarkdownPost = {
+export type WritingType = "article" | "story";
+
+export type MarkdownWriting = {
   slug: string;
   title: string;
   date: string;
@@ -18,6 +20,7 @@ export type MarkdownPost = {
   updatedAt: Date;
   readingTime: number; // in minutes
   wordCount: number;
+  type: WritingType;
 };
 
 export type CombinedPost = {
@@ -36,7 +39,7 @@ export type CombinedPost = {
   wordCount?: number;
 };
 
-const postsDirectory = path.join(process.cwd(), "content/posts");
+const writingsDirectory = path.join(process.cwd(), "content/writings");
 
 // Calculate reading time based on word count
 function calculateReadingTime(content: string): {
@@ -65,7 +68,7 @@ function calculateReadingTime(content: string): {
 }
 
 // Get all unique tags from posts
-export function getAllTags(posts: MarkdownPost[]): string[] {
+export function getAllTags(posts: MarkdownWriting[]): string[] {
   const tagSet = new Set<string>();
   posts.forEach((post) => {
     if (post.tags) {
@@ -76,10 +79,11 @@ export function getAllTags(posts: MarkdownPost[]): string[] {
 }
 
 // Get posts grouped by year and month for archive
-export function getPostsArchive(posts: MarkdownPost[]): {
-  [year: string]: { [month: string]: MarkdownPost[] };
+export function getWritingsArchive(posts: MarkdownWriting[]): {
+  [year: string]: { [month: string]: MarkdownWriting[] };
 } {
-  const archive: { [year: string]: { [month: string]: MarkdownPost[] } } = {};
+  const archive: { [year: string]: { [month: string]: MarkdownWriting[] } } =
+    {};
 
   posts.forEach((post) => {
     const year = post.createdAt.getFullYear().toString();
@@ -95,11 +99,11 @@ export function getPostsArchive(posts: MarkdownPost[]): {
 }
 
 // Find related posts based on tags
-export function getRelatedPosts(
-  currentPost: MarkdownPost,
-  allPosts: MarkdownPost[],
+export function getRelatedWritings(
+  currentPost: MarkdownWriting,
+  allPosts: MarkdownWriting[],
   limit: number = 3
-): MarkdownPost[] {
+): MarkdownWriting[] {
   if (!currentPost.tags || currentPost.tags.length === 0) {
     return [];
   }
@@ -131,20 +135,23 @@ export function getRelatedPosts(
     .map((item) => item.post);
 }
 
-export async function getMarkdownPosts(): Promise<MarkdownPost[]> {
+async function getMarkdownFiles(
+  directory: string,
+  type: WritingType
+): Promise<MarkdownWriting[]> {
   try {
-    // Check if posts directory exists
-    if (!fs.existsSync(postsDirectory)) {
+    // Check if directory exists
+    if (!fs.existsSync(directory)) {
       return [];
     }
 
-    const fileNames = fs.readdirSync(postsDirectory);
+    const fileNames = fs.readdirSync(directory);
     const markdownFiles = fileNames.filter((name) => name.endsWith(".md"));
 
-    const posts: MarkdownPost[] = [];
+    const writings: MarkdownWriting[] = [];
 
     for (const fileName of markdownFiles) {
-      const fullPath = path.join(postsDirectory, fileName);
+      const fullPath = path.join(directory, fileName);
       const fileContents = fs.readFileSync(fullPath, "utf8");
       const { data, content } = matter(fileContents);
 
@@ -157,7 +164,7 @@ export async function getMarkdownPosts(): Promise<MarkdownPost[]> {
       // Calculate reading time and word count
       const { readingTime, wordCount } = calculateReadingTime(content);
 
-      posts.push({
+      writings.push({
         slug,
         title: data.title || slug,
         date: data.date || stats.birthtime.toISOString().split("T")[0],
@@ -170,27 +177,57 @@ export async function getMarkdownPosts(): Promise<MarkdownPost[]> {
         updatedAt: stats.mtime,
         readingTime,
         wordCount,
+        type,
       });
     }
 
-    // Sort by date (newest first)
-    return posts.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+    return writings;
   } catch (error) {
-    console.error("Error reading markdown posts:", error);
+    console.error(`Error reading markdown ${type}s:`, error);
     return [];
   }
 }
 
-export async function getMarkdownPostBySlug(
+export async function getWritings(): Promise<MarkdownWriting[]> {
+  const articles = await getMarkdownFiles(
+    path.join(writingsDirectory, "articles"),
+    "article"
+  );
+  const stories = await getMarkdownFiles(
+    path.join(writingsDirectory, "stories"),
+    "story"
+  );
+
+  const allWritings = [...articles, ...stories];
+
+  // Sort by date (newest first)
+  return allWritings.sort(
+    (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
+  );
+}
+
+export async function getWritingBySlug(
   slug: string
-): Promise<MarkdownPost | null> {
+): Promise<MarkdownWriting | null> {
+  const articlesPath = path.join(writingsDirectory, "articles", `${slug}.md`);
+  const storiesPath = path.join(writingsDirectory, "stories", `${slug}.md`);
+
+  let fullPath: string | null = null;
+  let type: WritingType | null = null;
+
+  if (fs.existsSync(articlesPath)) {
+    fullPath = articlesPath;
+    type = "article";
+  } else if (fs.existsSync(storiesPath)) {
+    fullPath = storiesPath;
+    type = "story";
+  }
+
+  if (!fullPath || !type) {
+    return null;
+  }
+
   try {
-    const fullPath = path.join(postsDirectory, `${slug}.md`);
-
-    if (!fs.existsSync(fullPath)) {
-      return null;
-    }
-
     const fileContents = fs.readFileSync(fullPath, "utf8");
     const { data, content } = matter(fileContents);
     const stats = fs.statSync(fullPath);
@@ -211,9 +248,10 @@ export async function getMarkdownPostBySlug(
       updatedAt: stats.mtime,
       readingTime,
       wordCount,
+      type,
     };
   } catch (error) {
-    console.error("Error reading markdown post:", error);
+    console.error(`Error reading markdown writing by slug ${slug}:`, error);
     return null;
   }
 }

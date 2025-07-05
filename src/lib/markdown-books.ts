@@ -182,8 +182,21 @@ export async function getBooks(): Promise<Book[]> {
       });
     }
 
-    // Sort by update date (most recently updated first)
-    return books.sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime());
+    // Sort by date: completed books by completion date, others by start date
+    return books.sort((a, b) => {
+      const dateA = a.status === "completed" ? a.completedDate : a.startDate;
+      const dateB = b.status === "completed" ? b.completedDate : b.startDate;
+
+      const timeA = dateA ? new Date(dateA).getTime() : 0;
+      const timeB = dateB ? new Date(dateB).getTime() : 0;
+
+      // Fallback to createdAt if dates are not available
+      if (timeA === 0 && timeB === 0) {
+        return b.createdAt.getTime() - a.createdAt.getTime();
+      }
+
+      return timeB - timeA;
+    });
   } catch (error) {
     console.error("Error reading books:", error);
     return [];

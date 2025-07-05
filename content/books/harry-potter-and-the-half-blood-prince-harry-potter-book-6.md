@@ -1,13 +1,13 @@
 ---
-title: 'Harry Potter and the Half-Blood Prince (Harry Potter, Book 6)'
+title: "Harry Potter and the Half-Blood Prince"
 author: J. K. Rowling
-isbn: '1338878972'
-publicationDate: '2023-05-02'
+isbn: "1338878972"
+publicationDate: "2023-05-02"
 pageCount: 596
 status: completed
 rating: null
 startDate: null
-completionDate: '2021'
+completionDate: "2021"
 coverImage: >-
   http://books.google.com/books/content?id=74NMzwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
 tags:

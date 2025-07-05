@@ -1,5 +1,5 @@
 ---
-title: "Harry Potter and the Philosopher's Stone (Harry Potter, Book 1)"
+title: "Harry Potter and the Philosopher's Stone"
 author: J. K. Rowling
 isbn: "1338878921"
 publicationDate: "2023-05-02"

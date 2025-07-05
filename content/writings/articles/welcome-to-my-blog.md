@@ -42,6 +42,6 @@ I'm currently working on:
 
 ## Get in Touch
 
-Feel free to reach out to me at [lokman@lokmanefe.com](mailto:lokman@lokmanefe.com) or connect with me on [GitHub](https://github.com/lokmanbefe).
+Feel free to reach out to me at [lokman@lokmanefe.com](mailto:lokman@lokmanefe.com) or connect with me on [GitHub](https://github.com/lokicik).
 
 Thanks for reading!

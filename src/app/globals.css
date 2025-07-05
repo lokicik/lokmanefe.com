@@ -233,6 +233,10 @@
     @apply bg-background text-foreground;
     font-display: swap; /* Prevent font loading layout shifts */
   }
+
+  body[data-radix-scroll-area-viewport] {
+    padding-right: 0 !important;
+  }
 }
 
 /* --- Notion-style prose tweaks --- */
@@ -364,4 +368,23 @@ html.soft-dark .decorative-svg,
 html.blue .decorative-svg {
   filter: brightness(0) invert(1) !important; /* makes them white */
   opacity: 0.4 !important; /* ensure visibility */
+}
+
+/* Custom font styles */
+.font-inter {
+  font-family: "Inter", sans-serif;
+}
+.font-lora {
+  font-family: "Lora", serif;
+}
+.font-work-sans {
+  font-family: "Work Sans", sans-serif;
+}
+
+/* Prose customizations */
+.prose-lg {
+  font-size: 1.125rem;
+}
+.prose-xl {
+  font-size: 1.25rem;
 }

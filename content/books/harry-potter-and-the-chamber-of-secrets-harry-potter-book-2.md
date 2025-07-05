@@ -1,13 +1,13 @@
 ---
-title: 'Harry Potter and the Chamber of Secrets (Harry Potter, Book 2)'
+title: "Harry Potter and the Chamber of Secrets"
 author: J. K. Rowling
 isbn: 133887893X
-publicationDate: '2023-05-02'
+publicationDate: "2023-05-02"
 pageCount: 316
 status: completed
 rating: null
 startDate: null
-completionDate: '2021'
+completionDate: "2021"
 coverImage: >-
   http://books.google.com/books/content?id=LnFMzwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api
 tags:

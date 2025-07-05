@@ -51,7 +51,7 @@ export default function Home() {
           </a>
           <br />
           <a
-            href="https://github.com/lokmanbefe"
+            href="https://github.com/lokicik"
             className="text-primary hover:underline"
           >
             GitHub
@@ -69,6 +69,13 @@ export default function Home() {
             className="text-primary hover:underline"
           >
             LeetCode
+          </a>{" "}
+          |{" "}
+          <a
+            href="https://kaggle.com/lokmanefe/"
+            className="text-primary hover:underline"
+          >
+            Kaggle
           </a>
         </p>
       </section>
@@ -82,7 +89,7 @@ export default function Home() {
         <ul className="space-y-3 text-muted-foreground mb-6">
           <li>
             <a
-              href="https://github.com/lokmanbefe/eyedoro"
+              href="https://github.com/lokicik/eyedoro"
               className="text-primary hover:underline font-medium"
             >
               Eyedoro
@@ -91,7 +98,7 @@ export default function Home() {
           </li>
           <li>
             <a
-              href="https://github.com/lokmanbefe/gochop"
+              href="https://github.com/lokicik/gochop"
               className="text-primary hover:underline font-medium"
             >
               GoChop

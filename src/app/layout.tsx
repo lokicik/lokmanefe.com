@@ -108,7 +108,7 @@ export default function RootLayout({
                   <div>
                     Built with ❤️ by{" "}
                     <a
-                      href="https://github.com/lokmanbefe"
+                      href="https://github.com/lokicik"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="font-medium text-foreground hover:text-primary transition-colors"
@@ -120,7 +120,7 @@ export default function RootLayout({
                     <span>© 2025</span>
                     <span>•</span>
                     <a
-                      href="https://github.com/lokmanbefe/lokmanefe.com"
+                      href="https://github.com/lokicik/lokmanefe.com"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:text-primary transition-colors"

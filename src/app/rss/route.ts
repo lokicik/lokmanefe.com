@@ -1,8 +1,11 @@
-import { getMarkdownPosts, type MarkdownPost } from "@/lib/markdown-posts";
+import {
+  getWritings as getMarkdownPosts,
+  type MarkdownWriting as MarkdownPost,
+} from "@/lib/markdown-writings";
 import { getBooks, type Book } from "@/lib/markdown-books";
 
-type BlogItem = MarkdownPost & { type: "blog"; url: string };
-type BookItem = Book & { type: "book"; url: string; date: string };
+type BlogItem = MarkdownPost & { itemType: "blog"; url: string };
+type BookItem = Book & { itemType: "book"; url: string; date: string };
 type RSSItem = BlogItem | BookItem;
 
 export async function GET() {
@@ -12,14 +15,14 @@ export async function GET() {
   const allItems: RSSItem[] = [
     ...posts.map(
       (post: MarkdownPost): BlogItem => ({
-        type: "blog",
+        itemType: "blog",
         ...post,
         url: `/blog/${post.slug}`,
       })
     ),
     ...books.map(
       (book: Book): BookItem => ({
-        type: "book",
+        itemType: "book",
         ...book,
         url: `/reading/${book.slug}`,
         date: book.completedDate || book.updatedAt.toISOString().split("T")[0],
@@ -38,9 +41,10 @@ export async function GET() {
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     ${allItems
       .map((item) => {
-        const title = item.type === "blog" ? item.title : `📚 ${item.title}`;
+        const title =
+          item.itemType === "blog" ? item.title : `📚 ${item.title}`;
         const description =
-          item.type === "blog"
+          item.itemType === "blog"
             ? item.excerpt || "No excerpt available"
             : `Rating: ${item.rating || "N/A"}/5 - ${
                 item.description || "No description available"

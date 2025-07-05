@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { X, ZoomIn, ZoomOut, RotateCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 interface ImageLightboxProps {
   isOpen: boolean;
@@ -126,17 +127,20 @@ export function ImageLightbox({
 
       {/* Image container */}
       <div
-        className="max-w-full max-h-full overflow-hidden flex items-center justify-center"
+        className="relative max-w-full max-h-full overflow-hidden flex items-center justify-center"
         onClick={(e) => e.stopPropagation()}
       >
-        <img
+        <Image
           src={imageSrc}
           alt={imageAlt}
-          className="max-w-full max-h-full object-contain transition-transform duration-200 ease-in-out"
+          fill
+          sizes="(max-width: 1024px) 100vw, 1024px"
+          className="object-contain transition-transform duration-200 ease-in-out"
           style={{
             transform: `scale(${scale}) rotate(${rotation}deg)`,
           }}
           draggable={false}
+          priority
         />
       </div>
 

@@ -34,10 +34,10 @@ export function Navigation() {
                 Home
               </Link>
               <Link
-                href="/blog"
+                href="/writings"
                 className="text-sm font-medium transition-colors hover:text-primary"
               >
-                Blog
+                Writings
               </Link>
               <Link
                 href="/reading"
@@ -91,11 +91,11 @@ export function Navigation() {
                 Home
               </Link>
               <Link
-                href="/blog"
+                href="/writings"
                 className="block px-3 py-2 text-base font-medium transition-colors hover:text-primary hover:bg-muted rounded-md"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Blog
+                Writings
               </Link>
               <Link
                 href="/reading"

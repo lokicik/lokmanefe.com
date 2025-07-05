@@ -4,11 +4,10 @@ author: Isaac Asimov
 isbn: "9780553293371"
 publicationDate: "1952-05-01"
 pageCount: 284
-currentPage: 12
-status: currently-reading
-rating: null
+status: completed
+rating: 5
 startDate: "2025-06-25"
-completionDate: null
+completionDate: "2025-07-05"
 coverImage: >-
   https://upload.wikimedia.org/wikipedia/en/c/c2/Foundation_and_empire.jpg
 tags:
@@ -25,4 +24,4 @@ Filled with nail-biting suspense, nonstop action, and cutting-edge speculation, 
 
 ## My Take
 
-_Notes and thoughts will be added when I read this book._
+the wind that started with the first book kept sweeping me along throughout this one as well. The theme remained the same, and there were quite a few time skips again. I really liked how the appearance of the Mule character plunged the entire galaxy into chaos (I also think his identity was easily predictable). Until now, things had been going too well for the First Foundation. Also, I don’t think Hari Seldon was wrong in his fourth appearance in the Time Vault, we’ll probably understand it better later on in the third book where we learn about the Second Foundation

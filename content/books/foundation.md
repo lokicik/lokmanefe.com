@@ -26,4 +26,4 @@ But soon the fledgling Foundation finds itself at the mercy of corrupt warlords 
 
 This gives so much Dune vibe! I might start writing a "post-galactic-transportation human empires book" myself. There were so many time cuts that I couldn't really get attached to any character, but my favorites are Salvor Hardin and Hober Mallow.
 
-**Rating: 4.7/5** - Completed in one day on June 25, 2025.
+**Rating: 4/5** - Completed in one day on June 25, 2025.

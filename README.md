@@ -75,7 +75,7 @@ A comprehensive personal website showcasing projects, technical writing, and rea
 
 ```bash
 # Clone the repository
-git clone https://github.com/lokmanbefe/lokmanefe.com.git
+git clone https://github.com/lokicik/lokmanefe.com.git
 cd lokmanefe.com
 
 # Install dependencies
@@ -271,6 +271,6 @@ MIT License - See [LICENSE](LICENSE) for details.
 
 ---
 
-**Built with ❤️ by [Lokman Efe](https://github.com/lokmanbefe)**
+**Built with ❤️ by [Lokman Efe](https://github.com/lokicik)**
 
 _If you found this portfolio inspiring, feel free to star ⭐ the repository!_

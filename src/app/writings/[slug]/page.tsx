@@ -1,44 +1,47 @@
 import { notFound } from "next/navigation";
 import {
-  getMarkdownPostBySlug,
-  getMarkdownPosts,
+  getWritingBySlug,
+  getWritings,
   renderMarkdownContent,
-} from "@/lib/markdown-posts";
+} from "@/lib/markdown-writings";
 import { formatDate } from "@/lib/utils";
 import { SocialShare } from "@/components/social-share";
-import { RelatedPosts } from "@/components/related-posts";
-import { BlogPostContent } from "@/components/blog-post-content";
+import { RelatedWritings } from "@/components/related-writings";
+import { WritingContent } from "@/components/writing-content";
 import { Clock, Calendar } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
-export default async function BlogPost({ params }: Props) {
+export default async function WritingPage({ params }: Props) {
   const { slug } = await params;
-  const post = await getMarkdownPostBySlug(slug);
+  const writing = await getWritingBySlug(slug);
 
-  if (!post || !post.published) {
+  if (!writing || !writing.published) {
     notFound();
   }
 
-  // Get all posts for related posts functionality
-  const allPosts = await getMarkdownPosts();
+  // Get all writings for related writings functionality
+  const allWritings = await getWritings();
 
-  const renderedContent = await renderMarkdownContent(post.content);
+  const renderedContent = await renderMarkdownContent(writing.content);
 
   if (!renderedContent || typeof renderedContent !== "string") {
     return (
       <div className="max-w-4xl mx-auto text-center py-12">
         <h1 className="text-2xl font-bold mb-4">Error</h1>
-        <p className="text-muted-foreground">Failed to render post content.</p>
+        <p className="text-muted-foreground">
+          Failed to render writing content.
+        </p>
       </div>
     );
   }
 
   // Get the full URL for sharing
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://lokmanefe.com";
-  const postUrl = `${baseUrl}/blog/${post.slug}`;
+  const writingUrl = `${baseUrl}/writings/${writing.slug}`;
 
   return (
     <article className="max-w-4xl mx-auto">
@@ -46,33 +49,39 @@ export default async function BlogPost({ params }: Props) {
       <header className="mb-12 text-center">
         <div className="mb-4">
           <div className="flex items-center justify-center gap-4 text-sm text-muted-foreground mb-2">
+            <Badge
+              variant={writing.type === "article" ? "default" : "secondary"}
+              className="capitalize"
+            >
+              {writing.type}
+            </Badge>
             <div className="flex items-center gap-1">
               <Calendar className="h-4 w-4" />
-              <time>Published {formatDate(post.date)}</time>
+              <time>Published {formatDate(writing.date)}</time>
             </div>
             <div className="flex items-center gap-1">
               <Clock className="h-4 w-4" />
-              <span>{post.readingTime} min read</span>
+              <span>{writing.readingTime} min read</span>
             </div>
-            {post.wordCount && (
-              <span>{post.wordCount.toLocaleString()} words</span>
+            {writing.wordCount && (
+              <span>{writing.wordCount.toLocaleString()} words</span>
             )}
           </div>
         </div>
 
         <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-          {post.title}
+          {writing.title}
         </h1>
 
-        {post.excerpt && (
+        {writing.excerpt && (
           <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto mb-6">
-            {post.excerpt}
+            {writing.excerpt}
           </p>
         )}
 
-        {post.tags && post.tags.length > 0 && (
+        {writing.tags && writing.tags.length > 0 && (
           <div className="flex flex-wrap gap-2 justify-center mb-6">
-            {post.tags.map((tag) => (
+            {writing.tags.map((tag) => (
               <span
                 key={tag}
                 className="bg-muted/50 text-muted-foreground px-3 py-1 rounded-full text-sm font-medium"
@@ -86,15 +95,15 @@ export default async function BlogPost({ params }: Props) {
         {/* Social sharing */}
         <div className="flex justify-center">
           <SocialShare
-            title={post.title}
-            url={postUrl}
-            description={post.excerpt}
+            title={writing.title}
+            url={writingUrl}
+            description={writing.excerpt}
           />
         </div>
       </header>
 
       {/* Content with enhanced features */}
-      <BlogPostContent content={renderedContent} showComments={true} />
+      <WritingContent content={renderedContent} showComments={true} />
 
       {/* Footer actions */}
       <footer className="mt-12 pt-8 border-t">
@@ -103,15 +112,15 @@ export default async function BlogPost({ params }: Props) {
             <p>Was this helpful? Share it with others!</p>
           </div>
           <SocialShare
-            title={post.title}
-            url={postUrl}
-            description={post.excerpt}
+            title={writing.title}
+            url={writingUrl}
+            description={writing.excerpt}
           />
         </div>
       </footer>
 
       {/* Related Posts */}
-      <RelatedPosts currentPost={post} allPosts={allPosts} />
+      <RelatedWritings currentWriting={writing} allWritings={allWritings} />
     </article>
   );
 }

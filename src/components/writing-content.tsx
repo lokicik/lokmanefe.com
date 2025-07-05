@@ -4,17 +4,17 @@ import {
   ImageLightbox,
   useBlogImageLightbox,
 } from "@/components/image-lightbox";
-import { BlogComments } from "@/components/giscus-comments";
+import { WritingComments } from "@/components/giscus-comments";
 
-interface BlogPostContentProps {
+interface WritingContentProps {
   content: string;
   showComments?: boolean;
 }
 
-export function BlogPostContent({
+export function WritingContent({
   content,
   showComments = true,
-}: BlogPostContentProps) {
+}: WritingContentProps) {
   const { isOpen, imageSrc, imageAlt, closeLightbox } = useBlogImageLightbox();
 
   return (
@@ -34,7 +34,7 @@ export function BlogPostContent({
       />
 
       {/* Comments */}
-      {showComments && <BlogComments />}
+      {showComments && <WritingComments />}
     </>
   );
 }

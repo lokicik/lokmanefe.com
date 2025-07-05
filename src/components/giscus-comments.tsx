@@ -146,13 +146,13 @@ export function GiscusComments({
   );
 }
 
-// Blog comments component with your actual repository configuration
-export function BlogComments() {
+// Writings comments component with your actual repository configuration
+export function WritingComments() {
   // Your actual GitHub repository configuration
   const GISCUS_CONFIG = {
-    repo: "lokmanbefe/lokmanefe.com", // Your repository
+    repo: "lokicik/lokmanefe.com", // Your repository
     repoId: "R_kgDONOXVwQ", // Your repo ID
-    category: "Blog Comments", // Your category name
+    category: "Writings", // Your category name for writings
     categoryId: "DIC_kwDONOXVwc4Crhvw", // Your category ID
   };
 

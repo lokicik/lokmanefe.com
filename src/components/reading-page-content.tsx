@@ -1,18 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import type {
-  Book,
-  ReadingGoal,
-  ReadingStreak,
-  BookRecommendation,
-  ReadingChallenge,
-} from "@/lib/markdown-books";
+import { useState, useMemo } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import type { Book, ReadingGoal } from "@/lib/markdown-books";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+import { Search, ChevronDown } from "lucide-react";
 import Link from "next/link";
+import { formatDate } from "@/lib/utils";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 interface ReadingPageContentProps {
   books: Book[];
@@ -28,17 +29,7 @@ interface ReadingPageContentProps {
     didNotFinish: number;
   };
   goal: ReadingGoal;
-  streak: ReadingStreak;
   genreDistribution: { [genre: string]: number };
-  velocity: {
-    averagePagesPerDay: number;
-    averageCompletionTime: number;
-    fastestRead: { book: Book; days: number } | null;
-  };
-  recommendations: BookRecommendation[];
-  wishlistBooks: Book[];
-  currentProgress: number;
-  challenges: ReadingChallenge[];
 }
 
 export function ReadingPageContent({
@@ -46,31 +37,77 @@ export function ReadingPageContent({
   stats,
   goal,
   genreDistribution,
-  velocity,
 }: ReadingPageContentProps) {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedStatus, setSelectedStatus] =
-    useState<string>("currently-reading");
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const [isYearPopoverOpen, setIsYearPopoverOpen] = useState(false);
 
-  // Filter books based on search and status
-  const filteredBooks = books.filter((book) => {
-    const matchesSearch =
-      book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      book.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      book.tags.some((tag) =>
-        tag.toLowerCase().includes(searchTerm.toLowerCase())
+  const selectedStatus = searchParams.get("status") || "currently-reading";
+  const selectedYear = searchParams.get("year") || "all";
+
+  const handleStatusChange = (status: string) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("status", status);
+    router.push(`${pathname}?${params.toString()}`);
+  };
+
+  const handleYearChange = (year: string) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("year", year);
+    router.push(`${pathname}?${params.toString()}`);
+    setIsYearPopoverOpen(false);
+  };
+
+  const availableYears = useMemo(() => {
+    const years = new Set(
+      books
+        .map((book) => {
+          const date = book.completedDate || book.startDate;
+          return date ? new Date(date).getFullYear().toString() : null;
+        })
+        .filter((year): year is string => year !== null)
+    );
+    return ["all", ...Array.from(years).sort((a, b) => b.localeCompare(a))];
+  }, [books]);
+
+  const filteredBooks = useMemo(() => {
+    let result = books;
+
+    if (searchTerm) {
+      const lowercasedTerm = searchTerm.toLowerCase();
+      result = result.filter(
+        (book) =>
+          book.title.toLowerCase().includes(lowercasedTerm) ||
+          book.author.toLowerCase().includes(lowercasedTerm) ||
+          book.tags.some((tag) => tag.toLowerCase().includes(lowercasedTerm))
       );
+    }
 
-    const matchesStatus =
-      selectedStatus === "all" || book.status === selectedStatus;
+    if (selectedStatus !== "all") {
+      result = result.filter((book) => book.status === selectedStatus);
+    }
 
-    return matchesSearch && matchesStatus;
-  });
+    if (selectedYear !== "all") {
+      result = result.filter((book) => {
+        const date = book.completedDate || book.startDate;
+        return date
+          ? new Date(date).getFullYear().toString() === selectedYear
+          : false;
+      });
+    }
+
+    return result;
+  }, [books, searchTerm, selectedStatus, selectedYear]);
 
   const completedBooks = books.filter((book) => book.status === "completed");
   const currentlyReadingBooks = books.filter(
     (book) => book.status === "currently-reading"
   );
+
+  const formatShortDate = (date: string) =>
+    date.length === 4 ? date : formatDate(date);
 
   return (
     <div className="max-w-4xl mx-auto space-y-8">
@@ -143,15 +180,6 @@ export function ReadingPageContent({
               {Object.keys(genreDistribution).length}
             </strong>
           </p>
-          {velocity.fastestRead && (
-            <p>
-              Fastest read:{" "}
-              <strong className="text-foreground">
-                {velocity.fastestRead.book.title}
-              </strong>{" "}
-              in {velocity.fastestRead.days} days
-            </p>
-          )}
         </div>
       </section>
 
@@ -167,124 +195,146 @@ export function ReadingPageContent({
               className="pl-10"
             />
           </div>
-          <div className="flex gap-2 flex-wrap">
-            <Button
-              variant={selectedStatus === "all" ? "default" : "outline"}
-              size="sm"
-              onClick={() => setSelectedStatus("all")}
+          <div className="flex justify-between items-center">
+            <div className="flex gap-2 flex-wrap">
+              <Button
+                variant={selectedStatus === "all" ? "default" : "outline"}
+                size="sm"
+                onClick={() => handleStatusChange("all")}
+              >
+                All ({stats.totalBooks})
+              </Button>
+              <Button
+                variant={
+                  selectedStatus === "currently-reading" ? "default" : "outline"
+                }
+                size="sm"
+                onClick={() => handleStatusChange("currently-reading")}
+              >
+                Reading ({stats.currentlyReading})
+              </Button>
+              <Button
+                variant={selectedStatus === "completed" ? "default" : "outline"}
+                size="sm"
+                onClick={() => handleStatusChange("completed")}
+              >
+                Completed ({stats.completed})
+              </Button>
+              <Button
+                variant={
+                  selectedStatus === "want-to-read" ? "default" : "outline"
+                }
+                size="sm"
+                onClick={() => handleStatusChange("want-to-read")}
+              >
+                Want to Read ({stats.wantToRead})
+              </Button>
+            </div>
+
+            <Popover
+              open={isYearPopoverOpen}
+              onOpenChange={setIsYearPopoverOpen}
             >
-              All ({stats.totalBooks})
-            </Button>
-            <Button
-              variant={
-                selectedStatus === "currently-reading" ? "default" : "outline"
-              }
-              size="sm"
-              onClick={() => setSelectedStatus("currently-reading")}
-            >
-              Reading ({stats.currentlyReading})
-            </Button>
-            <Button
-              variant={selectedStatus === "completed" ? "default" : "outline"}
-              size="sm"
-              onClick={() => setSelectedStatus("completed")}
-            >
-              Completed ({stats.completed})
-            </Button>
-            <Button
-              variant={
-                selectedStatus === "want-to-read" ? "default" : "outline"
-              }
-              size="sm"
-              onClick={() => setSelectedStatus("want-to-read")}
-            >
-              Want to Read ({stats.wantToRead})
-            </Button>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="flex items-center gap-2"
+                >
+                  <span>
+                    {selectedYear === "all" ? "All Years" : selectedYear}
+                  </span>
+                  <ChevronDown className="h-4 w-4" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent align="end" className="w-36 p-1">
+                <div className="space-y-1">
+                  {availableYears.map((year) => (
+                    <Button
+                      key={year}
+                      variant={selectedYear === year ? "secondary" : "ghost"}
+                      size="sm"
+                      onClick={() => handleYearChange(year)}
+                      className="w-full justify-start"
+                    >
+                      {year === "all" ? "All Years" : year}
+                    </Button>
+                  ))}
+                </div>
+              </PopoverContent>
+            </Popover>
           </div>
         </div>
       </section>
-
-      {/* Books List */}
+      {/* Library */}
       <section>
         <h2 className="text-2xl font-bold mb-4">Library</h2>
-        {filteredBooks.length === 0 ? (
-          <p className="text-muted-foreground">No books found.</p>
-        ) : (
+        {filteredBooks.length > 0 ? (
           <div className="space-y-6">
             {filteredBooks.map((book) => (
-              <div key={book.slug} className="space-y-2">
-                <div className="flex items-start justify-between">
-                  <div className="space-y-1">
+              <div key={book.slug}>
+                <div className="flex justify-between items-start">
+                  <div>
                     <Link
                       href={`/reading/${book.slug}`}
-                      className="text-xl font-semibold hover:text-primary transition-colors"
+                      className="text-lg font-semibold hover:text-primary transition-colors"
                     >
                       {book.title}
                     </Link>
-                    <p className="text-muted-foreground">by {book.author}</p>
+                    <p className="text-muted-foreground text-sm">
+                      by {book.author}
+                    </p>
                     {book.status === "currently-reading" &&
-                      book.currentPage && (
-                        <p className="text-sm text-muted-foreground">
+                      book.progress > 0 && (
+                        <p className="text-xs text-muted-foreground mt-1">
                           Page {book.currentPage} of {book.pages} (
-                          {Math.round((book.currentPage / book.pages) * 100)}%)
+                          {book.progress}
+                          %)
                         </p>
                       )}
-                    {book.status === "completed" && book.rating && (
-                      <p className="text-sm text-muted-foreground">
-                        Rating: {book.rating}/5 stars
-                      </p>
-                    )}
-                    {book.status === "completed" && book.completedDate && (
-                      <p className="text-sm text-muted-foreground">
-                        Completed:{" "}
-                        {book.completedDate.length === 4
-                          ? book.completedDate // Just show year if it's only 4 characters
-                          : new Date(book.completedDate).toLocaleDateString(
-                              "en-US",
-                              {
-                                year: "numeric",
-                                month: "short",
-                                day: "numeric",
-                              }
+                    {book.status === "completed"
+                      ? (book.startDate || book.completedDate) && (
+                          <p className="text-xs text-muted-foreground mt-1">
+                            {book.startDate && (
+                              <>Started: {formatShortDate(book.startDate)} </>
                             )}
-                      </p>
-                    )}
-                    {book.status === "completed" && !book.completedDate && (
-                      <p className="text-sm text-muted-foreground">
-                        Read previously
-                      </p>
-                    )}
-                    {book.status === "currently-reading" && book.startDate && (
-                      <p className="text-sm text-muted-foreground">
-                        Started:{" "}
-                        {new Date(book.startDate).toLocaleDateString("en-US", {
-                          year: "numeric",
-                          month: "short",
-                          day: "numeric",
-                        })}
-                      </p>
-                    )}
+                            {book.startDate && book.completedDate && " - "}
+                            {book.completedDate && (
+                              <>
+                                Completed: {formatShortDate(book.completedDate)}
+                              </>
+                            )}
+                          </p>
+                        )
+                      : book.startDate && (
+                          <p className="text-xs text-muted-foreground mt-1">
+                            Started: {formatShortDate(book.startDate)}
+                          </p>
+                        )}
                   </div>
-                  <div className="flex flex-col items-end gap-2">
+                  <div className="flex items-center gap-2 mt-1">
+                    {book.tags.map((tag) => (
+                      <Badge
+                        key={tag}
+                        variant="default"
+                        className="text-xs hidden sm:inline-block"
+                      >
+                        {tag}
+                      </Badge>
+                    ))}
                     <Badge variant={getStatusVariant(book.status)}>
                       {getStatusLabel(book.status)}
                     </Badge>
-                    {book.tags.length > 0 && (
-                      <div className="flex gap-1 flex-wrap">
-                        {book.tags.slice(0, 3).map((tag) => (
-                          <span
-                            key={tag}
-                            className="text-xs px-2 py-1 bg-muted rounded text-muted-foreground"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    )}
                   </div>
                 </div>
               </div>
             ))}
+          </div>
+        ) : (
+          <div className="text-center py-8">
+            <p className="text-muted-foreground">
+              No books match your criteria.
+            </p>
           </div>
         )}
       </section>
@@ -299,9 +349,9 @@ function getStatusVariant(
     case "currently-reading":
       return "default";
     case "completed":
-      return "secondary";
-    case "want-to-read":
-      return "outline";
+      return "default";
+    case "did-not-finish":
+      return "destructive";
     default:
       return "outline";
   }
@@ -320,6 +370,6 @@ function getStatusLabel(status: string): string {
     case "did-not-finish":
       return "DNF";
     default:
-      return status;
+      return "Unknown";
   }
 }

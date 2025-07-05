@@ -4,9 +4,10 @@ author: Isaac Asimov
 isbn: "9780553293388"
 publicationDate: "1953-05-01"
 pageCount: 264
-status: want-to-read
+status: currently-reading
 rating: null
-startDate: null
+currentPage: 35
+startDate: "2025-07-05"
 completionDate: null
 coverImage: >-
   https://upload.wikimedia.org/wikipedia/en/8/8f/Second_foundation.jpg
