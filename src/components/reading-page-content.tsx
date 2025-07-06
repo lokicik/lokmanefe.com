@@ -271,64 +271,71 @@ export function ReadingPageContent({
         <h2 className="text-2xl font-bold mb-4">Library</h2>
         {filteredBooks.length > 0 ? (
           <div className="space-y-6">
-            {filteredBooks.map((book) => (
-              <div key={book.slug}>
-                <div className="flex justify-between items-start">
-                  <div>
-                    <Link
-                      href={`/reading/${book.slug}`}
-                      className="text-lg font-semibold hover:text-primary transition-colors"
-                    >
-                      {book.title}
-                    </Link>
-                    <p className="text-muted-foreground text-sm">
-                      by {book.author}
-                    </p>
-                    {book.status === "currently-reading" &&
-                      book.progress > 0 && (
-                        <p className="text-xs text-muted-foreground mt-1">
-                          Page {book.currentPage} of {book.pages} (
-                          {book.progress}
-                          %)
-                        </p>
-                      )}
-                    {book.status === "completed"
-                      ? (book.startDate || book.completedDate) && (
+            {filteredBooks.map((book) => {
+              const backUrl = `${pathname}?${searchParams.toString()}`;
+              const href = `/reading/${book.slug}?back=${encodeURIComponent(
+                backUrl
+              )}`;
+              return (
+                <div key={book.slug}>
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <Link
+                        href={href}
+                        className="text-lg font-semibold hover:text-primary transition-colors"
+                      >
+                        {book.title}
+                      </Link>
+                      <p className="text-muted-foreground text-sm">
+                        by {book.author}
+                      </p>
+                      {book.status === "currently-reading" &&
+                        book.progress > 0 && (
                           <p className="text-xs text-muted-foreground mt-1">
-                            {book.startDate && (
-                              <>Started: {formatShortDate(book.startDate)} </>
-                            )}
-                            {book.startDate && book.completedDate && " - "}
-                            {book.completedDate && (
-                              <>
-                                Completed: {formatShortDate(book.completedDate)}
-                              </>
-                            )}
-                          </p>
-                        )
-                      : book.startDate && (
-                          <p className="text-xs text-muted-foreground mt-1">
-                            Started: {formatShortDate(book.startDate)}
+                            Page {book.currentPage} of {book.pages} (
+                            {book.progress}
+                            %)
                           </p>
                         )}
-                  </div>
-                  <div className="flex items-center gap-2 mt-1">
-                    {book.tags.map((tag) => (
-                      <Badge
-                        key={tag}
-                        variant="default"
-                        className="text-xs hidden sm:inline-block"
-                      >
-                        {tag}
+                      {book.status === "completed"
+                        ? (book.startDate || book.completedDate) && (
+                            <p className="text-xs text-muted-foreground mt-1">
+                              {book.startDate && (
+                                <>Started: {formatShortDate(book.startDate)} </>
+                              )}
+                              {book.startDate && book.completedDate && " - "}
+                              {book.completedDate && (
+                                <>
+                                  Completed:{" "}
+                                  {formatShortDate(book.completedDate)}
+                                </>
+                              )}
+                            </p>
+                          )
+                        : book.startDate && (
+                            <p className="text-xs text-muted-foreground mt-1">
+                              Started: {formatShortDate(book.startDate)}
+                            </p>
+                          )}
+                    </div>
+                    <div className="flex items-center gap-2 mt-1">
+                      {book.tags.map((tag) => (
+                        <Badge
+                          key={tag}
+                          variant="default"
+                          className="text-xs hidden sm:inline-block"
+                        >
+                          {tag}
+                        </Badge>
+                      ))}
+                      <Badge variant={getStatusVariant(book.status)}>
+                        {getStatusLabel(book.status)}
                       </Badge>
-                    ))}
-                    <Badge variant={getStatusVariant(book.status)}>
-                      {getStatusLabel(book.status)}
-                    </Badge>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         ) : (
           <div className="text-center py-8">

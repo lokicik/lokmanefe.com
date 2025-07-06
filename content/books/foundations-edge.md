@@ -4,7 +4,8 @@ author: Isaac Asimov
 isbn: "9780553293395"
 publicationDate: "1982-10-01"
 pageCount: 496
-status: want-to-read
+currentPage: 32
+status: "currently-reading"
 rating: null
 startDate: null
 completionDate: null

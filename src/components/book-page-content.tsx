@@ -1,5 +1,6 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import { Book } from "@/lib/markdown-books";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
@@ -14,11 +15,14 @@ type Props = {
 };
 
 export function BookPageContent({ book, content }: Props) {
+  const searchParams = useSearchParams();
+  const backUrl = searchParams.get("back");
+
   return (
     <div className="max-w-4xl mx-auto space-y-8">
       {/* Header */}
       <div className="space-y-4">
-        <Link href="/reading">
+        <Link href={backUrl || "/reading"}>
           <Button variant="ghost" size="sm" className="mb-4">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Reading
@@ -126,9 +130,11 @@ export function BookPageContent({ book, content }: Props) {
                       })}
                 </div>
               )}
-              {!book.completedDate && !book.startDate && (
-                <div className="text-muted-foreground">Read previously</div>
-              )}
+              {!book.completedDate &&
+                !book.startDate &&
+                book.status !== "want-to-read" && (
+                  <div className="text-muted-foreground">Read previously</div>
+                )}
             </div>
 
             {/* Tags */}

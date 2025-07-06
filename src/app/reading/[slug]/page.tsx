@@ -8,6 +8,7 @@ import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
 import remarkGfm from "remark-gfm";
+import { Suspense } from "react";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -64,5 +65,9 @@ export default async function BookPage({ params }: Props) {
     renderedContent = processedContent.toString();
   }
 
-  return <BookPageContent book={book} content={renderedContent} />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <BookPageContent book={book} content={renderedContent} />
+    </Suspense>
+  );
 }

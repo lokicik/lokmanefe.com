@@ -4,11 +4,10 @@ author: Isaac Asimov
 isbn: "9780553293388"
 publicationDate: "1953-05-01"
 pageCount: 264
-status: currently-reading
-rating: null
-currentPage: 35
+status: completed
+rating: 5
 startDate: "2025-07-05"
-completionDate: null
+completionDate: "2025-07-06"
 coverImage: >-
   https://upload.wikimedia.org/wikipedia/en/8/8f/Second_foundation.jpg
 tags:
@@ -27,4 +26,4 @@ In this stunning conclusion to the original Foundation Trilogy, Isaac Asimov sho
 
 ## My Take
 
-_Notes and thoughts will be added when I read this book._
+the plot twists continue to amaze me, asimov is my favorite person in the entire cosmos rn, the second foundation gives off bene gesserit vibes from dune, which is very intriguing
