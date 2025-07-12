@@ -42,6 +42,21 @@ interface Project {
 
 const projects: Project[] = [
   {
+    id: "geoip-explorer",
+    title: "GeoIP Explorer",
+    description:
+      "An advanced IP tracking and geolocation application built with Vue 3 and Leaflet",
+    longDescription:
+      "GeoIP Explorer is an advanced IP tracking and geolocation application featuring real-time IP location mapping, distance measurements, custom markers, weather information, and more. Built with Vue 3, TypeScript, and Leaflet with a tactical/military theme, it includes multiple map modes, marker systems, analytics, and export options.",
+    category: "Web",
+    technologies: ["Vue.js", "TypeScript", "Leaflet", "Pinia", "Vite"],
+    githubUrl: "https://github.com/lokicik/geoip-explorer",
+    liveUrl: "https://geoip-explorer-lokmanefe.netlify.app/",
+    imageUrl: "/projects/geoip_1.jpg",
+    featured: true,
+    year: 2025,
+  },
+  {
     id: "saaskit",
     title: "SaaS Kit",
     description: "A SaaS template with Next.js 15",
