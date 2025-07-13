@@ -14,6 +14,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SideSvgs } from "@/components/side-svgs";
 import { Github } from "lucide-react";
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://lokmanefe.com";
+
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -34,7 +36,11 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Lokman Efe",
+  metadataBase: new URL(baseUrl),
+  title: {
+    default: "Lokman Efe",
+    template: "%s | Lokman Efe",
+  },
   description: "Software developer portfolio and personal blog",
   keywords: [
     "developer",
@@ -51,15 +57,25 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://lokmanefe.com",
+    url: baseUrl,
     title: "Lokman Efe",
     description: "Software developer portfolio and personal blog",
     siteName: "Lokman Efe",
+    images: [
+      {
+        url: "/projects/lokmanefe_ss1.png",
+        width: 1200,
+        height: 630,
+        alt: "Lokman Efe's Portfolio",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Lokman Efe",
     description: "Software developer portfolio and personal blog",
+    creator: "@your_twitter_handle", //
+    images: ["/projects/lokmanefe_ss1.png"],
   },
   other: {
     rss: "/rss",

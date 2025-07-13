@@ -6,6 +6,17 @@
       "has": [
         {
           "type": "host",
+          "value": "lokmanbaturayefe.com"
+        }
+      ],
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "destination": "https://www.lokmanefe.com/$1",
+      "has": [
+        {
+          "type": "host",
           "value": "lokmanefe.com"
         }
       ],

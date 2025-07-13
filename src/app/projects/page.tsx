@@ -1,9 +1,19 @@
 import { ProjectsPageContent } from "@/components/projects-page-content";
+import { Metadata } from "next";
 
-export const metadata = {
-  title: "Projects - Lokman Efe",
+export const metadata: Metadata = {
+  title: "Projects",
   description:
-    "Software projects, applications, and tools I've built - from full-stack web apps to AI/ML projects.",
+    "Explore a selection of software projects, applications, and tools I've built, from full-stack web apps to AI/ML experiments.",
+  alternates: {
+    canonical: "/projects",
+  },
+  openGraph: {
+    title: "Projects | Lokman Efe",
+    description:
+      "A showcase of my software development projects and applications.",
+    url: "/projects",
+  },
 };
 
 export default function ProjectsPage() {

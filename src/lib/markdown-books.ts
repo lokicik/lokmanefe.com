@@ -67,6 +67,7 @@ export type Book = {
   status: BookStatus;
   startDate?: string;
   completedDate?: string;
+  datePublished?: string;
   rating?: number; // 1-5 stars
   description: string;
   disclaimer?: string;
@@ -170,6 +171,7 @@ export async function getBooks(): Promise<Book[]> {
         status: data.status || "not-started",
         startDate: data.startDate,
         completedDate: data.completionDate || data.completedDate,
+        datePublished: data.publicationDate || data.datePublished,
         rating: data.rating,
         description: data.description || "",
         disclaimer: data.disclaimer,
@@ -230,6 +232,7 @@ export async function getBookBySlug(slug: string): Promise<Book | null> {
       status: data.status || "not-started",
       startDate: data.startDate,
       completedDate: data.completionDate || data.completedDate,
+      datePublished: data.publicationDate || data.datePublished,
       rating: data.rating,
       description: data.description || "",
       disclaimer: data.disclaimer,

@@ -25,9 +25,28 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `${book.title} by ${book.author} - My Take`,
+    title: book.title,
     description:
-      book.description || `My thoughts and reflections on ${book.title}`,
+      book.description ||
+      `My thoughts and reflections on "${book.title}" by ${book.author}.`,
+    alternates: {
+      canonical: `/reading/${slug}`,
+    },
+    openGraph: {
+      title: `${book.title} | My Reading Notes`,
+      description: book.description || `A summary of my thoughts on the book.`,
+      url: `/reading/${slug}`,
+      type: "article",
+      publishedTime: book.completedDate
+        ? new Date(book.completedDate).toISOString()
+        : undefined,
+      authors: [book.author],
+    },
+    twitter: {
+      card: "summary",
+      title: book.title,
+      description: book.description,
+    },
   };
 }
 
@@ -45,6 +64,37 @@ export default async function BookPage({ params }: Props) {
   if (!book) {
     notFound();
   }
+
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://lokmanefe.com";
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Book",
+    name: book.title,
+    author: {
+      "@type": "Person",
+      name: book.author,
+    },
+    datePublished: book.datePublished,
+    inLanguage: "en-US",
+    description: book.description,
+    isbn: book.isbn,
+    numberOfPages: book.pages,
+    url: `${baseUrl}/reading/${book.slug}`,
+    review: {
+      "@type": "Review",
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: book.rating,
+        bestRating: "5",
+        worstRating: "1",
+      },
+      author: {
+        "@type": "Person",
+        name: "Lokman Efe",
+      },
+    },
+  };
 
   // Get the rendered markdown content
   const booksDirectory = path.join(process.cwd(), "content/books");
@@ -66,8 +116,14 @@ export default async function BookPage({ params }: Props) {
   }
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <BookPageContent book={book} content={renderedContent} />
-    </Suspense>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <BookPageContent book={book} content={renderedContent} />
+      </Suspense>
+    </>
   );
 }
