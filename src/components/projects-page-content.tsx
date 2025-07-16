@@ -57,6 +57,19 @@ const projects: Project[] = [
     year: 2025,
   },
   {
+    id: "storycut",
+    title: "StoryCut",
+    description: "An AI-powered tool to generate storybooks from user prompts.",
+    longDescription:
+      "StoryCut is a tool that allows users to generate complete storybooks, including characters, scenes, and a cover, based on their own prompts. A key feature is character referencing, allowing for consistent characters across different scenes. The tool provides a seamless experience for creating and exporting stories as PDF files.",
+    category: "AI/ML",
+    technologies: ["Python", "FastAPI", "HTMX", "AI"],
+    liveUrl: "/projects/After_The_Adventure's_End_storybook.pdf",
+    imageUrl: "/projects/ai-storybook_ss1.jpg",
+    featured: true,
+    year: 2025,
+  },
+  {
     id: "saaskit",
     title: "SaaS Kit",
     description: "A SaaS template with Next.js 15",
@@ -502,6 +515,9 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  {...(project.id === "storycut" && {
+                    download: "After_The_Adventure's_End_storybook.pdf",
+                  })}
                 >
                   <ExternalLink className="w-4 h-4 mr-2 flex-shrink-0" />
                   <span className="truncate">Live Demo</span>
