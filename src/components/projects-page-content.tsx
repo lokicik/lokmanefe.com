@@ -57,13 +57,26 @@ const projects: Project[] = [
     year: 2025,
   },
   {
+    id: "blogcraft-ai",
+    title: "BlogCraft AI",
+    description: "Automated blog post generator with AI-powered content creation",
+    longDescription:
+      "BlogCraft AI is an intelligent blog post generation system that creates SEO-optimized, professional content about career development, AI hiring trends, and job market insights. Features Google Gemini integration, smart template system, dynamic personalization, and beautiful Streamlit interface with automation capabilities.",
+    category: "AI/ML",
+    technologies: ["Python", "Streamlit", "Google Gemini", "FastAPI", "HTMX", "AI"],
+    githubUrl: "https://github.com/lokicik/BlogCraft-ai",
+    imageUrl: "/projects/blogpost_ss1.jpg",
+    featured: true,
+    year: 2025,
+  },
+  {
     id: "storycut",
     title: "StoryCut",
     description: "An AI-powered tool to generate storybooks from user prompts.",
     longDescription:
       "StoryCut is a tool that allows users to generate complete storybooks, including characters, scenes, and a cover, based on their own prompts. A key feature is character referencing, allowing for consistent characters across different scenes. The tool provides a seamless experience for creating and exporting stories as PDF files.",
     category: "AI/ML",
-    technologies: ["Python", "FastAPI", "HTMX", "AI"],
+    technologies: ["Python", "FastAPI", "HTMX", "AI", "OpenAI API"],
     liveUrl: "/projects/After_The_Adventure's_End_storybook.pdf",
     imageUrl: "/projects/ai-storybook_ss1.jpg",
     featured: true,
