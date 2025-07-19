@@ -63,9 +63,22 @@ const projects: Project[] = [
     longDescription:
       "BlogCraft AI is an intelligent blog post generation system that creates SEO-optimized, professional content about career development, AI hiring trends, and job market insights. Features Google Gemini integration, smart template system, dynamic personalization, and beautiful Streamlit interface with automation capabilities.",
     category: "AI/ML",
-    technologies: ["Python", "Streamlit", "Google Gemini", "FastAPI", "HTMX", "AI"],
+    technologies: ["Python", "Streamlit", "Gemini", "FastAPI", "HTMX", "AI"],
     githubUrl: "https://github.com/lokicik/BlogCraft-ai",
     imageUrl: "/projects/blogpost_ss1.jpg",
+    featured: true,
+    year: 2025,
+  },
+  {
+    id: "matchtalent-ai",
+    title: "MatchTalent AI",
+    description: "Intelligent CV analysis & job matching platform with AI-powered insights",
+    longDescription:
+      "MatchTalent AI is a powerful web application that leverages artificial intelligence to analyze CVs/resumes and provide personalized job recommendations. Features smart CV analysis, multi-platform job search across JSearch, Adzuna, and RemoteOK, intelligent matching with relevance scoring, and secure processing with automatic data clearing for privacy.",
+    category: "AI/ML",
+    technologies: ["Python", "Streamlit", "Gemini", "AI", "APIs", "PDF Processing", "NLP"],
+    githubUrl: "https://github.com/lokicik/matchtalent-ai",
+    imageUrl: "/projects/matchtalent-ai.jpg",
     featured: true,
     year: 2025,
   },
