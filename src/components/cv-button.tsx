@@ -8,7 +8,7 @@ export function CVButton() {
     // Direct download link to the latest CV
     // GitHub's raw content URL for direct download
     const cvUrl =
-      "https://github.com/lokicik/CV/raw/main/03-08-2025-Lokman-Efe-CV.pdf";
+      "https://github.com/lokicik/CV/raw/main/15-09-2025-Lokman-Efe-CV.pdf";
 
     // Create a temporary link element
     const link = document.createElement("a");
@@ -36,7 +36,7 @@ export function CVButton() {
       </Button>
 
       <p className="text-xs text-muted-foreground">
-        Last updated: 03-08-2025 • PDF format
+        Last updated: 15-09-2025 • PDF format
       </p>
     </div>
   );

@@ -90,10 +90,10 @@ export default function Home() {
           <p className="text-muted-foreground">
             Email:{" "}
             <a
-              href="mailto:lokman@lokmanefe.com"
+              href="mailto:hello@lokmanefe.com"
               className="text-primary hover:underline"
             >
-              lokman@lokmanefe.com
+              hello@lokmanefe.com
             </a>
             <br />
             <a
