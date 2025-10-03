@@ -48,9 +48,9 @@ export default function Home() {
       />
       <div className="max-w-4xl mx-auto space-y-8">
         <div className="text-center">
-          <h1 className="text-4xl font-bold mb-4">Lokman Baturay Efe</h1>
+          <h1 className="text-4xl font-bold mb-4">Lokman Efe</h1>
           <p className="text-lg text-muted-foreground mb-6">
-            I&apos;m a software developer based in Türkiye. I build things.
+            I want to scale.
           </p>
           <CVButton />
         </div>
@@ -58,30 +58,10 @@ export default function Home() {
         <section>
           <h2 className="text-2xl font-bold mb-4">About</h2>
           <p className="text-muted-foreground leading-relaxed">
-            I&apos;m an AI Product Engineer with 1+ year of professional
-            experience building scalable applications and intelligent systems.
-            Currently specializing in full-stack development with{" "}
-            <span className="text-foreground font-medium">
-              Next.js, Go, TypeScript, and Python
-            </span>
-            , while architecting AI-powered solutions that solve real-world
-            problems.
-          </p>
-          <p className="text-muted-foreground leading-relaxed mt-4">
-            As an active leader in the tech community, I&apos;ve organized
-            workshops reaching{" "}
-            <span className="text-foreground font-medium">
-              100+ local developers
-            </span>{" "}
-            on topics like RAG systems and computer vision. My GitHub showcases{" "}
-            <span className="text-foreground font-medium">
-              12+ repositories
-            </span>{" "}
-            spanning from production SaaS applications to AI/ML competition
-            projects. I&apos;m passionate about the intersection of generative
-            AI and product engineering—currently building toward launching my
-            own SaaS venture focused on AI-driven developer tools and
-            automations.
+            I build, I break, I apply and get mostly rejected, occasionally deployed.
+            <br/>
+            I can learn any technology. Hire?
+            <br/>
           </p>
         </section>
 
@@ -128,19 +108,24 @@ export default function Home() {
 
         <section>
           <h2 className="text-2xl font-bold mb-4">Projects</h2>
-          <p className="text-muted-foreground mb-4">
-            I&apos;ve built various applications ranging from full-stack web
-            apps to AI/ML projects and desktop tools. Here are some highlights:
-          </p>
           <ul className="space-y-3 text-muted-foreground mb-6">
             <li>
+              <a
+                href="https://gdgoncampustu.com"
+                className="text-primary hover:underline font-medium"
+              >
+                GDG On Campus TÜ
+              </a>{" "}
+              - The best uni club site ever
+            </li>
+             <li>
               <a
                 href="https://github.com/lokicik/eyedoro"
                 className="text-primary hover:underline font-medium"
               >
                 Eyedoro
               </a>{" "}
-              - Open-source Electron alternative for lookaway.app
+              - Open-source alternative for lookaway.app (I&apos;ll pick it up soon)
             </li>
             <li>
               <a
@@ -149,7 +134,7 @@ export default function Home() {
               >
                 GoChop
               </a>{" "}
-              - Privacy-respecting link shortener with advanced features
+              - A link shortener (I&apos;ll pick it up soon)
             </li>
             <li>
               <a
@@ -158,7 +143,7 @@ export default function Home() {
               >
                 SaaS Kit
               </a>{" "}
-              - Next.js 15 SaaS template with authentication and billing
+              - SaaS template (may be offline)
             </li>
             <li>
               <a
@@ -167,7 +152,7 @@ export default function Home() {
               >
                 Chimera
               </a>{" "}
-              - AI-powered chat application with real-time messaging
+              - AI chat application 
             </li>
           </ul>
           <a
@@ -181,6 +166,15 @@ export default function Home() {
         <section>
           <h2 className="text-2xl font-bold mb-4">Competitions</h2>
           <ul className="space-y-3 text-muted-foreground">
+             <li>
+              <a
+                href="https://www.kaggle.com/competitions/datathon-2025"
+                className="text-primary hover:underline font-medium"
+              >
+                Datathon 2025 
+              </a>{" "}
+              - 229/571 (hell I&apos;m rusty)
+            </li>
             <li>
               <a
                 href="https://www.kaggle.com/competitions/datathon2023"
