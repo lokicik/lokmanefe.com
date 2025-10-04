@@ -4,6 +4,9 @@ import {
 } from "@/lib/markdown-writings";
 import { getBooks, type Book } from "@/lib/markdown-books";
 
+// Revalidate RSS feed every 1 hour
+export const revalidate = 3600;
+
 type BlogItem = MarkdownPost & { itemType: "blog"; url: string };
 type BookItem = Book & { itemType: "book"; url: string; date: string };
 type RSSItem = BlogItem | BookItem;
@@ -66,6 +69,7 @@ export async function GET() {
   return new Response(rss, {
     headers: {
       "Content-Type": "application/rss+xml",
+      "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
     },
   });
 }

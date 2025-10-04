@@ -1,6 +1,9 @@
 import { CVButton } from "@/components/cv-button";
 import { Metadata } from "next";
 
+// Enable ISR with 1 day revalidation (homepage changes rarely)
+export const revalidate = 86400; // 24 hours
+
 export const metadata: Metadata = {
   title: "Lokman Efe",
   description:

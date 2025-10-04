@@ -3,6 +3,9 @@ import { WritingsPageContent } from "@/components/writings-page-content";
 import { Suspense } from "react";
 import { Metadata } from "next";
 
+// Enable ISR with 1 hour revalidation
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: "Writings",
   description:

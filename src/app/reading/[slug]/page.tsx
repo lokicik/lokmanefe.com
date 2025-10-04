@@ -10,6 +10,9 @@ import html from "remark-html";
 import remarkGfm from "remark-gfm";
 import { Suspense } from "react";
 
+// Enable ISR with 1 hour revalidation
+export const revalidate = 3600; // 1 hour
+
 type Props = {
   params: Promise<{ slug: string }>;
 };

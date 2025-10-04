@@ -12,9 +12,22 @@ import { Clock, Calendar } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Metadata } from "next";
 
+// Enable ISR with 1 hour revalidation
+export const revalidate = 3600; // 1 hour
+
 type Props = {
   params: Promise<{ slug: string }>;
 };
+
+// Generate static params at build time
+export async function generateStaticParams() {
+  const writings = await getWritings();
+  return writings
+    .filter((writing) => writing.published)
+    .map((writing) => ({
+      slug: writing.slug,
+    }));
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -190,10 +203,4 @@ export default async function WritingPage({ params }: Props) {
       </article>
     </>
   );
-}
-
-export async function generateStaticParams() {
-  // This would normally fetch all slugs, but for now we'll return empty
-  // Next.js will handle dynamic generation
-  return [];
 }

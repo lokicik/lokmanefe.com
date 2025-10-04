@@ -2,6 +2,9 @@ import { getBooks } from "@/lib/markdown-books";
 import { getWritings } from "@/lib/markdown-writings";
 import { MetadataRoute } from "next";
 
+// Revalidate sitemap every 1 hour
+export const revalidate = 3600;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://lokmanefe.com";
 

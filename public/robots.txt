@@ -1,0 +1,24 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://lokmanefe.com/sitemap.xml
+
+# Disallow private/admin areas (if any in future)
+# User-agent: *
+# Disallow: /api/
+# Disallow: /admin/
+
+# Allow all crawlers to index content
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Crawl delay (optional - helps prevent server overload)
+Crawl-delay: 1

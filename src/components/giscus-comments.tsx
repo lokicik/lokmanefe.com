@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTheme } from "next-themes";
 
 interface GiscusCommentsProps {
@@ -26,9 +26,33 @@ export function GiscusComments({
 }: GiscusCommentsProps) {
   const ref = useRef<HTMLDivElement>(null);
   const { resolvedTheme } = useTheme();
+  const [isVisible, setIsVisible] = useState(false);
+
+  // Intersection Observer for lazy loading
+  useEffect(() => {
+    if (!ref.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.disconnect();
+          }
+        });
+      },
+      {
+        rootMargin: "200px", // Load 200px before it comes into view
+      }
+    );
+
+    observer.observe(ref.current);
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
-    if (!ref.current || ref.current.hasChildNodes()) return;
+    if (!ref.current || !isVisible || ref.current.hasChildNodes()) return;
 
     const scriptElement = document.createElement("script");
     scriptElement.src = "https://giscus.app/client.js";
@@ -84,6 +108,7 @@ export function GiscusComments({
     reactionsEnabled,
     emitMetadata,
     resolvedTheme,
+    isVisible,
   ]);
 
   // Update theme when it changes
@@ -124,7 +149,7 @@ export function GiscusComments({
   }, [resolvedTheme]);
 
   return (
-    <section className="mt-16 pt-12 border-t relative z-20 pb-16 mb-8">
+    <section className="mt-16 pt-12 border-t relative z-30 pb-40 md:pb-16 mb-32 md:mb-8">
       <div className="mb-6">
         <h2 className="text-2xl font-bold mb-2">Comments</h2>
         <p className="text-muted-foreground text-sm">
@@ -141,7 +166,7 @@ export function GiscusComments({
         </p>
       </div>
 
-      <div ref={ref} className="giscus-container relative z-20 min-h-[400px]" />
+      <div ref={ref} className="giscus-container relative z-30" />
     </section>
   );
 }

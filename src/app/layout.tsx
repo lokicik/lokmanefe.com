@@ -16,23 +16,36 @@ import { Github } from "lucide-react";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://lokmanefe.com";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const inter = Inter({ 
+  subsets: ["latin"], 
+  variable: "--font-inter",
+  display: 'swap',
+  preload: true,
+});
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-space-grotesk",
+  display: 'swap',
+  preload: true,
 });
 const merriweather = Merriweather({
   subsets: ["latin"],
   weight: ["300", "400", "700"],
   variable: "--font-merriweather",
+  display: 'swap',
+  preload: true,
 });
 const sourceCode = Source_Code_Pro({
   subsets: ["latin"],
   variable: "--font-source-code",
+  display: 'swap',
+  preload: false, // Less critical font
 });
 const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-playfair",
+  display: 'swap',
+  preload: false, // Less critical font
 });
 
 export const metadata: Metadata = {
@@ -118,7 +131,7 @@ export default function RootLayout({
             </main>
 
             {/* Footer */}
-            <footer className="border-t bg-background/80 backdrop-blur-sm">
+            <footer className="border-t bg-background/80 backdrop-blur-sm relative z-0">
               <div className="max-w-4xl mx-auto px-4 py-6">
                 <div className="text-center text-sm text-muted-foreground space-y-2">
                   <div>
@@ -159,8 +172,13 @@ export default function RootLayout({
             </footer>
           </div>
         </Providers>
-        <Analytics />
-        <SpeedInsights />
+        {/* Only load analytics in production */}
+        {process.env.NODE_ENV === 'production' && (
+          <>
+            <Analytics mode="production" />
+            <SpeedInsights sampleRate={0.1} />
+          </>
+        )}
       </body>
     </html>
   );

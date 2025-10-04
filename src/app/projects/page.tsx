@@ -1,6 +1,9 @@
 import { ProjectsPageContent } from "@/components/projects-page-content";
 import { Metadata } from "next";
 
+// Enable ISR with 1 hour revalidation
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: "Projects",
   description:

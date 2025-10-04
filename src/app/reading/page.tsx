@@ -8,6 +8,9 @@ import { ReadingPageContent } from "@/components/reading-page-content";
 import { Metadata } from "next";
 import { Suspense } from "react";
 
+// Enable ISR with 1 hour revalidation
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: "Reading",
   description:
