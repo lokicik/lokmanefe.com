@@ -7,6 +7,9 @@ import rehypePrettyCode from "rehype-pretty-code";
 import rehypeStringify from "rehype-stringify";
 import remarkRehype from "remark-rehype";
 
+// Minimal HAST properties type used for rehype-pretty-code visitors.
+type HastProps = { [key: string]: unknown; className?: string | string[] };
+
 export type WritingType = "article" | "story";
 
 export type MarkdownWriting = {
@@ -270,19 +273,41 @@ export async function renderMarkdownContent(content: string): Promise<string> {
         theme: "github-dark-dimmed",
         keepBackground: true,
         defaultLang: "plaintext",
-        onVisitLine(node: any) {
+        onVisitLine(node: { children?: Array<unknown> } | unknown) {
           // Prevent lines from collapsing in `display: grid` mode, and allow empty
           // lines to be copy/pasted
-          if (node.children.length === 0) {
-            node.children = [{ type: "text", value: " " }];
+          const n = node as { children?: Array<Record<string, unknown>> };
+          if (!n.children) return;
+
+          if (n.children.length === 0) {
+            n.children = [{ type: "text", value: " " }];
           }
         },
-        onVisitHighlightedLine(node: any) {
-          node.properties.className = node.properties.className || [];
-          node.properties.className.push("highlighted");
+        onVisitHighlightedLine(node: unknown) {
+          const n = node as { properties?: Record<string, unknown> & { className?: unknown } };
+
+          // Ensure properties exists as an object
+          if (!n.properties || typeof n.properties !== "object") {
+            n.properties = {} as Record<string, unknown> & { className?: unknown };
+          }
+
+          // Normalize className to an array of strings
+          const props = n.properties as HastProps;
+          const rawClass = props.className;
+          if (Array.isArray(rawClass)) {
+            rawClass.push("highlighted");
+          } else if (typeof rawClass === "string") {
+            props.className = [rawClass, "highlighted"];
+          } else {
+            props.className = ["highlighted"];
+          }
         },
-        onVisitHighlightedChars(node: any) {
-          node.properties.className = ["word"];
+        onVisitHighlightedChars(node: unknown) {
+          const n = node as { properties?: Record<string, unknown> };
+          if (!n.properties || typeof n.properties !== "object") {
+            n.properties = {} as HastProps;
+          }
+          (n.properties as HastProps).className = ["word"];
         },
       })
       .use(rehypeStringify, { allowDangerousHtml: true })

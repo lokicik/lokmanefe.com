@@ -1,5 +1,5 @@
 ---
-title: "Adding custom domain for emails on Firebase using Squarespace"
+title: "How I Finally Got Firebase to Verify My Squarespace Domain"
 date: "2025-10-05"
 excerpt: "Squarespace loves to help by appending your domain twice, and Firebase hates that. Here's how I finally got my email domain verified after 48 hours of head-scratching."
 published: true
@@ -63,6 +63,26 @@ Remove the redundant part. Only keep the subdomain.
 
 I saved the records, hit verify again, and it worked in seconds.  
 After waiting two days that felt almost offensive.
+
+### A note about the dots at the end
+
+Firebase’s setup page shows CNAME records that end with a dot, like this:
+
+```bash
+mail-mydomain-com.dkim1._domainkey.firebasemail.com.
+```
+
+That trailing dot means “this is a fully qualified domain name.”  
+Some DNS providers need it. Squarespace doesn’t.
+
+If you leave the dot in, Squarespace might reject the record or silently strip it, which can cause Firebase to fail verification again.  
+Just remove the final dot when you enter the record. The result should look like:
+
+```bash
+mail-mydomain-com.dkim1._domainkey.firebasemail.com
+```
+
+No dot, no problem (at least for squarespace)
 
 ---
 
