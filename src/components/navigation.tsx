@@ -19,6 +19,7 @@ export function Navigation() {
           {/* Logo */}
           <Link
             href="/"
+            prefetch={false}
             className="text-2xl font-bold flex-shrink-0 flex items-center"
           >
             <ParrotIcon size={32} className="text-primary" />
@@ -29,24 +30,28 @@ export function Navigation() {
             <div className="flex items-center space-x-4">
               <Link
                 href="/"
+                prefetch={false}
                 className="text-sm font-medium transition-colors hover:text-primary"
               >
                 Home
               </Link>
               <Link
                 href="/writings"
+                prefetch={false}
                 className="text-sm font-medium transition-colors hover:text-primary"
               >
                 Writings
               </Link>
               <Link
                 href="/reading"
+                prefetch={false}
                 className="text-sm font-medium transition-colors hover:text-primary"
               >
                 Reading
               </Link>
               <Link
                 href="/projects"
+                prefetch={false}
                 className="text-sm font-medium transition-colors hover:text-primary"
               >
                 Projects
@@ -85,6 +90,7 @@ export function Navigation() {
             <div className="px-2 pt-2 pb-3 space-y-1">
               <Link
                 href="/"
+                prefetch={false}
                 className="block px-3 py-2 text-base font-medium transition-colors hover:text-primary hover:bg-muted rounded-md"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -92,6 +98,7 @@ export function Navigation() {
               </Link>
               <Link
                 href="/writings"
+                prefetch={false}
                 className="block px-3 py-2 text-base font-medium transition-colors hover:text-primary hover:bg-muted rounded-md"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -99,6 +106,7 @@ export function Navigation() {
               </Link>
               <Link
                 href="/reading"
+                prefetch={false}
                 className="block px-3 py-2 text-base font-medium transition-colors hover:text-primary hover:bg-muted rounded-md"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -106,6 +114,7 @@ export function Navigation() {
               </Link>
               <Link
                 href="/projects"
+                prefetch={false}
                 className="block px-3 py-2 text-base font-medium transition-colors hover:text-primary hover:bg-muted rounded-md"
                 onClick={() => setIsMobileMenuOpen(false)}
               >

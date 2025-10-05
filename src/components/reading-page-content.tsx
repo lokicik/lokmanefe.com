@@ -282,6 +282,7 @@ export function ReadingPageContent({
                     <div>
                       <Link
                         href={href}
+                        prefetch={false}
                         className="text-lg font-semibold hover:text-primary transition-colors"
                       >
                         {book.title}

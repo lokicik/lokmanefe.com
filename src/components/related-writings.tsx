@@ -34,6 +34,7 @@ export function RelatedWritings({
           <Link
             key={writing.slug}
             href={`/writings/${writing.slug}`}
+            prefetch={false}
             className="group block"
           >
             <article className="space-y-3 p-4 rounded-lg border hover:shadow-md transition-all duration-200 hover:border-muted-foreground/20">

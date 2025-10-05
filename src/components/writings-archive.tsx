@@ -96,6 +96,7 @@ export function WritingsArchive({ archive }: WritingsArchiveProps) {
                           <Link
                             key={writing.slug}
                             href={`/writings/${writing.slug}`}
+                            prefetch={false}
                             className="block group"
                           >
                             <div className="flex items-start justify-between gap-4 p-2 rounded hover:bg-muted/30 transition-colors">

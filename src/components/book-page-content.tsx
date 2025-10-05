@@ -22,7 +22,7 @@ export function BookPageContent({ book, content }: Props) {
     <div className="max-w-4xl mx-auto space-y-8">
       {/* Header */}
       <div className="space-y-4">
-        <Link href={backUrl || "/reading"}>
+        <Link href={backUrl || "/reading"} prefetch={false}>
           <Button variant="ghost" size="sm" className="mb-4">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Reading

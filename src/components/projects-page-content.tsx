@@ -52,7 +52,7 @@ const projects: Project[] = [
     technologies: ["Vue.js", "TypeScript", "Leaflet", "Pinia", "Vite"],
     githubUrl: "https://github.com/lokicik/geoip-explorer",
     liveUrl: "https://geoip-explorer-lokmanefe.netlify.app/",
-    imageUrl: "/projects/geoip_1.jpg",
+    imageUrl: "/projects/geoip_1.webp",
     featured: true,
     year: 2025,
   },
@@ -65,7 +65,7 @@ const projects: Project[] = [
     category: "AI/ML",
     technologies: ["Python", "Streamlit", "Gemini", "FastAPI", "HTMX", "AI"],
     githubUrl: "https://github.com/lokicik/BlogCraft-ai",
-    imageUrl: "/projects/blogpost_ss1.jpg",
+    imageUrl: "/projects/blogpost_ss1.webp",
     featured: true,
     year: 2025,
   },
@@ -78,7 +78,7 @@ const projects: Project[] = [
     category: "AI/ML",
     technologies: ["Python", "Streamlit", "Gemini", "AI", "APIs", "PDF Processing", "NLP"],
     githubUrl: "https://github.com/lokicik/matchtalent-ai",
-    imageUrl: "/projects/matchtalent-ai.jpg",
+    imageUrl: "/projects/matchtalent-ai.webp",
     featured: true,
     year: 2025,
   },
@@ -91,7 +91,7 @@ const projects: Project[] = [
     category: "AI/ML",
     technologies: ["Python", "FastAPI", "HTMX", "AI", "OpenAI API"],
     liveUrl: "/projects/After_The_Adventure's_End_storybook.pdf",
-    imageUrl: "/projects/ai-storybook_ss1.jpg",
+    imageUrl: "/projects/ai-storybook_ss1.webp",
     featured: true,
     year: 2025,
   },
@@ -104,7 +104,7 @@ const projects: Project[] = [
     category: "Web",
     technologies: ["Next.js 15", "TypeScript", "Tailwind CSS", "Prisma"],
     liveUrl: "https://saas-kit-eosin.vercel.app/",
-    imageUrl: "/projects/saaskit_ss1.png",
+    imageUrl: "/projects/saaskit_ss1.webp",
     featured: true,
     year: 2025,
   },
@@ -117,7 +117,7 @@ const projects: Project[] = [
     category: "Full-Stack",
     technologies: ["Next.js", "Go", "Firebase", "WebSocket", "AI"],
     githubUrl: "https://github.com/orgs/Chimera-Platform/repositories",
-    imageUrl: "/projects/chimera_ss1.jpg",
+    imageUrl: "/projects/chimera_ss1.webp",
     featured: true,
     year: 2025,
   },
@@ -131,7 +131,7 @@ const projects: Project[] = [
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Markdown"],
     githubUrl: "https://github.com/lokicik/lokmanefe.com",
     liveUrl: "https://lokmanefe.com",
-    imageUrl: "/projects/lokmanefe_ss1.png",
+    imageUrl: "/projects/lokmanefe_ss1.webp",
     featured: true,
     year: 2022,
   },
@@ -146,7 +146,7 @@ const projects: Project[] = [
     featured: true,
     githubUrl:
       "https://github.com/GDG-on-Campus-Trakya/GDG-on-Campus-Trakya-Website",
-    imageUrl: "/projects/gdgwebsite_ss1.png",
+    imageUrl: "/projects/gdgwebsite_ss1.webp",
     year: 2024,
   },
   {
@@ -158,7 +158,7 @@ const projects: Project[] = [
     category: "Desktop",
     technologies: ["Electron", "React", "JavaScript", "CSS3"],
     githubUrl: "https://github.com/lokicik/eyedoro",
-    imageUrl: "/projects/eyedoro_ss1.png",
+    imageUrl: "/projects/eyedoro_ss1.webp",
     featured: true,
     year: 2024,
   },
@@ -172,7 +172,7 @@ const projects: Project[] = [
     category: "Full-Stack",
     technologies: ["Go", "TypeScript", "PostgreSQL", "Redis", "Docker"],
     githubUrl: "https://github.com/lokicik/gochop",
-    imageUrl: "/projects/gochop_ss1.png",
+    imageUrl: "/projects/gochop_ss1.webp",
     featured: true,
     year: 2024,
   },
@@ -522,6 +522,7 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
               >
                 <Link
                   href={project.githubUrl}
+                  prefetch={false}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -539,6 +540,7 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
               >
                 <Link
                   href={project.liveUrl}
+                  prefetch={false}
                   target="_blank"
                   rel="noopener noreferrer"
                   {...(project.id === "storycut" && {
