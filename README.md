@@ -1,4 +1,4 @@
-# 🚀 lokmanefe.com
+# lokmanefe.com
 
 > A modern, full-featured personal portfolio and digital presence built with Next.js 15
 
@@ -10,9 +10,9 @@ A comprehensive personal website showcasing projects, technical writing, and rea
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=for-the-badge&logo=tailwind-css)
 
-## ✨ Features
+## Features
 
-### 🎯 **Core Functionality**
+### **Core Functionality**
 
 - **Dynamic Project Showcase**: Interactive project gallery with filtering, search, and detailed view
 - **Markdown-Powered Blog**: Git-based content management with frontmatter support
@@ -20,7 +20,7 @@ A comprehensive personal website showcasing projects, technical writing, and rea
 - **Responsive Design**: Seamless experience across all devices
 - **Dark Mode**: System-aware theme switching with persistent preferences
 
-### 🔍 **Advanced Features**
+### **Advanced Features**
 
 - **Smart Search**: Full-text search across projects, technologies, and content
 - **Category Filtering**: Organize content by type, technology, and status
@@ -28,14 +28,14 @@ A comprehensive personal website showcasing projects, technical writing, and rea
 - **Social Integration**: GitHub, LinkedIn, and LeetCode profile integration
 - **Analytics Dashboard**: Reading goals, velocity tracking, and genre distribution
 
-### ⚡ **Performance & SEO**
+### **Performance & SEO**
 
 - **Static Generation**: Pre-rendered pages for optimal loading speed
 - **SEO Optimized**: Meta tags, structured data, and social sharing
 - **Image Optimization**: Next.js Image component with lazy loading
 - **Font Optimization**: Custom font loading with performance best practices
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### **Frontend**
 
@@ -64,7 +64,7 @@ A comprehensive personal website showcasing projects, technical writing, and rea
 - **Domain**: Custom domain with SSL
 - **Analytics**: Built-in Vercel Analytics
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -97,7 +97,7 @@ npm run build
 npm start
 ```
 
-## 📝 Content Management
+## Content Management
 
 ### **Blog Posts**
 
@@ -156,7 +156,7 @@ Configure projects in `src/components/projects-page-content.tsx`:
 }
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 lokmanefe.com/
@@ -186,7 +186,7 @@ lokmanefe.com/
 └── next.config.ts         # Next.js configuration
 ```
 
-## 🎨 Customization
+## Customization
 
 ### **Personal Information**
 
@@ -206,7 +206,7 @@ lokmanefe.com/
 - Create custom book metadata fields
 - Extend the reading analytics with new metrics
 
-## 📊 Analytics & Insights
+## Analytics & Insights
 
 ### **Reading Analytics**
 
@@ -221,7 +221,7 @@ lokmanefe.com/
 - Most popular projects and blog posts
 - Search query analysis
 
-## 🔧 Development
+## Development
 
 ### **Available Scripts**
 
@@ -240,7 +240,7 @@ npm run type-check   # Run TypeScript compiler
 - **Prettier**: Automatic code formatting
 - **Git Hooks**: Pre-commit validation
 
-## 🚀 Deployment
+## Deployment
 
 ### **Vercel (Recommended)**
 
@@ -256,7 +256,7 @@ npm run type-check   # Run TypeScript compiler
 - **Bundle Analysis**: Use `npm run analyze` to inspect bundle size
 - **Caching**: Optimized cache headers for static assets
 
-## 🤝 Contributing
+## Contributing
 
 This is a personal portfolio, but you're welcome to:
 
@@ -265,7 +265,7 @@ This is a personal portfolio, but you're welcome to:
 - Use as a template for your own portfolio
 - Submit pull requests for general enhancements
 
-## 📄 License
+## License
 
 MIT License - See [LICENSE](LICENSE) for details.
 
