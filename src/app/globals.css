@@ -271,14 +271,119 @@
   .prose blockquote {
     @apply border-l-4 pl-4 italic opacity-80 my-8;
   }
-  .prose code {
-    @apply px-1 py-0.5 rounded bg-muted text-pink-500;
+
+  /* Tables - Enhanced styling with better contrast */
+  .prose table {
+    @apply w-full my-8 border-collapse;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    border: 1px solid hsl(var(--border));
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    background-color: hsl(var(--card));
   }
+
+  .prose thead {
+    background: linear-gradient(to bottom, hsl(var(--muted)), hsl(var(--muted) / 0.8));
+    border-bottom: 2px solid hsl(var(--primary) / 0.3);
+  }
+
+  .prose thead th {
+    @apply px-4 py-3 text-left font-bold text-sm;
+    color: hsl(var(--foreground));
+    border-bottom: 2px solid hsl(var(--border));
+  }
+
+  .prose tbody tr {
+    border-bottom: 1px solid hsl(var(--border));
+    transition: all 0.2s ease;
+    background-color: hsl(var(--card));
+  }
+
+  .prose tbody tr:nth-child(even) {
+    background-color: hsl(var(--muted) / 0.2);
+  }
+
+  .prose tbody tr:hover {
+    background-color: hsl(var(--accent) / 0.5);
+    transform: translateX(2px);
+  }
+
+  .prose tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  .prose td {
+    @apply px-4 py-3 text-sm;
+    color: hsl(var(--foreground));
+  }
+
+  /* Make inline code in tables more visible */
+  .prose th code,
+  .prose td code {
+    font-size: 0.8rem;
+    padding: 0.15rem 0.4rem;
+    background-color: hsl(var(--muted));
+    border: 1px solid hsl(var(--border));
+    font-weight: 500;
+  }
+
+  /* First column emphasis */
+  .prose tbody td:first-child {
+    font-weight: 600;
+    color: hsl(var(--primary));
+  }
+  
+  /* Inline code styling - only for non-pre code elements */
+  .prose :not(pre) > code {
+    @apply px-1.5 py-0.5 rounded text-sm font-mono;
+    background-color: hsl(var(--muted));
+    color: hsl(var(--foreground));
+    border: 1px solid hsl(var(--border));
+  }
+  
+  /* Syntax highlighted code blocks (Shiki) */
+  .prose figure[data-rehype-pretty-code-figure] {
+    @apply my-6;
+  }
+
   .prose pre {
-    @apply rounded bg-muted border p-4 overflow-auto my-6 text-sm;
+    @apply rounded-lg border overflow-x-auto;
+    padding: 1rem !important;
+    /* Don't override Shiki's background-color! */
   }
+
+  .prose pre > code {
+    /* Don't override Shiki's inline styles */
+    font-size: 0.875rem;
+    line-height: 1.7;
+  }
+
+  /* Code block line styling */
+  .prose pre > code [data-line] {
+    @apply px-2;
+  }
+
+  /* Highlighted lines - use theme colors */
+  .prose pre > code [data-highlighted-line],
+  .prose pre > code .highlighted {
+    background-color: hsl(var(--accent) / 0.3);
+    border-left: 2px solid hsl(var(--primary));
+    margin-left: -0.5rem;
+    padding-left: calc(0.5rem - 2px);
+  }
+
+  /* Character/word highlighting - use theme colors */
+  .prose pre > code [data-highlighted-chars],
+  .prose pre > code .word {
+    background-color: hsl(var(--primary) / 0.2);
+    @apply rounded px-1;
+    box-shadow: 0 0 0 2px hsl(var(--primary) / 0.1);
+  }
+  
   .prose mark {
-    @apply bg-yellow-400/20 text-yellow-400 font-medium rounded px-1;
+    background-color: hsl(var(--primary) / 0.2);
+    color: hsl(var(--primary-foreground));
+    @apply font-medium rounded px-1;
   }
 
   /* Table of Contents specific styles */

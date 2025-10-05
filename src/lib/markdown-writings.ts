@@ -2,8 +2,10 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { remark } from "remark";
-import html from "remark-html";
 import remarkGfm from "remark-gfm";
+import rehypePrettyCode from "rehype-pretty-code";
+import rehypeStringify from "rehype-stringify";
+import remarkRehype from "remark-rehype";
 
 export type WritingType = "article" | "story";
 
@@ -263,7 +265,27 @@ export async function renderMarkdownContent(content: string): Promise<string> {
   try {
     const result = await remark()
       .use(remarkGfm)
-      .use(html, { sanitize: false })
+      .use(remarkRehype, { allowDangerousHtml: true })
+      .use(rehypePrettyCode, {
+        theme: "github-dark-dimmed",
+        keepBackground: true,
+        defaultLang: "plaintext",
+        onVisitLine(node: any) {
+          // Prevent lines from collapsing in `display: grid` mode, and allow empty
+          // lines to be copy/pasted
+          if (node.children.length === 0) {
+            node.children = [{ type: "text", value: " " }];
+          }
+        },
+        onVisitHighlightedLine(node: any) {
+          node.properties.className = node.properties.className || [];
+          node.properties.className.push("highlighted");
+        },
+        onVisitHighlightedChars(node: any) {
+          node.properties.className = ["word"];
+        },
+      })
+      .use(rehypeStringify, { allowDangerousHtml: true })
       .process(content);
 
     return result.toString();
