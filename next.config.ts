@@ -5,7 +5,10 @@ const nextConfig: NextConfig = {
   output: "standalone",
   images: {
     formats: ['image/webp', 'image/avif'],
-    remotePatterns: [{ protocol: "https", hostname: "images.unsplash.com" }],
+    remotePatterns: [
+      { protocol: "https", hostname: "**" },
+      { protocol: "http", hostname: "**" }
+    ],
   },
   // Optimize static generation
   experimental: {

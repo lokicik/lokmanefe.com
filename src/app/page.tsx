@@ -61,7 +61,7 @@ export default function Home() {
         <section>
           <h2 className="text-2xl font-bold mb-4">About</h2>
           <p className="text-muted-foreground leading-relaxed">
-            I build, I break, I apply and get mostly rejected, occasionally deployed.
+            I build, I break, I apply and get mostly rejected..
             <br/>
             I can learn any technology. Hire?
             <br/>
@@ -71,13 +71,11 @@ export default function Home() {
         <section>
           <h2 className="text-2xl font-bold mb-4">Contact</h2>
           <p className="text-muted-foreground">
-            Email:{" "}
             <a
               href="mailto:hello@lokmanefe.com"
               className="text-primary hover:underline"
             >
-              hello@lokmanefe.com
-            </a>
+              Email         </a>
             <br />
             <a
               href="https://github.com/lokicik"
