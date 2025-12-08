@@ -75,7 +75,8 @@ export default function Home() {
               href="mailto:hello@lokmanefe.com"
               className="text-primary hover:underline"
             >
-              Email         </a>
+              Email         
+              </a>
             <br />
             <a
               href="https://github.com/lokicik"
