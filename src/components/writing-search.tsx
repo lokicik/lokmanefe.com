@@ -4,7 +4,7 @@ import { useState, useMemo, useEffect } from "react";
 import { Search, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { MarkdownWriting } from "@/lib/markdown-writings";
+import { MarkdownWriting } from "@/lib/markdown-writing";
 
 interface WritingsSearchProps {
   writings: MarkdownWriting[];

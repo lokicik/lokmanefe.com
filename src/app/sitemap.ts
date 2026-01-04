@@ -1,5 +1,5 @@
 import { getBooks } from "@/lib/markdown-books";
-import { getWritings } from "@/lib/markdown-writings";
+import { getWritings } from "@/lib/markdown-writing";
 import { MetadataRoute } from "next";
 
 // Revalidate sitemap every 1 hour
@@ -10,7 +10,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const writings = await getWritings();
   const writingsUrls = writings.map((writing) => ({
-    url: `${baseUrl}/writings/${writing.slug}`,
+    url: `${baseUrl}/writing/${writing.slug}`,
     lastModified: new Date(writing.updatedAt).toISOString(),
   }));
 
@@ -34,7 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date().toISOString(),
     },
     {
-      url: `${baseUrl}/writings`,
+      url: `${baseUrl}/writing`,
       lastModified: new Date().toISOString(),
     },
     ...writingsUrls,

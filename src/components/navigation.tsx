@@ -36,11 +36,11 @@ export function Navigation() {
                 Home
               </Link>
               <Link
-                href="/writings"
+                href="/writing"
                 prefetch={false}
                 className="text-sm font-medium transition-colors hover:text-primary"
               >
-                Writings
+                Writing
               </Link>
               <Link
                 href="/reading"
@@ -97,12 +97,12 @@ export function Navigation() {
                 Home
               </Link>
               <Link
-                href="/writings"
+                href="/writing"
                 prefetch={false}
                 className="block px-3 py-2 text-base font-medium transition-colors hover:text-primary hover:bg-muted rounded-md"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Writings
+                Writing
               </Link>
               <Link
                 href="/reading"

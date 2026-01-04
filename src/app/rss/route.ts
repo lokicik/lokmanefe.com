@@ -1,7 +1,7 @@
 import {
   getWritings as getMarkdownPosts,
   type MarkdownWriting as MarkdownPost,
-} from "@/lib/markdown-writings";
+} from "@/lib/markdown-writing";
 import { getBooks, type Book } from "@/lib/markdown-books";
 
 // Revalidate RSS feed every 1 hour
@@ -20,7 +20,7 @@ export async function GET() {
       (post: MarkdownPost): BlogItem => ({
         itemType: "blog",
         ...post,
-        url: `/blog/${post.slug}`,
+        url: `/writing/${post.slug}`,
       })
     ),
     ...books.map(

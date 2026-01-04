@@ -45,7 +45,7 @@ export type CombinedPost = {
   wordCount?: number;
 };
 
-const writingsDirectory = path.join(process.cwd(), "content/writings");
+const writingsDirectory = path.join(process.cwd(), "content/writing");
 
 // Calculate reading time based on word count
 function calculateReadingTime(content: string): {

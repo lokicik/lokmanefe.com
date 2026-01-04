@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MarkdownWriting, getRelatedWritings } from "@/lib/markdown-writings";
+import { MarkdownWriting, getRelatedWritings } from "@/lib/markdown-writing";
 import { formatDate } from "@/lib/utils";
 import { Clock, Calendar } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -33,7 +33,7 @@ export function RelatedWritings({
         {relatedWritings.map((writing) => (
           <Link
             key={writing.slug}
-            href={`/writings/${writing.slug}`}
+            href={`/writing/${writing.slug}`}
             prefetch={false}
             className="group block"
           >

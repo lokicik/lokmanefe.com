@@ -8,12 +8,12 @@ export function CVButton() {
     // Direct download link to the latest CV
     // GitHub's raw content URL for direct download
     const cvUrl =
-      "https://github.com/lokicik/CV/raw/main/29-10-2025/Software-Engineer-Lokman-Efe-CV.pdf";
+      "https://github.com/lokicik/CV/raw/main/04-01-2026/Software-Engineer-Lokman-Efe-Resume.pdf";
 
     // Create a temporary link element
     const link = document.createElement("a");
     link.href = cvUrl;
-    link.download = "Lokman-Efe-CV.pdf";
+    link.download = "Lokman-Efe-Resume.pdf";
     link.target = "_blank";
     link.rel = "noopener noreferrer";
 
@@ -32,11 +32,11 @@ export function CVButton() {
       >
         <FileText className="h-4 w-4" />
         <Download className="h-4 w-4" />
-        Download CV
+        Download Resume
       </Button>
 
       <p className="text-xs text-muted-foreground">
-        Last updated: 29-10-2025 • PDF format
+        Last updated: 04-01-2026 • PDF format
       </p>
     </div>
   );

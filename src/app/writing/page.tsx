@@ -1,5 +1,5 @@
-import { getWritings } from "@/lib/markdown-writings";
-import { WritingsPageContent } from "@/components/writings-page-content";
+import { getWritings } from "@/lib/markdown-writing";
+import { WritingsPageContent } from "@/components/writing-page-content";
 import { Suspense } from "react";
 import { Metadata } from "next";
 
@@ -11,12 +11,12 @@ export const metadata: Metadata = {
   description:
     "A collection of articles and stories on software development, AI, and more.",
   alternates: {
-    canonical: "/writings",
+    canonical: "/writing",
   },
   openGraph: {
     title: "Writings | Lokman Efe",
     description: "In-depth articles and stories on technology and creativity.",
-    url: "/writings",
+    url: "/writing",
   },
 };
 
@@ -31,14 +31,14 @@ export default async function WritingsPage() {
     name: "Writings | Lokman Efe",
     description:
       "A collection of articles and stories on software development, AI, and more.",
-    url: `${baseUrl}/writings`,
+    url: `${baseUrl}/writing`,
     mainEntity: {
       "@type": "Blog",
       name: "Lokman Efe's Blog",
       blogPost: writings.map((writing) => ({
         "@type": "BlogPosting",
         headline: writing.title,
-        url: `${baseUrl}/writings/${writing.slug}`,
+        url: `${baseUrl}/writing/${writing.slug}`,
         datePublished: writing.date,
         author: {
           "@type": "Person",

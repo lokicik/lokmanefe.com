@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { ChevronDown, ChevronRight, Calendar } from "lucide-react";
-import { MarkdownWriting } from "@/lib/markdown-writings";
+import { MarkdownWriting } from "@/lib/markdown-writing";
 import { formatDate } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 
@@ -95,7 +95,7 @@ export function WritingsArchive({ archive }: WritingsArchiveProps) {
                         {archive[year][month].map((writing) => (
                           <Link
                             key={writing.slug}
-                            href={`/writings/${writing.slug}`}
+                            href={`/writing/${writing.slug}`}
                             prefetch={false}
                             className="block group"
                           >

@@ -3,9 +3,9 @@
 import { useState, useCallback, useMemo } from "react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { MarkdownWriting } from "@/lib/markdown-writings";
+import { MarkdownWriting } from "@/lib/markdown-writing";
 import { formatDate } from "@/lib/utils";
-import { WritingsSearch } from "@/components/writings-search";
+import { WritingsSearch } from "@/components/writing-search";
 import { Clock, Calendar, ChevronDown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -171,7 +171,7 @@ export function WritingsPageContent({
         <div className="space-y-12">
           {writings.map((writing) => (
             <article key={writing.slug} className="group">
-              <Link href={`/writings/${writing.slug}`} prefetch={false} className="block">
+              <Link href={`/writing/${writing.slug}`} prefetch={false} className="block">
                 <div className="space-y-4">
                   {/* Post meta */}
                   <div className="flex items-center gap-4 text-sm text-muted-foreground">

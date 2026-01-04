@@ -3,10 +3,10 @@ import {
   getWritingBySlug,
   getWritings,
   renderMarkdownContent,
-} from "@/lib/markdown-writings";
+} from "@/lib/markdown-writing";
 import { formatDate } from "@/lib/utils";
 import { SocialShare } from "@/components/social-share";
-import { RelatedWritings } from "@/components/related-writings";
+import { RelatedWritings } from "@/components/related-writing";
 import { WritingContent } from "@/components/writing-content";
 import { Clock, Calendar } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -43,12 +43,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: writing.title,
     description: writing.excerpt || writing.description,
     alternates: {
-      canonical: `/writings/${slug}`,
+      canonical: `/writing/${slug}`,
     },
     openGraph: {
       title: writing.title,
       description: writing.excerpt || writing.description,
-      url: `/writings/${slug}`,
+      url: `/writing/${slug}`,
       type: "article",
       publishedTime: new Date(writing.date).toISOString(),
       authors: ["Lokman Efe"],
@@ -94,7 +94,7 @@ export default async function WritingPage({ params }: Props) {
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `${baseUrl}/writings/${slug}`,
+      "@id": `${baseUrl}/writing/${slug}`,
     },
   };
 
@@ -115,7 +115,7 @@ export default async function WritingPage({ params }: Props) {
   }
 
   // Get the full URL for sharing
-  const writingUrl = `${baseUrl}/writings/${writing.slug}`;
+  const writingUrl = `${baseUrl}/writing/${writing.slug}`;
 
   return (
     <>
