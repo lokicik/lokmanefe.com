@@ -146,7 +146,7 @@ export default function RootLayout({
                     </a>
                   </div>
                   <div className="flex items-center justify-center gap-2">
-                    <span>© 2025</span>
+                    <span>© {new Date().getFullYear()}</span>
                     <span>•</span>
                     <a
                       href="https://github.com/lokicik/lokmanefe.com"
