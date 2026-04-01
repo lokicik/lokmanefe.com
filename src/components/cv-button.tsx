@@ -13,7 +13,7 @@ export function CVButton() {
     // Create a temporary link element
     const link = document.createElement("a");
     link.href = cvUrl;
-    link.download = "Lokman-Efe-Resume.pdf";
+    link.download = "Fullstack-Engineer-Lokman-Efe-Resume.pdf";
     link.target = "_blank";
     link.rel = "noopener noreferrer";
 
@@ -36,7 +36,7 @@ export function CVButton() {
       </Button>
 
       <p className="text-xs text-muted-foreground">
-        Last updated: 04-01-2026 • PDF format
+          Last updated: April 2, 2026 • PDF format
       </p>
     </div>
   );
