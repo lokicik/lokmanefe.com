@@ -7,7 +7,7 @@ export const revalidate = 86400; // 24 hours
 export const metadata: Metadata = {
   title: "Lokman Efe",
   description:
-    "Lokman Efe is a software developer based in Edirne, Türkiye. This is his personal portfolio and blog.",
+    "Lokman Efe is a software developer based in Turkey. This is his personal portfolio and blog.",
   alternates: {
     canonical: "/",
   },

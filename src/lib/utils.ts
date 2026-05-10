@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 
-export const CV_URL = "/Fullstack-Engineer-Lokman-Efe-Resume.pdf";
+export const CV_URL = "/Lokman-Efe-Software-Engineer-Resume.pdf";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
