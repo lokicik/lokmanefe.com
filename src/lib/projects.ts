@@ -89,6 +89,7 @@ export const projects: Project[] = [
     category: "Full-Stack",
     technologies: ["Next.js", "Go", "Firebase", "WebSocket", "AI"],
     githubUrl: "https://github.com/orgs/Chimera-Platform/repositories",
+    liveUrl: "https://trychimera.xyz",
     imageUrl: "/projects/chimera_ss1.webp",
     featured: true,
     year: 2025,

@@ -140,7 +140,7 @@ export const featuredProjects: ProjectHighlight[] = [
   },
   {
     name: "Chimera",
-    href: "https://github.com/orgs/Chimera-Platform/repositories",
+    href: "https://trychimera.xyz",
     imageUrl: "/projects/chimera_ss1.webp",
     description:
       "Multi-agent AI chat/game platform with OpenRouter model routing, agent personalities, Flux avatar generation, and AI inpainting workflows.",
