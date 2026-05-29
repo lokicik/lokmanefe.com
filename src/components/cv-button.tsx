@@ -36,7 +36,7 @@ export function CVButton() {
       </Button>
 
       <p className="text-xs text-muted-foreground">
-          Last updated: May 10, 2026 • PDF format
+          Last updated: May 29, 2026 • PDF format
       </p>
     </div>
   );

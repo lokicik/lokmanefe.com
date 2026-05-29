@@ -1,4 +1,15 @@
+import Image from "next/image";
 import { CVButton } from "@/components/cv-button";
+import {
+  hero,
+  about,
+  workflow,
+  experience,
+  featuredProjects,
+  education,
+  socialLinks,
+  CONTACT_EMAIL,
+} from "@/lib/home-content";
 import { Metadata } from "next";
 
 // Enable ISR with 1 day revalidation (homepage changes rarely)
@@ -7,13 +18,21 @@ export const revalidate = 86400; // 24 hours
 export const metadata: Metadata = {
   title: "Lokman Efe",
   description:
-    "Lokman Efe is a software developer based in Turkey. This is his personal portfolio and blog.",
+    "Lokman Efe — AI Product Engineer. High-agency engineer shipping production SaaS products, AI/RAG workflows, billing systems, and third-party integrations in fast-moving startups.",
   alternates: {
     canonical: "/",
   },
 };
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://lokmanefe.com";
+
+function SectionHeading({ children }: { children: React.ReactNode }) {
+  return (
+    <h2 className="text-2xl font-bold mb-5 pb-2 border-b border-border">
+      {children}
+    </h2>
+  );
+}
 
 export default function Home() {
   const jsonLd = {
@@ -32,169 +51,194 @@ export default function Home() {
       "@type": "Organization",
       name: "Freelancer",
     },
-    email: "mailto:lokman@lokmanefe.com",
+    email: `mailto:${CONTACT_EMAIL}`,
     image: `${baseUrl}/projects/lokmanefe_ss1.png`,
     description:
-      "AI Product Engineer with experience in building scalable applications and intelligent systems.",
+      "High-agency software engineer shipping production SaaS products, AI/RAG workflows, and third-party integrations.",
     nationality: "Turkish",
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Edirne",
       addressCountry: "TR",
     },
   };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="max-w-4xl mx-auto space-y-8">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold mb-4">Lokman Efe</h1>
-          <p className="text-lg text-muted-foreground mb-6">
-            I want to scale.
+      <div className="max-w-4xl mx-auto space-y-12">
+        {/* Hero */}
+        <div className="text-center pt-2">
+          <h1 className="text-4xl font-bold mb-2">{hero.name}</h1>
+          <p className="text-lg text-primary font-medium mb-2">{hero.title}</p>
+          <p className="text-lg text-foreground mb-2 max-w-2xl mx-auto">
+            {hero.tagline}
+          </p>
+          <p className="text-sm text-muted-foreground mb-6">
+            {hero.availability}
           </p>
           <CVButton />
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-sm">
+            <a
+              href={`mailto:${CONTACT_EMAIL}`}
+              className="text-primary hover:underline"
+            >
+              {CONTACT_EMAIL}
+            </a>
+            {socialLinks.map((link) => (
+              <span key={link.label} className="flex items-center gap-x-2">
+                <span className="text-muted-foreground">·</span>
+                <a href={link.href} className="text-primary hover:underline">
+                  {link.label}
+                </a>
+              </span>
+            ))}
+          </div>
         </div>
 
+        {/* About */}
         <section>
-          <h2 className="text-2xl font-bold mb-4">About</h2>
-          <p className="text-muted-foreground leading-relaxed">
-            I build, I break, I apply and get mostly rejected..
-            <br/>
-            I can learn any technology. Hire?
-            <br/>
-          </p>
+          <SectionHeading>About</SectionHeading>
+          <div className="space-y-3 text-foreground leading-relaxed">
+            {about.map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
+          </div>
         </section>
 
+        {/* Experience */}
         <section>
-          <h2 className="text-2xl font-bold mb-4">Contact</h2>
-          <p className="text-muted-foreground">
-            <a
-              href="mailto:hello@lokmanefe.com"
-              className="text-primary hover:underline"
-            >
-              Email         
-              </a>
-            <br />
-            <a
-              href="https://github.com/lokicik"
-              className="text-primary hover:underline"
-            >
-              GitHub
-            </a>{" "}
-            |{" "}
-            <a
-              href="https://linkedin.com/in/lokmanefe"
-              className="text-primary hover:underline"
-            >
-              LinkedIn
-            </a>{" "}
-            |{" "}
-            <a
-              href="https://leetcode.com/u/lokmanefe/"
-              className="text-primary hover:underline"
-            >
-              LeetCode
-            </a>{" "}
-            |{" "}
-            <a
-              href="https://kaggle.com/lokmanefe/"
-              className="text-primary hover:underline"
-            >
-              Kaggle
-            </a>
-          </p>
+          <SectionHeading>Experience</SectionHeading>
+          <div className="space-y-6">
+            {experience.map((job) => (
+              <div key={job.company}>
+                <div className="flex flex-wrap items-baseline justify-between gap-x-3">
+                  <h3 className="font-semibold text-foreground">
+                    {job.company}
+                    <span className="text-muted-foreground font-normal">
+                      {" "}
+                      — {job.role}
+                    </span>
+                  </h3>
+                  <span className="text-sm text-muted-foreground tabular-nums">
+                    {job.location} · {job.period}
+                  </span>
+                </div>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  {job.stack}
+                </p>
+                <ul className="mt-2 space-y-1.5 text-foreground leading-relaxed list-disc pl-5">
+                  {job.bullets.map((b, i) => (
+                    <li key={i}>{b}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </section>
 
+        {/* How I Work */}
         <section>
-          <h2 className="text-2xl font-bold mb-4">Projects</h2>
-          <ul className="space-y-3 text-muted-foreground mb-6">
-            <li>
-              <a
-                href="https://gdgoncampustu.com"
-                className="text-primary hover:underline font-medium"
-              >
-                GDG On Campus TÜ
-              </a>{" "}
-              - The best uni club site ever
-            </li>
-             <li>
-              <a
-                href="https://github.com/lokicik/eyedoro"
-                className="text-primary hover:underline font-medium"
-              >
-                Eyedoro
-              </a>{" "}
-              - Open-source alternative for lookaway.app (I&apos;ll pick it up soon)
-            </li>
-            <li>
-              <a
-                href="https://github.com/lokicik/gochop"
-                className="text-primary hover:underline font-medium"
-              >
-                GoChop
-              </a>{" "}
-              - A link shortener (I&apos;ll pick it up soon)
-            </li>
-            <li>
-              <a
-                href="https://saas-kit-eosin.vercel.app/"
-                className="text-primary hover:underline font-medium"
-              >
-                SaaS Kit
-              </a>{" "}
-              - SaaS template (may be offline)
-            </li>
-            <li>
-              <a
-                href="https://github.com/orgs/Chimera-Platform/repositories"
-                className="text-primary hover:underline font-medium"
-              >
-                Chimera
-              </a>{" "}
-              - AI chat application 
-            </li>
-          </ul>
+          <SectionHeading>How I Work</SectionHeading>
+          <div className="space-y-3 text-foreground leading-relaxed">
+            {workflow.map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
+          </div>
+        </section>
+
+        {/* Projects */}
+        <section>
+          <SectionHeading>Projects</SectionHeading>
+          <div className="space-y-6">
+            {featuredProjects.map((project) => {
+              const title = project.href ? (
+                <a
+                  href={project.href}
+                  className="text-primary hover:underline font-medium"
+                >
+                  {project.name}
+                </a>
+              ) : (
+                <span className="font-medium text-foreground">
+                  {project.name}
+                </span>
+              );
+              return (
+                <div
+                  key={project.name}
+                  className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4"
+                >
+                  <div className="flex-1 min-w-0">
+                    <div className="flex flex-wrap items-baseline gap-x-2">
+                      {title}
+                      {project.status === "building" && (
+                        <span className="text-xs text-muted-foreground border border-border rounded px-1.5 py-0.5">
+                          building
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-foreground leading-relaxed">
+                      {project.description}
+                    </p>
+                  </div>
+                  {project.imageUrl &&
+                    (project.href ? (
+                      <a
+                        href={project.href}
+                        className="shrink-0 block w-40 max-w-full"
+                      >
+                        <Image
+                          src={project.imageUrl}
+                          alt={`${project.name} screenshot`}
+                          width={320}
+                          height={200}
+                          className="w-40 max-w-full aspect-[16/10] object-cover rounded border border-border"
+                        />
+                      </a>
+                    ) : (
+                      <Image
+                        src={project.imageUrl}
+                        alt={`${project.name} screenshot`}
+                        width={320}
+                        height={200}
+                        className="shrink-0 w-40 max-w-full aspect-[16/10] object-cover rounded border border-border"
+                      />
+                    ))}
+                </div>
+              );
+            })}
+          </div>
           <a
             href="/projects"
-            className="text-primary hover:underline font-medium inline-flex items-center"
+            className="text-primary hover:underline font-medium inline-flex items-center mt-5"
           >
             View all projects →
           </a>
         </section>
 
+        {/* Education */}
         <section>
-          <h2 className="text-2xl font-bold mb-4">Competitions</h2>
-          <ul className="space-y-3 text-muted-foreground">
-             <li>
-              <a
-                href="https://www.kaggle.com/competitions/datathon-2025"
-                className="text-primary hover:underline font-medium"
-              >
-                Datathon 2025 
-              </a>{" "}
-              - 229/571 (hell I&apos;m rusty)
-            </li>
-            <li>
-              <a
-                href="https://www.kaggle.com/competitions/datathon2023"
-                className="text-primary hover:underline font-medium"
-              >
-                Datathon 2023
-              </a>{" "}
-              - 113/255
-            </li>
-            <li>
-              <a
-                href="https://www.kaggle.com/competitions/dtc-zoomcamp-qa-challenge"
-                className="text-primary hover:underline font-medium"
-              >
-                DTC Zoomcamp Q&A Challenge
-              </a>{" "}
-              - 21/54
-            </li>
+          <SectionHeading>Education</SectionHeading>
+          <div className="flex flex-wrap items-baseline justify-between gap-x-3">
+            <h3 className="font-semibold text-foreground">
+              {education.school}
+              <span className="text-muted-foreground font-normal">
+                {" "}
+                — {education.degree}
+              </span>
+            </h3>
+            <span className="text-sm text-muted-foreground tabular-nums">
+              {education.location} · {education.period}
+            </span>
+          </div>
+          <p className="text-xs text-muted-foreground mt-0.5">{education.gpa}</p>
+          <ul className="mt-2 space-y-1.5 text-muted-foreground leading-relaxed list-disc pl-5">
+            {education.bullets.map((b, i) => (
+              <li key={i}>{b}</li>
+            ))}
           </ul>
         </section>
       </div>

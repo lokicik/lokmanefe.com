@@ -87,7 +87,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Lokman Efe",
     description: "Software developer portfolio and personal blog",
-    creator: "@your_twitter_handle", //
     images: ["/projects/lokmanefe_ss1.png"],
   },
   other: {
