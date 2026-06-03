@@ -1,7 +1,16 @@
 {
   "headers": [
     {
-      "source": "/(.*)",
+      "source": "/Lokman-Efe-Software-Engineer-Resume.pdf",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, no-cache, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/((?!cv$|Lokman-Efe-Software-Engineer-Resume\\.pdf$).*)",
       "headers": [
         {
           "key": "Cache-Control",

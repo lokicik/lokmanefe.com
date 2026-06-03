@@ -2,15 +2,11 @@
 
 import { Download, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { CV_URL } from "@/lib/utils";
 
 export function CVButton() {
   const handleDownload = () => {
-    // Direct download link to the latest CV
-    // GitHub's raw content URL for direct download
-    const cvUrl = CV_URL;
+    const cvUrl = `/cv?v=${Date.now()}`;
 
-    // Create a temporary link element
     const link = document.createElement("a");
     link.href = cvUrl;
     link.download = "Lokman-Efe-Software-Engineer-Resume.pdf";

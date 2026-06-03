@@ -14,8 +14,10 @@ export async function GET() {
     return new Response(pdf, {
       headers: {
         "Content-Type": "application/pdf",
-        "Content-Disposition": "inline; filename=\"Lokman-Efe-Resume.pdf\"",
-        "Cache-Control": "no-store, max-age=0, must-revalidate",
+        "Content-Disposition": "inline; filename=\"Lokman-Efe-Software-Engineer-Resume.pdf\"",
+        "Cache-Control": "no-store, no-cache, max-age=0, must-revalidate",
+        "Pragma": "no-cache",
+        "Expires": "0",
       },
     });
   } catch {
