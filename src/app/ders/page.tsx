@@ -37,6 +37,11 @@ const dersler: Ders[] = [
     description: "YSA Final Özeti — 8. Hafta ve Sonrası",
     href: "/ders/ysa_final_ozeti.html",
   },
+  {
+    title: "İSG II - Final",
+    description: "İSG II Final Hazırlık — Quiz modu ve sadece yanlışları çözme",
+    href: "/ders/isg-2-final.html",
+  },
 ];
 
 export default function DerslerPage() {
