@@ -9,7 +9,7 @@ export const socialLinks: { label: string; href: string }[] = [
 
 export const hero = {
   name: "Lokman Efe",
-  title: "AI Product Engineer",
+  title: "Software Engineer",
   tagline:
     "High-agency engineer shipping production SaaS, AI/RAG workflows, and the integrations behind them.",
   availability: "Based in Turkey · open to engineering roles",
@@ -36,6 +36,18 @@ export interface ExperienceEntry {
 }
 
 export const experience: ExperienceEntry[] = [
+  {
+    company: "Bottomless",
+    role: "Software Engineer",
+    stack: "Next.js, JavaScript, TypeScript",
+    location: "Remote",
+    period: "Jun 2026 – Present",
+    bullets: [
+      "Working on LLM-agent tool calling: the tool calls agents make and the infrastructure around them.",
+      "Building evaluation and testing pipelines for agent tool calls to measure and verify agent behavior.",
+      "Shipping full-stack with Next.js, JavaScript, and TypeScript as part of the engineering team.",
+    ],
+  },
   {
     company: "Beefair.ai",
     role: "Founding Engineer",
@@ -106,6 +118,20 @@ export interface ProjectHighlight {
 }
 
 export const featuredProjects: ProjectHighlight[] = [
+  {
+    name: "agentsurface",
+    href: "https://github.com/lokicik/agentsurface",
+    status: "building",
+    description:
+      "Scores how agent-friendly an API is: paste an OpenAPI/Swagger spec and get a 0–100 score across 6 categories with a ranked, fix-by-fix issue list. Next.js 16, Firestore KV, and Paddle checkout.",
+  },
+  {
+    name: "Neologism Engine",
+    href: "https://github.com/lokicik/neologism-engine",
+    status: "building",
+    description:
+      "Invents brand, sci-fi, and fantasy names with a Rust→WebAssembly engine and a React SPA, using Markov chains, phonotactic filters, and word-likeness scoring, fully client-side.",
+  },
   {
     name: "House Royale",
     href: "https://houseroyale.fun",
