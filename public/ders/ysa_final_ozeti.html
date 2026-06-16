@@ -347,7 +347,7 @@ model.<span class="f">fit</span>(X_train, y_train, epochs=<span class="n">20</sp
 <section id="backprop">
  <div class="sec-tag">9. Hafta — Teorik</div>
  <h2><span class="num">5</span> MLP &amp; Backpropagation — Mini Hatırlatma <span class="pill teori">TEORİ</span></h2>
- <p class="sec-sub">Elle hesabı zaten biliyorsun; burada sadece döngünün özeti ve Keras kodundaki karşılığı var.</p>
+ <p class="sec-sub">Elle hesabı zaten biliyorsun; burada döngünün özeti + Keras karşılığı, algoritma adımları ve durdurma kriterleri var.</p>
 
  <div class="card">
   <p><strong>Döngü:</strong> İleri besleme (girdi → katman katman çıkış hesapla) → hatayı bul (beklenen − üretilen) → geriye yayınım (hata çıkıştan girişe doğru dağıtılır) → ağırlık ve bias güncelle → tekrarla.</p>
@@ -361,6 +361,38 @@ model.<span class="f">fit</span>(X_train, y_train, epochs=<span class="n">20</sp
    <tr><td>Başlangıç ağırlıkları</td><td><code>kernel_initializer=</code></td></tr>
   </table></div>
  </div>
+
+ <h3>Backpropagation Algoritması (adımlar)</h3>
+ <ol>
+  <li><strong>Ağ mimarisini belirle</strong> (örn. <code>3-4-2-2</code> MLP gibi: 3 girdi, 4 ve 2 gizli nöron, 2 çıktı).</li>
+  <li><strong>Başlangıç ağırlık + bias</strong> atamalarını yap.</li>
+  <li><strong>Durdurma kriteri sağlanıncaya kadar tekrarla:</strong>
+   <ol type="a">
+    <li><strong>İleri yayılım (Forward Pass)</strong> — çıkışları hesapla.</li>
+    <li><strong>Hata hesaplama.</strong></li>
+    <li><strong>Geri yayılım (Backward Pass)</strong> — hata <strong>çıkış katmanından giriş katmanına</strong> doğru yayılır.</li>
+    <li><strong>Ağırlıkları ve bias'ları güncelle.</strong></li>
+   </ol>
+  </li>
+ </ol>
+
+ <h3 class="amber">Durdurma Kriterleri</h3>
+ <p><strong>1) Hata çok küçük olursa</strong> — <code>MSE &lt; eşik değer (threshold)</code></p>
+ <div class="formula">MSE = (1/n) · Σᵢ₌₁ⁿ (tᵢ − yᵢ)²&nbsp;&nbsp;&nbsp;<span style="color:var(--text3)">// tᵢ = beklenen, yᵢ = ağın tahmini, n = örnek sayısı</span></div>
+ <p>Eşik değer, eğitime <strong>başlamadan önce</strong> belirlenen bir sınırdır. <strong>Ağ her epoch sonunda MSE hesaplar.</strong> Örnek: threshold = 0.01 olsun.</p>
+ <div class="tbl-scroll"><table>
+  <tr><th>Epoch</th><th>MSE</th><th>Durum</th></tr>
+  <tr><td>1</td><td>0.75</td><td>—</td></tr>
+  <tr><td>10</td><td>0.30</td><td>—</td></tr>
+  <tr><td>50</td><td>0.08</td><td>—</td></tr>
+  <tr><td>100</td><td>0.02</td><td>—</td></tr>
+  <tr><td>150</td><td>0.009</td><td><b>0.009 &lt; 0.01 → "yeterince öğrendim", eğitimi durdur</b></td></tr>
+ </table></div>
+ <div class="callout rose">
+  <div class="ct">⚠ Threshold seçimi</div>
+  <p style="margin-bottom:0"><strong>Çok küçük</strong> olursa ağ fazla çalışır, çok epoch olur. <strong>Çok büyük</strong> olursa ilk birkaç epoch'ta durur ve <strong>tam öğrenmeden</strong> biter.</p>
+ </div>
+ <p><strong>2) Maksimum epoch sayısına ulaşırsa</strong> — belirlenen epoch sayısına ulaşılırsa eğitim sonlandırılır.</p>
 </section>
 
 <!-- ============ 6. LVQ TEORI ============ -->
