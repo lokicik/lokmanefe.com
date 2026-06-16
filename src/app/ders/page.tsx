@@ -28,19 +28,9 @@ const dersler: Ders[] = [
     href: "/ders/Veri%20Analizi%20-%20Final.html",
   },
   {
-    title: "BTSE - Final",
-    description: "BTSE Final – Çalışma Notu",
-    href: "/ders/btse-final.html",
-  },
-  {
     title: "YSA - Final",
     description: "YSA Final Özeti — 8. Hafta ve Sonrası",
     href: "/ders/ysa_final_ozeti.html",
-  },
-  {
-    title: "İSG II - Final",
-    description: "İSG II Final Hazırlık — Quiz modu ve sadece yanlışları çözme",
-    href: "/ders/isg-2-final.html",
   },
 ];
 
