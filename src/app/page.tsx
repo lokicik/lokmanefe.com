@@ -10,6 +10,7 @@ import {
   socialLinks,
   CONTACT_EMAIL,
 } from "@/lib/home-content";
+import { CursorBird } from "@/components/cursor-bird";
 import { Metadata } from "next";
 
 // Enable ISR with 1 day revalidation (homepage changes rarely)
@@ -68,6 +69,8 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+            <CursorBird />
+
       <div className="max-w-4xl mx-auto space-y-12">
         {/* Hero */}
         <div className="text-center pt-2">
