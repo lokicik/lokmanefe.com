@@ -36,16 +36,17 @@ function clampPoint(x: number, y: number): readonly [number, number] {
   ];
 }
 
-function placeParrot(element: HTMLDivElement, x: number, y: number): void {
+function placeParrot(element: HTMLElement, x: number, y: number): void {
   const left = Math.round(x - HALF_DISPLAY_SIZE);
   const top = Math.round(y - HALF_DISPLAY_SIZE);
   element.style.transform = `translate3d(${left}px, ${top}px, 0)`;
 }
 
 export function CursorBird() {
-  const wrapperRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLButtonElement>(null);
   const { resolvedTheme, theme } = useTheme();
   const [parrotAllowed, setParrotAllowed] = useState<boolean | null>(null);
+  const [dismissed, setDismissed] = useState(false);
   const [sprite, setSprite] = useState<SpriteState>({
     direction: 0,
     mode: "idle",
@@ -76,7 +77,7 @@ export function CursorBird() {
   }, []);
 
   useEffect(() => {
-    if (!parrotAllowed) return;
+    if (!parrotAllowed || dismissed) return;
 
     const wrapper = wrapperRef.current;
     if (!wrapper) return;
@@ -189,9 +190,9 @@ export function CursorBird() {
       window.removeEventListener("touchmove", handleTouch);
       window.removeEventListener("resize", handleResize);
     };
-  }, [parrotAllowed]);
+  }, [dismissed, parrotAllowed]);
 
-  if (!parrotAllowed) return null;
+  if (!parrotAllowed || dismissed) return null;
 
   const useBlackSprite =
     theme === "light" ||
@@ -200,9 +201,12 @@ export function CursorBird() {
   const sheetFrame = sprite.mode === "flight" ? sprite.frame + 1 : 0;
 
   return (
-    <div
+    <button
       ref={wrapperRef}
-      aria-hidden="true"
+      type="button"
+      aria-label="Papağanı gizle"
+      tabIndex={-1}
+      onClick={() => setDismissed(true)}
       style={{
         position: "fixed",
         top: 0,
@@ -210,7 +214,12 @@ export function CursorBird() {
         zIndex: 40,
         width: DISPLAY_SIZE,
         height: DISPLAY_SIZE,
-        pointerEvents: "none",
+        padding: 0,
+        border: 0,
+        background: "transparent",
+        appearance: "none",
+        cursor: sprite.mode === "idle" ? "pointer" : "default",
+        pointerEvents: sprite.mode === "idle" ? "auto" : "none",
         userSelect: "none",
         willChange: "transform",
         transform: "translate3d(-100px, -100px, 0)",
@@ -227,6 +236,6 @@ export function CursorBird() {
           imageRendering: "pixelated",
         }}
       />
-    </div>
+    </button>
   );
 }
