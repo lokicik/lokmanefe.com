@@ -45,7 +45,7 @@ function placeParrot(element: HTMLDivElement, x: number, y: number): void {
 export function CursorBird() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const { resolvedTheme, theme } = useTheme();
-  const [motionAllowed, setMotionAllowed] = useState<boolean | null>(null);
+  const [parrotAllowed, setParrotAllowed] = useState<boolean | null>(null);
   const [sprite, setSprite] = useState<SpriteState>({
     direction: 0,
     mode: "idle",
@@ -53,19 +53,30 @@ export function CursorBird() {
   });
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const syncMotionPreference = () => setMotionAllowed(!mediaQuery.matches);
+    const reducedMotionQuery = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    );
+    const desktopPointerQuery = window.matchMedia(
+      "(hover: hover) and (pointer: fine)",
+    );
+    const syncEligibility = () => {
+      setParrotAllowed(
+        !reducedMotionQuery.matches && desktopPointerQuery.matches,
+      );
+    };
 
-    syncMotionPreference();
-    mediaQuery.addEventListener("change", syncMotionPreference);
+    syncEligibility();
+    reducedMotionQuery.addEventListener("change", syncEligibility);
+    desktopPointerQuery.addEventListener("change", syncEligibility);
 
     return () => {
-      mediaQuery.removeEventListener("change", syncMotionPreference);
+      reducedMotionQuery.removeEventListener("change", syncEligibility);
+      desktopPointerQuery.removeEventListener("change", syncEligibility);
     };
   }, []);
 
   useEffect(() => {
-    if (!motionAllowed) return;
+    if (!parrotAllowed) return;
 
     const wrapper = wrapperRef.current;
     if (!wrapper) return;
@@ -178,9 +189,9 @@ export function CursorBird() {
       window.removeEventListener("touchmove", handleTouch);
       window.removeEventListener("resize", handleResize);
     };
-  }, [motionAllowed]);
+  }, [parrotAllowed]);
 
-  if (!motionAllowed) return null;
+  if (!parrotAllowed) return null;
 
   const useBlackSprite =
     theme === "light" ||
