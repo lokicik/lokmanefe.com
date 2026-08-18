@@ -4,8 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { FontPicker } from "@/components/font-picker";
-import { FontSizePicker } from "@/components/font-size-picker";
+import { AppearancePicker } from "@/components/appearance-picker";
 import { Button } from "@/components/ui/button";
 import { ParrotIcon } from "@/components/parrot-icon";
 
@@ -19,7 +18,6 @@ export function Navigation() {
           {/* Logo */}
           <Link
             href="/"
-            prefetch={false}
             className="text-2xl font-bold flex-shrink-0 flex items-center"
           >
             <ParrotIcon size={32} className="text-primary" />
@@ -30,28 +28,24 @@ export function Navigation() {
             <div className="flex items-center space-x-4">
               <Link
                 href="/"
-                prefetch={false}
                 className="text-sm font-medium transition-colors hover:text-primary"
               >
                 Home
               </Link>
               <Link
                 href="/writing"
-                prefetch={false}
                 className="text-sm font-medium transition-colors hover:text-primary"
               >
                 Writing
               </Link>
               <Link
                 href="/reading"
-                prefetch={false}
                 className="text-sm font-medium transition-colors hover:text-primary"
               >
                 Reading
               </Link>
               <Link
-                href="/projects"
-                prefetch={false}
+                href="/#projects"
                 className="text-sm font-medium transition-colors hover:text-primary"
               >
                 Projects
@@ -59,14 +53,20 @@ export function Navigation() {
             </div>
 
             <div className="flex items-center space-x-2 border-l pl-4">
-              <FontSizePicker />
-              <FontPicker />
+              <AppearancePicker />
               <ThemeToggle />
             </div>
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center space-x-2">
+            <Link
+              href="/#projects"
+              className="inline-flex min-h-10 items-center px-1 text-sm font-medium transition-colors hover:text-primary"
+            >
+              Projects
+            </Link>
+            <AppearancePicker />
             <ThemeToggle />
             <Button
               variant="ghost"
@@ -90,7 +90,6 @@ export function Navigation() {
             <div className="px-2 pt-2 pb-3 space-y-1">
               <Link
                 href="/"
-                prefetch={false}
                 className="block px-3 py-2 text-base font-medium transition-colors hover:text-primary hover:bg-muted rounded-md"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -98,7 +97,6 @@ export function Navigation() {
               </Link>
               <Link
                 href="/writing"
-                prefetch={false}
                 className="block px-3 py-2 text-base font-medium transition-colors hover:text-primary hover:bg-muted rounded-md"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -106,32 +104,11 @@ export function Navigation() {
               </Link>
               <Link
                 href="/reading"
-                prefetch={false}
                 className="block px-3 py-2 text-base font-medium transition-colors hover:text-primary hover:bg-muted rounded-md"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Reading
               </Link>
-              <Link
-                href="/projects"
-                prefetch={false}
-                className="block px-3 py-2 text-base font-medium transition-colors hover:text-primary hover:bg-muted rounded-md"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Projects
-              </Link>
-
-              {/* Mobile settings */}
-              <div className="px-3 py-2 space-y-3 border-t mt-2 pt-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium">Font Size</span>
-                  <FontSizePicker />
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium">Font Family</span>
-                  <FontPicker />
-                </div>
-              </div>
             </div>
           </div>
         )}

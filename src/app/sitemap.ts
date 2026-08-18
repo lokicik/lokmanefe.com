@@ -26,10 +26,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date().toISOString(),
     },
     {
-      url: `${baseUrl}/projects`,
-      lastModified: new Date().toISOString(),
-    },
-    {
       url: `${baseUrl}/reading`,
       lastModified: new Date().toISOString(),
     },
