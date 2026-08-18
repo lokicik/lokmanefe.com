@@ -11,18 +11,13 @@ export const hero = {
   name: "Lokman Efe",
   title: "Software Engineer",
   tagline:
-    "High-agency engineer shipping production SaaS, AI/RAG workflows, and the integrations behind them.",
-  availability: "Based in Turkey · open to engineering roles",
+    "High-agency full-stack engineer shipping production SaaS products, AI/RAG workflows, and the integrations behind them.",
+  currentRole: "Software Engineer at Bottomless (YC W19)",
+  availability: "Based in Turkey · open to selective remote opportunities",
 };
 
 export const workflow = [
-  "Most of my building now runs through agentic coding tools like Claude Code, Cursor, Codex, and opencode. I usually have a few agents working at once on different parts of a problem, so my real job is less typing and more deciding: scoping the work, reviewing every diff, and keeping the architecture coherent.",
-  "I keep agents on-rails with project conventions like AGENTS.md and SKILL.md, watch for prompt-injection and bad assumptions, and verify before anything ships. The tooling changed how fast I move, not who's accountable for the result.",
-];
-
-export const about = [
-  "High-agency software engineer with experience shipping production SaaS products, AI/RAG workflows, billing systems, and third-party integrations in fast-moving startup environments.",
-  "Strong ownership across frontend, backend, API integrations, and LLM-powered data retrieval. I learn any stack fast and ship under pressure.",
+  "I use coding agents to move faster, but I still own the work. I set the scope and architecture, review every diff, and verify the result with tests and telemetry before it ships. My workflow keeps changing as better tools appear; I test them on real work and keep the ones that earn a place.",
 ];
 
 export interface ExperienceEntry {
@@ -39,13 +34,13 @@ export const experience: ExperienceEntry[] = [
   {
     company: "Bottomless",
     role: "Software Engineer",
-    stack: "Next.js, JavaScript, TypeScript",
+    stack: "Next.js, React Native, TypeScript",
     location: "Remote",
     period: "Jun 2026 – Present",
     bullets: [
-      "Working on LLM-agent tool calling: the tool calls agents make and the infrastructure around them.",
-      "Building evaluation and testing pipelines for agent tool calls to measure and verify agent behavior.",
-      "Shipping full-stack with Next.js, JavaScript, and TypeScript as part of the engineering team.",
+      "Shipped end-to-end features for a production AI platform using Next.js and React Native, spanning web, mobile, APIs, persistence, and production rollout.",
+      "Designed evaluation workflows for LLM routing and multi-agent coding harnesses, using controlled production-like runs and event-level telemetry to isolate model, orchestration, infrastructure, and measurement failures.",
+      "Improved LLM routing and streaming reliability by parallelizing classification, eliminating redundant data loading, bounding model context, and strengthening failure handling under concurrent workloads.",
     ],
   },
   {
@@ -85,17 +80,6 @@ export const experience: ExperienceEntry[] = [
     ],
   },
   {
-    company: "Cosmos",
-    role: "AI Engineer",
-    stack: "Python, OpenCV, YOLO, Linux",
-    location: "Turkey",
-    period: "Dec 2023 – Jun 2024",
-    bullets: [
-      "Built computer-vision and OCR pipelines with Python, OpenCV, YOLO, Roboflow, Tesseract, PaddleOCR, EasyOCR, and Linux-based ML workflows.",
-      "Processed 20,000+ labeled records and contributed to multimodal AI and edge-AI prototypes using camera input, sensors, Jetson Nano, and Arduino.",
-    ],
-  },
-  {
     company: "CTO Lab",
     role: "AI Product Engineer",
     stack: "React, TypeScript, Electron",
@@ -104,7 +88,17 @@ export const experience: ExperienceEntry[] = [
     bullets: [
       "Helped build LingoEdit, an editor-based AI translation app that launched #2 on Product Hunt.",
       "Built new editor types including a voice-AI dictation editor, integrated multiple AI providers, and ported the web app to an Electron desktop app.",
-      "Prototyped collaborative editing and fixed a wide range of frontend UI/UX bugs.",
+    ],
+  },
+  {
+    company: "Cosmos",
+    role: "AI Engineer",
+    stack: "Python, OpenCV, YOLO, Linux",
+    location: "Onsite",
+    period: "Dec 2023 – Jun 2024",
+    bullets: [
+      "Built computer-vision and OCR pipelines with Python, OpenCV, YOLO, Roboflow, Tesseract, PaddleOCR, EasyOCR, and Linux-based ML workflows.",
+      "Processed 20,000+ labeled records and contributed to multimodal AI and edge-AI prototypes using camera input, sensors, Jetson Nano, and Arduino.",
     ],
   },
 ];
@@ -113,70 +107,57 @@ export interface ProjectHighlight {
   name: string;
   description: string;
   href?: string;
-  status?: "building";
   imageUrl?: string;
 }
 
 export const featuredProjects: ProjectHighlight[] = [
   {
-    name: "agentsurface",
-    href: "https://github.com/lokicik/agentsurface",
-    status: "building",
+    name: "ReadMaxxer",
+    href: "https://www.readmaxxer.com/",
+    imageUrl: "/projects/readmaxxer.png",
     description:
-      "Scores how agent-friendly an API is: paste an OpenAPI/Swagger spec and get a 0–100 score across 6 categories with a ranked, fix-by-fix issue list. Next.js 16, Firestore KV, and Paddle checkout.",
+      "Built and shipped a production web app for benchmarking and training visual speed through six interactive exercises, with server-authoritative scoring, adaptive workouts, accounts, and subscriptions.",
+  },
+  {
+    name: "House Royale",
+    href: "https://www.houseroyale.fun/",
+    imageUrl: "/projects/houseroyale_ss1.webp",
+    description:
+      "Built an end-to-end multiplayer game where players compete against trained models to estimate prices from real Turkish property listings, including scraped data, live lobbies, and instant scoring.",
+  },
+  {
+    name: "agentsurface",
+    href: "https://agentsurface.vercel.app/",
+    imageUrl: "/projects/agentsurface.png",
+    description:
+      "Built a scanner that scores how well coding agents can work with an OpenAPI spec, returning a 0-100 rating and a ranked, fix-by-fix report across six categories.",
+  },
+  {
+    name: "EvalForge",
+    imageUrl: "/projects/evalforge.png",
+    description:
+      "Built a prompt evaluation platform for versioning prompts, running curated test cases, scoring outputs with weighted rubrics, and comparing revisions over time.",
+  },
+  {
+    name: "lbe.one",
+    href: "https://lbe.one/",
+    imageUrl: "/projects/lbe-one.png",
+    description:
+      "Built a personal permalink control plane with immutable routes, revision history, privacy-minimized analytics, validated imports, and authenticated management.",
+  },
+  {
+    name: "GDG On Campus Trakya",
+    href: "https://www.gdgoncampustu.com/",
+    imageUrl: "/projects/gdg-on-campus-trakya.png",
+    description:
+      "Built and operated a production community platform that handled 2,000+ visitors in three days and 200+ concurrent users during a live event across registrations, interactive experiences, and admin workflows.",
   },
   {
     name: "Neologism Engine",
     href: "https://github.com/lokicik/neologism-engine",
-    status: "building",
+    imageUrl: "/projects/neologism-engine.png",
     description:
-      "Invents brand, sci-fi, and fantasy names with a Rust→WebAssembly engine and a React SPA, using Markov chains, phonotactic filters, and word-likeness scoring, fully client-side.",
-  },
-  {
-    name: "House Royale",
-    href: "https://houseroyale.fun",
-    status: "building",
-    imageUrl: "/projects/houseroyale_ss1.webp",
-    description:
-      "Real-time AI game with Go backend, React frontend, Python ML infra, scraped real-estate data, 9 trained models, and WebSocket lobbies.",
-  },
-  {
-    name: "EvalForge",
-    status: "building",
-    description: "Multitenant AI prompt-evaluation platform, built on Ruby on Rails.",
-  },
-  {
-    name: "Orienteering game",
-    status: "building",
-    description:
-      "Web-based orienteering with voxel graphics and a Fortnite-style lobby system.",
-  },
-  {
-    name: "mythology_untold",
-    status: "building",
-    description:
-      "AI-driven mythology storytelling: one illustration, auto-zoomed and narrated into a finished video.",
-  },
-  {
-    name: "gdgoncampustu.com",
-    href: "https://gdgoncampustu.com",
-    imageUrl: "/projects/gdgwebsite_ss1.webp",
-    description:
-      "Official student developer community platform; handled 2,000+ visitors in 3 days and 200+ concurrent users during a live event.",
-  },
-  {
-    name: "Chimera",
-    href: "https://trychimera.xyz",
-    imageUrl: "/projects/chimera_ss1.webp",
-    description:
-      "Multi-agent AI chat/game platform with OpenRouter model routing, agent personalities, Flux avatar generation, and AI inpainting workflows.",
-  },
-  {
-    name: "GeoIP Explorer",
-    href: "https://geoip-explorer-lokmanefe.netlify.app/",
-    imageUrl: "/projects/geoip_1.webp",
-    description:
-      "IP tracking and geolocation app built with Vue 3 and Leaflet: real-time mapping, distance measurement, and a tactical UI.",
+      "Built a client-side naming tool that generates and ranks brand, sci-fi, and fantasy names with phonotactic filters, semantic matching, and a Rust/WebAssembly engine.",
   },
 ];
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { Download, FileText } from "lucide-react";
+import { Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function CVButton() {
@@ -23,16 +23,15 @@ export function CVButton() {
     <div className="flex flex-col items-center gap-2">
       <Button
         onClick={handleDownload}
-        className="flex items-center gap-2"
+        className="flex items-center gap-2 transition-transform active:scale-[0.96]"
         size="lg"
       >
-        <FileText className="h-4 w-4" />
         <Download className="h-4 w-4" />
-        Download Resume
+        Résumé
       </Button>
 
       <p className="text-xs text-muted-foreground">
-          Last updated: May 29, 2026 • PDF format
+        Last updated: July 22, 2026
       </p>
     </div>
   );
