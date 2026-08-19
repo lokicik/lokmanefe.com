@@ -114,13 +114,13 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <div className="min-h-screen bg-background relative grid grid-rows-[auto_1fr_auto]">
-            {/* Scattered decorative elements */}
-            <SideSvgs />
-
             <Navigation />
-            <main className="max-w-4xl mx-auto px-4 py-8 relative z-10 pb-16 w-full">
-              {children}
-            </main>
+            <div className="grid w-full grid-cols-[minmax(0,1fr)_minmax(0,56rem)_minmax(0,1fr)]">
+              <SideSvgs />
+              <main className="relative z-10 col-start-2 row-start-1 w-full px-4 py-8 pb-16">
+                {children}
+              </main>
+            </div>
 
             {/* Footer */}
             <footer className="border-t bg-background/80 backdrop-blur-sm relative z-0">

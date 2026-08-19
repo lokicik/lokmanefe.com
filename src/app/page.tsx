@@ -29,7 +29,7 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://lokmanefe.com";
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="text-2xl font-bold mb-5 pb-2 border-b border-border">
+    <h2 className="mb-5 border-b border-border pb-2 text-2xl font-bold text-balance">
       {children}
     </h2>
   );
@@ -171,7 +171,7 @@ export default function Home() {
         {/* How I Work */}
         <section>
           <SectionHeading>How I Work</SectionHeading>
-          <div className="max-w-[68ch] space-y-3 text-foreground leading-relaxed">
+          <div className="mx-auto max-w-[68ch] space-y-3 text-pretty leading-relaxed text-foreground">
             {workflow.map((p, i) => (
               <p key={i}>{p}</p>
             ))}

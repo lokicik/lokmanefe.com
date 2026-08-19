@@ -38,10 +38,10 @@ const fonts = [
 ];
 
 const fontSizes = [
-  { name: "Small", value: "14px" },
-  { name: "Normal", value: "16px" },
-  { name: "Large", value: "18px" },
-  { name: "Extra large", value: "20px" },
+  { name: "Small", value: "14px", scale: 0.875 },
+  { name: "Normal", value: "16px", scale: 1 },
+  { name: "Large", value: "18px", scale: 1.125 },
+  { name: "Extra large", value: "20px", scale: 1.25 },
 ];
 
 export function AppearancePicker() {
@@ -71,7 +71,11 @@ export function AppearancePicker() {
   React.useEffect(() => {
     if (!mounted) return;
 
-    document.documentElement.style.fontSize = selectedSize.value;
+    document.documentElement.style.removeProperty("font-size");
+    document.documentElement.style.setProperty(
+      "--text-scale",
+      selectedSize.scale.toString()
+    );
     localStorage.setItem("selected-font-size", selectedSize.value);
   }, [mounted, selectedSize]);
 
