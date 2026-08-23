@@ -8,6 +8,7 @@ import { BookOpen, Star, Calendar, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
 
 type Props = {
   book: Book;
@@ -17,6 +18,10 @@ type Props = {
 export function BookPageContent({ book, content }: Props) {
   const searchParams = useSearchParams();
   const backUrl = searchParams.get("back");
+  const [failedCoverUrl, setFailedCoverUrl] = useState<string | null>(null);
+  const hasCover = Boolean(
+    book.coverImage && book.coverImage !== failedCoverUrl
+  );
 
   return (
     <div className="max-w-4xl mx-auto space-y-8">
@@ -32,20 +37,28 @@ export function BookPageContent({ book, content }: Props) {
         <div className="flex flex-col lg:flex-row gap-6">
           {/* Book Cover */}
           <div className="w-full lg:w-64 flex justify-center lg:justify-start flex-shrink-0">
-            {book.coverImage ? (
+            {hasCover ? (
               <div className="relative w-48 h-72 bg-muted rounded-lg overflow-hidden shadow-lg">
                 <Image
-                  src={book.coverImage}
+                  src={book.coverImage!}
                   alt={`${book.title} cover`}
-                  className="object-contain w-full h-full"
+                  className="object-contain w-full h-full outline outline-1 -outline-offset-1 outline-black/10 dark:outline-white/10"
                   width={192}
                   height={288}
                   priority
+                  onError={() => setFailedCoverUrl(book.coverImage ?? null)}
                 />
               </div>
             ) : (
-              <div className="w-48 h-72 bg-muted rounded-lg flex items-center justify-center">
-                <BookOpen className="h-16 w-16 text-muted-foreground" />
+              <div
+                className="w-48 h-72 bg-muted rounded-lg flex flex-col items-center justify-center gap-3 text-muted-foreground"
+                role="img"
+                aria-label={`No cover available for ${book.title}`}
+              >
+                <BookOpen className="h-16 w-16" strokeWidth={1.25} />
+                <span className="max-w-36 text-center text-xs text-pretty">
+                  Cover unavailable
+                </span>
               </div>
             )}
           </div>
