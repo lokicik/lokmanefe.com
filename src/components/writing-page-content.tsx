@@ -174,7 +174,7 @@ export function WritingsPageContent({
               <Link href={`/writing/${writing.slug}`} prefetch={false} className="block">
                 <div className="space-y-4">
                   {/* Post meta */}
-                  <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
                     <Badge
                       variant={
                         writing.type === "article" ? "default" : "secondary"
@@ -183,16 +183,18 @@ export function WritingsPageContent({
                     >
                       {writing.type}
                     </Badge>
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <Calendar className="h-4 w-4" />
                       <time>{formatDate(writing.date)}</time>
                     </div>
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <Clock className="h-4 w-4" />
                       <span>{writing.readingTime} min read</span>
                     </div>
                     {writing.wordCount && (
-                      <span>{writing.wordCount.toLocaleString()} words</span>
+                      <span className="hidden whitespace-nowrap sm:inline">
+                        {writing.wordCount.toLocaleString()} words
+                      </span>
                     )}
                   </div>
 

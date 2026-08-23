@@ -274,9 +274,19 @@
     @apply border-l-4 pl-4 italic opacity-80 my-8;
   }
 
-  /* Tables - Code block style with solid background */
+  /* Tables - bounded horizontal scrolling on narrow screens */
+  .prose .table-scroll {
+    @apply my-8 max-w-full overflow-x-auto rounded-lg;
+    overscroll-behavior-inline: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .prose .table-scroll:focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+
   .prose table {
-    @apply w-full my-8 border-collapse rounded-lg overflow-hidden;
+    @apply w-full min-w-max my-0 border-collapse rounded-lg overflow-hidden;
     /* Shiki-style solid background - no transparency */
     background-color: #24292e; /* GitHub dark theme background */
     border: 1px solid rgba(255, 255, 255, 0.1);

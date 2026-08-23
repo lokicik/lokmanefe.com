@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { MarkdownWriting, getRelatedWritings } from "@/lib/markdown-writing";
-import { formatDate } from "@/lib/utils";
+import { cn, formatDate } from "@/lib/utils";
 import { Clock, Calendar } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
@@ -29,7 +29,13 @@ export function RelatedWritings({
     <section className="mt-16 pt-12 border-t">
       <h2 className="text-2xl font-bold mb-8">Related Writings</h2>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div
+        className={cn(
+          "grid gap-6",
+          relatedWritings.length === 2 && "md:grid-cols-2",
+          relatedWritings.length >= 3 && "md:grid-cols-2 lg:grid-cols-3"
+        )}
+      >
         {relatedWritings.map((writing) => (
           <Link
             key={writing.slug}
@@ -37,20 +43,20 @@ export function RelatedWritings({
             prefetch={false}
             className="group block"
           >
-            <article className="space-y-3 p-4 rounded-lg border hover:shadow-md transition-all duration-200 hover:border-muted-foreground/20">
+            <article className="h-full space-y-3 p-4 rounded-lg border transition-[border-color,box-shadow] duration-200 hover:border-muted-foreground/20 hover:shadow-md">
               {/* Post meta */}
-              <div className="flex items-center gap-4 text-xs text-muted-foreground">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
                 <Badge
                   variant={writing.type === "article" ? "default" : "secondary"}
                   className="capitalize"
                 >
                   {writing.type}
                 </Badge>
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 whitespace-nowrap">
                   <Calendar className="h-3 w-3" />
                   <time>{formatDate(writing.date)}</time>
                 </div>
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 whitespace-nowrap">
                   <Clock className="h-3 w-3" />
                   <span>{writing.readingTime} min read</span>
                 </div>

@@ -6,6 +6,7 @@ import remarkGfm from "remark-gfm";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeStringify from "rehype-stringify";
 import remarkRehype from "remark-rehype";
+import { rehypeWrapTables } from "@/lib/rehype-wrap-tables";
 
 // Minimal HAST properties type used for rehype-pretty-code visitors.
 type HastProps = { [key: string]: unknown; className?: string | string[] };
@@ -269,6 +270,7 @@ export async function renderMarkdownContent(content: string): Promise<string> {
     const result = await remark()
       .use(remarkGfm)
       .use(remarkRehype, { allowDangerousHtml: true })
+      .use(rehypeWrapTables)
       .use(rehypePrettyCode, {
         theme: "github-dark-dimmed",
         keepBackground: true,
