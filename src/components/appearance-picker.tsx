@@ -47,6 +47,7 @@ const fontSizes = [
 export function AppearancePicker() {
   const [selectedFont, setSelectedFont] = React.useState(fonts[0]);
   const [selectedSize, setSelectedSize] = React.useState(fontSizes[1]);
+  const [usesDefaultPairing, setUsesDefaultPairing] = React.useState(true);
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
@@ -56,7 +57,10 @@ export function AppearancePicker() {
     const font = fonts.find((option) => option.value === savedFont);
     const size = fontSizes.find((option) => option.value === savedSize);
 
-    if (font) setSelectedFont(font);
+    if (font) {
+      setSelectedFont(font);
+      setUsesDefaultPairing(false);
+    }
     if (size) setSelectedSize(size);
     setMounted(true);
   }, []);
@@ -65,8 +69,16 @@ export function AppearancePicker() {
     if (!mounted) return;
 
     document.body.style.fontFamily = `var(${selectedFont.cssVar}), ui-sans-serif, system-ui, sans-serif`;
-    localStorage.setItem("selected-font", selectedFont.value);
-  }, [mounted, selectedFont]);
+    if (usesDefaultPairing) {
+      document.documentElement.style.removeProperty("--font-heading");
+    } else {
+      document.documentElement.style.setProperty(
+        "--font-heading",
+        `var(${selectedFont.cssVar})`
+      );
+      localStorage.setItem("selected-font", selectedFont.value);
+    }
+  }, [mounted, selectedFont, usesDefaultPairing]);
 
   React.useEffect(() => {
     if (!mounted) return;
@@ -120,7 +132,10 @@ export function AppearancePicker() {
                   type="button"
                   aria-label={font.name}
                   aria-pressed={isSelected}
-                  onClick={() => setSelectedFont(font)}
+                  onClick={() => {
+                    setUsesDefaultPairing(false);
+                    setSelectedFont(font);
+                  }}
                   style={{ fontFamily: `var(${font.cssVar})` }}
                   className={`flex min-h-10 items-center justify-between rounded-md border px-3 text-left text-sm transition-[background-color,border-color,transform] active:scale-[0.96] ${
                     isSelected

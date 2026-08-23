@@ -46,6 +46,7 @@
 :root {
   --radius: 0.625rem;
   --text-scale: 1;
+  --font-heading: var(--font-space-grotesk);
   --background: oklch(1 0 0);
   --foreground: oklch(0.08 0 0);
   --card: oklch(1 0 0);
@@ -228,12 +229,24 @@
   html {
     scroll-behavior: smooth;
     overflow-y: scroll; /* Always show scrollbar to prevent layout shifts */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
     @apply bg-background text-foreground;
     font-size: calc(1rem * var(--text-scale));
     font-display: swap; /* Prevent font loading layout shifts */
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
+    text-wrap: balance;
   }
 
   body[data-radix-scroll-area-viewport] {
@@ -334,7 +347,7 @@
 
   .prose tbody tr {
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    transition: all 0.2s ease;
+    transition: background-color 0.2s ease;
   }
 
   html:not(.dark):not(.blue):not(.soft-dark):not(.sepia) .prose tbody tr {

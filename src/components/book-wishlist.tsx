@@ -336,7 +336,7 @@ function DiscoveryCategory({
 }) {
   return (
     <div
-      className={`p-4 rounded-lg cursor-pointer transition-all hover:scale-105 ${color}`}
+      className={`p-4 rounded-lg cursor-pointer transition-transform hover:scale-105 ${color}`}
     >
       <h4 className="font-medium text-sm mb-1">{title}</h4>
       <p className="text-xs opacity-80 mb-2">{description}</p>
