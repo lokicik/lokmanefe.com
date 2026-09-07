@@ -1,14 +1,14 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import type { Book, ReadingGoal } from "@/lib/markdown-books";
+import Link from "next/link";
+import { ChevronDown, Search, X } from "lucide-react";
+import type { Book, BookStatus } from "@/lib/markdown-books";
+import { formatDate } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search, ChevronDown } from "lucide-react";
-import Link from "next/link";
-import { formatDate } from "@/lib/utils";
 import {
   Popover,
   PopoverContent,
@@ -28,209 +28,201 @@ interface ReadingPageContentProps {
     paused: number;
     didNotFinish: number;
   };
-  goal: ReadingGoal;
-  genreDistribution: { [genre: string]: number };
 }
 
-export function ReadingPageContent({
-  books,
-  stats,
-  goal,
-  genreDistribution,
-}: ReadingPageContentProps) {
-  const [searchTerm, setSearchTerm] = useState("");
+const numberFormatter = new Intl.NumberFormat("en-US");
+
+export function ReadingPageContent({ books, stats }: ReadingPageContentProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const queryFromUrl = searchParams.get("q") ?? "";
+  const [searchTerm, setSearchTerm] = useState(queryFromUrl);
   const [isYearPopoverOpen, setIsYearPopoverOpen] = useState(false);
 
   const selectedStatus = searchParams.get("status") || "currently-reading";
   const selectedYear = searchParams.get("year") || "all";
 
-  const handleStatusChange = (status: string) => {
-    const params = new URLSearchParams(searchParams);
-    params.set("status", status);
-    router.push(`${pathname}?${params.toString()}`);
-  };
+  useEffect(() => {
+    setSearchTerm(queryFromUrl);
+  }, [queryFromUrl]);
 
-  const handleYearChange = (year: string) => {
+  useEffect(() => {
+    if (searchTerm === queryFromUrl) return;
+
+    const timeout = window.setTimeout(() => {
+      const params = new URLSearchParams(searchParams);
+      if (searchTerm.trim()) {
+        params.set("q", searchTerm.trim());
+      } else {
+        params.delete("q");
+      }
+      const query = params.toString();
+      router.replace(query ? `${pathname}?${query}` : pathname, {
+        scroll: false,
+      });
+    }, 250);
+
+    return () => window.clearTimeout(timeout);
+  }, [pathname, queryFromUrl, router, searchParams, searchTerm]);
+
+  const updateParam = (key: string, value: string, defaultValue: string) => {
     const params = new URLSearchParams(searchParams);
-    params.set("year", year);
-    router.push(`${pathname}?${params.toString()}`);
-    setIsYearPopoverOpen(false);
+    if (value === defaultValue) {
+      params.delete(key);
+    } else {
+      params.set(key, value);
+    }
+    const query = params.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname, {
+      scroll: false,
+    });
   };
 
   const availableYears = useMemo(() => {
-    const years = new Set(
-      books
-        .map((book) => {
-          const date = book.completedDate || book.startDate;
-          return date ? new Date(date).getFullYear().toString() : null;
-        })
-        .filter((year): year is string => year !== null)
-    );
-    return ["all", ...Array.from(years).sort((a, b) => b.localeCompare(a))];
+    return Array.from(
+      new Set(
+        books
+          .map((book) => {
+            const date = book.completedDate || book.startDate;
+            return date ? new Date(date).getFullYear().toString() : null;
+          })
+          .filter((year): year is string => year !== null)
+      )
+    ).sort((a, b) => b.localeCompare(a));
   }, [books]);
+  const showYearFilter = availableYears.length > 1;
+
+  const statusOptions = useMemo(
+    () => [
+      { value: "all", label: "All", count: stats.totalBooks },
+      {
+        value: "currently-reading",
+        label: "Reading",
+        count: stats.currentlyReading,
+      },
+      { value: "completed", label: "Completed", count: stats.completed },
+      {
+        value: "want-to-read",
+        label: "Want to read",
+        count: stats.wantToRead,
+      },
+      ...(stats.paused > 0
+        ? [{ value: "paused", label: "Paused", count: stats.paused }]
+        : []),
+      ...(stats.didNotFinish > 0
+        ? [{ value: "did-not-finish", label: "DNF", count: stats.didNotFinish }]
+        : []),
+    ],
+    [stats]
+  );
 
   const filteredBooks = useMemo(() => {
-    let result = books;
+    const normalizedQuery = searchTerm.trim().toLowerCase();
 
-    if (searchTerm) {
-      const lowercasedTerm = searchTerm.toLowerCase();
-      result = result.filter(
-        (book) =>
-          book.title.toLowerCase().includes(lowercasedTerm) ||
-          book.author.toLowerCase().includes(lowercasedTerm) ||
-          book.tags.some((tag) => tag.toLowerCase().includes(lowercasedTerm))
-      );
-    }
-
-    if (selectedStatus !== "all") {
-      result = result.filter((book) => book.status === selectedStatus);
-    }
-
-    if (selectedYear !== "all") {
-      result = result.filter((book) => {
+    return books.filter((book) => {
+      if (
+        normalizedQuery &&
+        ![book.title, book.author, ...book.tags].some((value) =>
+          value.toLowerCase().includes(normalizedQuery)
+        )
+      ) {
+        return false;
+      }
+      if (selectedStatus !== "all" && book.status !== selectedStatus) {
+        return false;
+      }
+      if (selectedYear !== "all") {
         const date = book.completedDate || book.startDate;
-        return date
-          ? new Date(date).getFullYear().toString() === selectedYear
-          : false;
-      });
-    }
-
-    return result;
+        if (!date || new Date(date).getFullYear().toString() !== selectedYear) {
+          return false;
+        }
+      }
+      return true;
+    });
   }, [books, searchTerm, selectedStatus, selectedYear]);
 
-  const completedBooks = books.filter((book) => book.status === "completed");
-  const currentlyReadingBooks = books.filter(
-    (book) => book.status === "currently-reading"
+  const archiveStats = useMemo(
+    () => ({
+      authors: new Set(books.map((book) => book.author)).size,
+      genres: new Set(books.flatMap((book) => book.tags)).size,
+    }),
+    [books]
   );
 
   const formatShortDate = (date: string) =>
     date.length === 4 ? date : formatDate(date);
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
-      {/* Header */}
-      <div>
-        <div className="mb-4">
-          <h1 className="text-4xl font-bold">Reading</h1>
-        </div>
-        <p className="text-lg text-muted-foreground mb-4">
+    <div className="mx-auto max-w-4xl">
+      <header className="mb-8 sm:mb-10">
+        <h1 className="text-4xl font-bold">Reading</h1>
+        <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
           Books I&apos;m reading, have completed, and want to explore.
         </p>
+      </header>
 
-        {/* Simple Progress Line */}
-        <div className="text-muted-foreground">
-          <p>
-            Currently reading{" "}
-            <strong className="text-foreground">
-              {stats.currentlyReading}
-            </strong>{" "}
-            {stats.currentlyReading === 1 ? "book" : "books"}, completed{" "}
-            <strong className="text-foreground">{stats.completed}</strong>{" "}
-            total. This year:{" "}
-            <strong className="text-foreground">
-              {goal.completedBooks}/{goal.targetBooks}
-            </strong>{" "}
-            books.
-          </p>
-          {currentlyReadingBooks.length > 0 && (
-            <p className="mt-1">
-              Reading:{" "}
-              <strong className="text-foreground">
-                {currentlyReadingBooks[0].title}
-              </strong>{" "}
-              by {currentlyReadingBooks[0].author}
-              {currentlyReadingBooks[0].currentPage && (
-                <span className="text-muted-foreground">
-                  {" "}
-                  (page {currentlyReadingBooks[0].currentPage} of{" "}
-                  {currentlyReadingBooks[0].pages})
-                </span>
-              )}
-            </p>
-          )}
-        </div>
-      </div>
-
-      {/* Reading Insights - Moved up */}
-      <section>
-        <h2 className="text-2xl font-bold mb-4">Insights</h2>
-        <div className="text-muted-foreground space-y-1">
-          <p>
-            Reading speed: <strong className="text-foreground">350-2000</strong>{" "}
-            words per minute
-          </p>
-          <p>
-            Total pages read:{" "}
-            <strong className="text-foreground">
-              {completedBooks.reduce((sum, book) => sum + book.pages, 0)}
-            </strong>
-          </p>
-          <p>
-            Authors discovered:{" "}
-            <strong className="text-foreground">
-              {new Set(completedBooks.map((book) => book.author)).size}
-            </strong>
-          </p>
-          <p>
-            Genres explored:{" "}
-            <strong className="text-foreground">
-              {Object.keys(genreDistribution).length}
-            </strong>
-          </p>
-        </div>
-      </section>
-
-      {/* Search */}
-      <section>
-        <div className="space-y-4">
+      <section aria-label="Reading filters" className="mb-10 space-y-4">
+        <div>
+          <label htmlFor="reading-search" className="sr-only">
+            Search books, authors, or tags
+          </label>
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder="Search books, authors, or tags..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
+            <Search
+              aria-hidden="true"
+              className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
             />
+            <Input
+              id="reading-search"
+              name="reading-search"
+              type="search"
+              autoComplete="off"
+              placeholder="Search books, authors, or tags…"
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
+              className="h-11 pl-10 pr-12"
+            />
+            {searchTerm && (
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                onClick={() => setSearchTerm("")}
+                aria-label="Clear book search"
+                className="absolute right-0 top-1/2 -translate-y-1/2"
+              >
+                <X aria-hidden="true" className="h-4 w-4" />
+              </Button>
+            )}
           </div>
-          <div className="flex justify-between items-center">
-            <div className="flex gap-2 flex-wrap">
-              <Button
-                variant={selectedStatus === "all" ? "default" : "outline"}
-                size="sm"
-                onClick={() => handleStatusChange("all")}
-              >
-                All ({stats.totalBooks})
-              </Button>
-              <Button
-                variant={
-                  selectedStatus === "currently-reading" ? "default" : "outline"
-                }
-                size="sm"
-                onClick={() => handleStatusChange("currently-reading")}
-              >
-                Reading ({stats.currentlyReading})
-              </Button>
-              <Button
-                variant={selectedStatus === "completed" ? "default" : "outline"}
-                size="sm"
-                onClick={() => handleStatusChange("completed")}
-              >
-                Completed ({stats.completed})
-              </Button>
-              <Button
-                variant={
-                  selectedStatus === "want-to-read" ? "default" : "outline"
-                }
-                size="sm"
-                onClick={() => handleStatusChange("want-to-read")}
-              >
-                Want to Read ({stats.wantToRead})
-              </Button>
-            </div>
+        </div>
 
+        <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div className="horizontal-scroll -mx-4 min-w-0 flex-1 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0">
+            <div className="flex w-max gap-2" aria-label="Reading status">
+              {statusOptions.map((option) => (
+                <Button
+                  key={option.value}
+                  variant={
+                    selectedStatus === option.value ? "default" : "outline"
+                  }
+                  size="sm"
+                  aria-pressed={selectedStatus === option.value}
+                  onClick={() =>
+                    updateParam(
+                      "status",
+                      option.value,
+                      "currently-reading"
+                    )
+                  }
+                >
+                  {option.label} ({numberFormatter.format(option.count)})
+                </Button>
+              ))}
+            </div>
+          </div>
+
+          {showYearFilter && (
             <Popover
               open={isYearPopoverOpen}
               onOpenChange={setIsYearPopoverOpen}
@@ -239,92 +231,104 @@ export function ReadingPageContent({
                 <Button
                   variant="outline"
                   size="sm"
-                  className="flex items-center gap-2"
+                  className="w-fit shrink-0 gap-2"
                 >
-                  <span>
-                    {selectedYear === "all" ? "All Years" : selectedYear}
-                  </span>
-                  <ChevronDown className="h-4 w-4" />
+                  {selectedYear === "all" ? "All years" : selectedYear}
+                  <ChevronDown aria-hidden="true" className="h-4 w-4" />
                 </Button>
               </PopoverTrigger>
               <PopoverContent align="end" className="w-36 p-1">
-                <div className="space-y-1">
-                  {availableYears.map((year) => (
-                    <Button
-                      key={year}
-                      variant={selectedYear === year ? "secondary" : "ghost"}
-                      size="sm"
-                      onClick={() => handleYearChange(year)}
-                      className="w-full justify-start"
-                    >
-                      {year === "all" ? "All Years" : year}
-                    </Button>
-                  ))}
-                </div>
+                <Button
+                  variant={selectedYear === "all" ? "secondary" : "ghost"}
+                  size="sm"
+                  onClick={() => {
+                    updateParam("year", "all", "all");
+                    setIsYearPopoverOpen(false);
+                  }}
+                  className="w-full justify-start"
+                >
+                  All years
+                </Button>
+                {availableYears.map((year) => (
+                  <Button
+                    key={year}
+                    variant={selectedYear === year ? "secondary" : "ghost"}
+                    size="sm"
+                    onClick={() => {
+                      updateParam("year", year, "all");
+                      setIsYearPopoverOpen(false);
+                    }}
+                    className="w-full justify-start"
+                  >
+                    {year}
+                  </Button>
+                ))}
               </PopoverContent>
             </Popover>
-          </div>
+          )}
         </div>
       </section>
-      {/* Library */}
-      <section>
-        <h2 className="text-2xl font-bold mb-4">Library</h2>
+
+      <section aria-labelledby="library-heading">
+        <div className="mb-4 flex items-baseline justify-between gap-4 border-b border-border pb-2">
+          <h2 id="library-heading" className="text-2xl font-bold">
+            Library
+          </h2>
+          <p aria-live="polite" className="text-sm text-muted-foreground">
+            {numberFormatter.format(filteredBooks.length)} shown
+          </p>
+        </div>
+
         {filteredBooks.length > 0 ? (
-          <div className="space-y-6">
+          <div className="divide-y divide-border">
             {filteredBooks.map((book) => {
               const backUrl = `${pathname}?${searchParams.toString()}`;
               const href = `/reading/${book.slug}?back=${encodeURIComponent(
                 backUrl
               )}`;
+
               return (
-                <div key={book.slug}>
-                  <div className="flex justify-between items-start">
-                    <div>
+                <article key={book.slug} className="py-4">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="min-w-0">
                       <Link
                         href={href}
                         prefetch={false}
-                        className="text-lg font-semibold hover:text-primary transition-colors"
+                        className="rounded-sm text-lg font-semibold transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                       >
                         {book.title}
                       </Link>
-                      <p className="text-muted-foreground text-sm">
+                      <p className="text-sm text-muted-foreground">
                         by {book.author}
                       </p>
-                      {book.status === "currently-reading" &&
-                        book.progress > 0 && (
-                          <p className="text-xs text-muted-foreground mt-1">
-                            Page {book.currentPage} of {book.pages} (
-                            {book.progress}
-                            %)
-                          </p>
-                        )}
+                      {book.status === "currently-reading" && book.progress > 0 && (
+                        <p className="mt-1 text-xs text-muted-foreground">
+                          Page {numberFormatter.format(book.currentPage)} of{" "}
+                          {numberFormatter.format(book.pages)} ({book.progress}%)
+                        </p>
+                      )}
                       {book.status === "completed"
                         ? (book.startDate || book.completedDate) && (
-                            <p className="text-xs text-muted-foreground mt-1">
-                              {book.startDate && (
-                                <>Started: {formatShortDate(book.startDate)} </>
-                              )}
-                              {book.startDate && book.completedDate && " - "}
-                              {book.completedDate && (
-                                <>
-                                  Completed:{" "}
-                                  {formatShortDate(book.completedDate)}
-                                </>
-                              )}
+                            <p className="mt-1 text-xs text-muted-foreground">
+                              {book.startDate &&
+                                `Started ${formatShortDate(book.startDate)}`}
+                              {book.startDate && book.completedDate && " · "}
+                              {book.completedDate &&
+                                `Completed ${formatShortDate(book.completedDate)}`}
                             </p>
                           )
                         : book.startDate && (
-                            <p className="text-xs text-muted-foreground mt-1">
-                              Started: {formatShortDate(book.startDate)}
+                            <p className="mt-1 text-xs text-muted-foreground">
+                              Started {formatShortDate(book.startDate)}
                             </p>
                           )}
                     </div>
-                    <div className="flex items-center gap-2 mt-1">
-                      {book.tags.map((tag) => (
+                    <div className="flex shrink-0 items-center gap-2">
+                      {book.tags.slice(0, 2).map((tag) => (
                         <Badge
                           key={tag}
-                          variant="default"
-                          className="text-xs hidden sm:inline-block"
+                          variant="outline"
+                          className="hidden text-xs sm:inline-flex"
                         >
                           {tag}
                         </Badge>
@@ -334,30 +338,40 @@ export function ReadingPageContent({
                       </Badge>
                     </div>
                   </div>
-                </div>
+                </article>
               );
             })}
           </div>
         ) : (
-          <div className="text-center py-8">
-            <p className="text-muted-foreground">
-              No books match your criteria.
-            </p>
+          <div className="py-10 text-center">
+            <p className="text-muted-foreground">No books match these filters.</p>
           </div>
         )}
       </section>
+
+      <aside className="mt-12 border-t border-border pt-5 text-sm leading-relaxed text-muted-foreground">
+        <span className="font-medium text-foreground">Archive</span>
+        {" · "}
+        {numberFormatter.format(stats.totalBooks)} books
+        {" · "}
+        {numberFormatter.format(stats.pagesRead)} pages read
+        {" · "}
+        {numberFormatter.format(archiveStats.authors)} authors
+        {" · "}
+        {numberFormatter.format(archiveStats.genres)} genres
+      </aside>
     </div>
   );
 }
 
 function getStatusVariant(
-  status: string
+  status: BookStatus
 ): "default" | "secondary" | "destructive" | "outline" {
   switch (status) {
     case "currently-reading":
       return "default";
     case "completed":
-      return "default";
+      return "secondary";
     case "did-not-finish":
       return "destructive";
     default:
@@ -365,7 +379,7 @@ function getStatusVariant(
   }
 }
 
-function getStatusLabel(status: string): string {
+function getStatusLabel(status: BookStatus): string {
   switch (status) {
     case "currently-reading":
       return "Reading";
@@ -377,7 +391,5 @@ function getStatusLabel(status: string): string {
       return "Paused";
     case "did-not-finish":
       return "DNF";
-    default:
-      return "Unknown";
   }
 }

@@ -27,12 +27,12 @@ export function BookPageContent({ book, content }: Props) {
     <div className="max-w-4xl mx-auto space-y-8">
       {/* Header */}
       <div className="space-y-4">
-        <Link href={backUrl || "/reading"} prefetch={false}>
-          <Button variant="ghost" size="sm" className="mb-4">
+        <Button asChild variant="ghost" size="sm" className="mb-4">
+          <Link href={backUrl || "/reading"} prefetch={false}>
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Reading
-          </Button>
-        </Link>
+          </Link>
+        </Button>
 
         <div className="flex flex-col lg:flex-row gap-6">
           {/* Book Cover */}

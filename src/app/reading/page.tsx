@@ -1,9 +1,4 @@
-import {
-  getBooks,
-  getBookStats,
-  calculateReadingGoal,
-  getGenreDistribution,
-} from "@/lib/markdown-books";
+import { getBooks, getBookStats } from "@/lib/markdown-books";
 import { ReadingPageContent } from "@/components/reading-page-content";
 import { Metadata } from "next";
 import { Suspense } from "react";
@@ -31,8 +26,6 @@ export default async function ReadingPage() {
 
   // Calculate all data on the server side
   const stats = getBookStats(books);
-  const goal = calculateReadingGoal(books);
-  const genreDistribution = getGenreDistribution(books);
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://lokmanefe.com";
 
@@ -70,13 +63,8 @@ export default async function ReadingPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Suspense fallback={<div>Loading...</div>}>
-        <ReadingPageContent
-          books={books}
-          stats={stats}
-          goal={goal}
-          genreDistribution={genreDistribution}
-        />
+      <Suspense fallback={<div>Loading…</div>}>
+        <ReadingPageContent books={books} stats={stats} />
       </Suspense>
     </>
   );

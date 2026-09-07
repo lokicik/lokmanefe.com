@@ -291,6 +291,14 @@ textarea {
   min-width: 2.75rem;
 }
 
+.horizontal-scroll {
+  scrollbar-width: none;
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+  display: none;
+}
+
 @media (min-width: 768px) {
   html {
     scrollbar-gutter: stable;

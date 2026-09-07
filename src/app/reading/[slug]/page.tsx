@@ -124,7 +124,7 @@ export default async function BookPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div>Loading…</div>}>
         <BookPageContent book={book} content={renderedContent} />
       </Suspense>
     </>
