@@ -15,7 +15,8 @@ export function WritingContent({
   content,
   showComments = true,
 }: WritingContentProps) {
-  const { isOpen, imageSrc, imageAlt, closeLightbox } = useBlogImageLightbox();
+  const { isOpen, imageSrc, imageAlt, triggerElement, closeLightbox } =
+    useBlogImageLightbox();
 
   return (
     <>
@@ -30,6 +31,7 @@ export function WritingContent({
         isOpen={isOpen}
         imageSrc={imageSrc}
         imageAlt={imageAlt}
+        triggerElement={triggerElement}
         onClose={closeLightbox}
       />
 

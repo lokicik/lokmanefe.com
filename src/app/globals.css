@@ -627,6 +627,19 @@ textarea {
   font-size: calc(1.25rem * var(--text-scale));
 }
 
+.prose img[role="button"] {
+  transition: opacity 150ms ease-out, outline-color 150ms ease-out;
+}
+
+.prose img[role="button"]:hover {
+  opacity: 0.9;
+}
+
+.prose img[role="button"]:focus-visible {
+  outline: 3px solid var(--ring);
+  outline-offset: 4px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

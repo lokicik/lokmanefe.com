@@ -10,6 +10,31 @@ import { rehypeWrapTables } from "@/lib/rehype-wrap-tables";
 
 // Minimal HAST properties type used for rehype-pretty-code visitors.
 type HastProps = { [key: string]: unknown; className?: string | string[] };
+type HastNode = {
+  tagName?: string;
+  properties?: HastProps;
+  children?: HastNode[];
+};
+
+function rehypeAccessibleImages() {
+  return (tree: unknown) => {
+    const visit = (node: HastNode) => {
+      if (node.tagName === "img") {
+        const properties = node.properties ?? {};
+        const alt =
+          typeof properties.alt === "string" ? properties.alt.trim() : "";
+        properties.role = "button";
+        properties.tabIndex = 0;
+        properties.ariaLabel = `Open image preview${alt ? `: ${alt}` : ""}`;
+        node.properties = properties;
+      }
+
+      node.children?.forEach(visit);
+    };
+
+    visit(tree as HastNode);
+  };
+}
 
 export type WritingType = "article" | "story";
 
@@ -285,6 +310,7 @@ export async function renderMarkdownContent(content: string): Promise<string> {
     const result = await remark()
       .use(remarkGfm)
       .use(remarkRehype, { allowDangerousHtml: true })
+      .use(rehypeAccessibleImages)
       .use(rehypeWrapTables)
       .use(rehypePrettyCode, {
         theme: "github-dark-dimmed",

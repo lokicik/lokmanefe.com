@@ -1,14 +1,21 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useState, useEffect } from "react";
-import { X, ZoomIn, ZoomOut, RotateCw } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
+import { RotateCw, X, ZoomIn, ZoomOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface ImageLightboxProps {
   isOpen: boolean;
   imageSrc: string;
   imageAlt: string;
+  triggerElement: HTMLImageElement | null;
   onClose: () => void;
 }
 
@@ -16,187 +23,174 @@ export function ImageLightbox({
   isOpen,
   imageSrc,
   imageAlt,
+  triggerElement,
   onClose,
 }: ImageLightboxProps) {
   const [scale, setScale] = useState(1);
   const [rotation, setRotation] = useState(0);
 
-  // Reset transform when image changes
+  const resolveTrigger = useCallback(() => {
+    if (triggerElement?.isConnected) return triggerElement;
+    return (
+      Array.from(document.querySelectorAll<HTMLImageElement>(".prose img")).find(
+        (image) => (image.currentSrc || image.src) === imageSrc
+      ) ?? null
+    );
+  }, [imageSrc, triggerElement]);
+
   useEffect(() => {
-    if (isOpen) {
-      setScale(1);
-      setRotation(0);
-    }
-  }, [isOpen, imageSrc]);
-
-  // Close on escape key
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        onClose();
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "hidden";
-    }
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "unset";
-    };
-  }, [isOpen, onClose]);
-
-  const handleZoomIn = () => {
-    setScale((prev) => Math.min(prev + 0.25, 3));
-  };
-
-  const handleZoomOut = () => {
-    setScale((prev) => Math.max(prev - 0.25, 0.5));
-  };
-
-  const handleRotate = () => {
-    setRotation((prev) => (prev + 90) % 360);
-  };
-
-  const handleReset = () => {
+    if (!isOpen) return;
     setScale(1);
     setRotation(0);
-  };
+  }, [isOpen, imageSrc]);
 
-  if (!isOpen) return null;
+  useEffect(() => {
+    if (isOpen || !triggerElement) return;
+    const timeout = window.setTimeout(() => resolveTrigger()?.focus(), 250);
+    return () => window.clearTimeout(timeout);
+  }, [isOpen, resolveTrigger, triggerElement]);
 
   return (
-    <div
-      className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
-      onClick={onClose}
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) onClose();
+      }}
     >
-      {/* Controls */}
-      <div className="absolute top-4 right-4 flex items-center gap-2 z-10">
-        <Button
-          variant="secondary"
-          size="sm"
-          onClick={(e) => {
-            e.stopPropagation();
-            handleZoomOut();
-          }}
-          disabled={scale <= 0.5}
-        >
-          <ZoomOut className="h-4 w-4" />
-        </Button>
-
-        <Button
-          variant="secondary"
-          size="sm"
-          onClick={(e) => {
-            e.stopPropagation();
-            handleZoomIn();
-          }}
-          disabled={scale >= 3}
-        >
-          <ZoomIn className="h-4 w-4" />
-        </Button>
-
-        <Button
-          variant="secondary"
-          size="sm"
-          onClick={(e) => {
-            e.stopPropagation();
-            handleRotate();
-          }}
-        >
-          <RotateCw className="h-4 w-4" />
-        </Button>
-
-        <Button
-          variant="secondary"
-          size="sm"
-          onClick={(e) => {
-            e.stopPropagation();
-            handleReset();
-          }}
-        >
-          Reset
-        </Button>
-
-        <Button variant="secondary" size="sm" onClick={onClose}>
-          <X className="h-4 w-4" />
-        </Button>
-      </div>
-
-      {/* Image container */}
-      <div
-        className="relative max-w-full max-h-full overflow-hidden flex items-center justify-center"
-        onClick={(e) => e.stopPropagation()}
+      <DialogContent
+        showCloseButton={false}
+        onCloseAutoFocus={(event) => {
+          event.preventDefault();
+          resolveTrigger()?.focus();
+        }}
+        className="h-[calc(100dvh-1rem)] max-w-[calc(100vw-1rem)] grid-rows-[auto_minmax(0,1fr)_auto] gap-3 overflow-hidden border-white/20 bg-black/95 p-3 text-white shadow-2xl sm:max-w-[calc(100vw-2rem)] sm:p-4"
       >
-        <Image
-          src={imageSrc}
-          alt={imageAlt}
-          fill
-          sizes="(max-width: 1024px) 100vw, 1024px"
-          className="object-contain transition-transform duration-200 ease-in-out"
-          style={{
-            transform: `scale(${scale}) rotate(${rotation}deg)`,
-          }}
-          draggable={false}
-          priority
-        />
-      </div>
+        <DialogTitle className="sr-only">Image preview</DialogTitle>
+        <DialogDescription className="sr-only">
+          Zoom, rotate, or close the selected article image.
+        </DialogDescription>
 
-      {/* Image info */}
-      {imageAlt && (
-        <div className="absolute bottom-4 left-4 right-4 text-center">
-          <p className="text-white text-sm bg-black/50 rounded px-3 py-2 max-w-2xl mx-auto">
-            {imageAlt}
-          </p>
+        <div className="flex flex-wrap items-center justify-end gap-1">
+          <Button
+            variant="secondary"
+            size="icon"
+            aria-label="Zoom out"
+            onClick={() => setScale((value) => Math.max(value - 0.25, 0.5))}
+            disabled={scale <= 0.5}
+          >
+            <ZoomOut aria-hidden="true" className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="secondary"
+            size="icon"
+            aria-label="Zoom in"
+            onClick={() => setScale((value) => Math.min(value + 0.25, 3))}
+            disabled={scale >= 3}
+          >
+            <ZoomIn aria-hidden="true" className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="secondary"
+            size="icon"
+            aria-label="Rotate image clockwise"
+            onClick={() => setRotation((value) => (value + 90) % 360)}
+          >
+            <RotateCw aria-hidden="true" className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => {
+              setScale(1);
+              setRotation(0);
+            }}
+          >
+            Reset
+          </Button>
+          <Button
+            variant="secondary"
+            size="icon"
+            aria-label="Close image preview"
+            onClick={onClose}
+          >
+            <X aria-hidden="true" className="h-4 w-4" />
+          </Button>
         </div>
-      )}
-    </div>
+
+        <div className="flex min-h-0 items-center justify-center overflow-auto rounded-md bg-black/40 p-2">
+          {imageSrc && (
+            <img
+              src={imageSrc}
+              alt={imageAlt}
+              className="max-h-full max-w-full object-contain transition-transform duration-200 ease-out"
+              style={{ transform: `scale(${scale}) rotate(${rotation}deg)` }}
+              draggable={false}
+            />
+          )}
+        </div>
+
+        <p className="min-h-5 truncate text-center text-sm text-white/80">
+          {imageAlt || "Article image"}
+        </p>
+      </DialogContent>
+    </Dialog>
   );
 }
 
-// Hook to enhance images in blog posts
 export function useBlogImageLightbox() {
   const [lightbox, setLightbox] = useState<{
     isOpen: boolean;
     imageSrc: string;
     imageAlt: string;
+    triggerElement: HTMLImageElement | null;
   }>({
     isOpen: false,
     imageSrc: "",
     imageAlt: "",
+    triggerElement: null,
   });
 
   useEffect(() => {
-    const handleImageClick = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-
-      if (target.tagName === "IMG" && target.closest(".prose")) {
-        event.preventDefault();
-        const img = target as HTMLImageElement;
-
-        setLightbox({
-          isOpen: true,
-          imageSrc: img.src,
-          imageAlt: img.alt || "",
-        });
-      }
+    const openImage = (image: HTMLImageElement) => {
+      setLightbox({
+        isOpen: true,
+        imageSrc: image.currentSrc || image.src,
+        imageAlt: image.alt || "",
+        triggerElement: image,
+      });
     };
 
-    document.addEventListener("click", handleImageClick);
+    const handleClick = (event: MouseEvent) => {
+      const target = event.target;
+      if (!(target instanceof HTMLImageElement) || !target.closest(".prose")) {
+        return;
+      }
+      event.preventDefault();
+      openImage(target);
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      const target = event.target;
+      if (!(target instanceof HTMLImageElement) || !target.closest(".prose")) {
+        return;
+      }
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      openImage(target);
+    };
+
+    document.addEventListener("click", handleClick);
+    document.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      document.removeEventListener("click", handleImageClick);
+      document.removeEventListener("click", handleClick);
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
 
   const closeLightbox = () => {
-    setLightbox((prev) => ({ ...prev, isOpen: false }));
+    setLightbox((current) => ({ ...current, isOpen: false }));
   };
 
-  return {
-    ...lightbox,
-    closeLightbox,
-  };
+  return { ...lightbox, closeLightbox };
 }
