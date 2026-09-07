@@ -106,6 +106,7 @@ export default function RootLayout({
       className={`${inter.variable} ${spaceGrotesk.variable} ${merriweather.variable} ${sourceCode.variable} ${playfair.variable}`}
     >
       <head>
+        <meta name="theme-color" content="#0a0a0a" />
         <link
           rel="alternate"
           type="application/rss+xml"

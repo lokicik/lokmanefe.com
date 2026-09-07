@@ -47,6 +47,9 @@
   --radius: 0.625rem;
   --text-scale: 1;
   --font-heading: var(--font-space-grotesk);
+  --bird-opacity: 0.17;
+  --bird-filter: none;
+  color-scheme: light;
   --background: oklch(1 0 0);
   --foreground: oklch(0.08 0 0);
   --card: oklch(1 0 0);
@@ -58,7 +61,7 @@
   --secondary: oklch(0.95 0 0);
   --secondary-foreground: oklch(0.08 0 0);
   --muted: oklch(0.95 0 0);
-  --muted-foreground: oklch(0.45 0 0);
+  --muted-foreground: oklch(0.42 0 0);
   --accent: oklch(0.95 0 0);
   --accent-foreground: oklch(0.08 0 0);
   --destructive: oklch(0.577 0.245 27.325);
@@ -82,6 +85,9 @@
 
 /* Dark theme with #191919 background */
 .dark {
+  color-scheme: dark;
+  --bird-opacity: 0.2;
+  --bird-filter: brightness(0) invert(1);
   --background: #0a0a0a;
   --foreground: oklch(0.95 0.01 240);
   --card: #111111;
@@ -93,7 +99,7 @@
   --secondary: #1a1a1a;
   --secondary-foreground: oklch(0.95 0.01 240);
   --muted: #1a1a1a;
-  --muted-foreground: oklch(0.7 0.01 240);
+  --muted-foreground: oklch(0.74 0.01 240);
   --accent: #1a1a1a;
   --accent-foreground: oklch(0.95 0.01 240);
   --destructive: oklch(0.65 0.15 15);
@@ -117,6 +123,9 @@
 
 /* Sepia theme - warm, easy on the eyes */
 .sepia {
+  color-scheme: light;
+  --bird-opacity: 0.24;
+  --bird-filter: sepia(0.75) saturate(0.9) hue-rotate(345deg) brightness(0.72);
   --background: oklch(0.95 0.02 85);
   --foreground: oklch(0.25 0.02 85);
   --card: oklch(0.92 0.02 85);
@@ -128,7 +137,7 @@
   --secondary: oklch(0.88 0.02 85);
   --secondary-foreground: oklch(0.25 0.02 85);
   --muted: oklch(0.88 0.02 85);
-  --muted-foreground: oklch(0.5 0.03 75);
+  --muted-foreground: oklch(0.43 0.035 75);
   --accent: oklch(0.88 0.02 85);
   --accent-foreground: oklch(0.25 0.02 85);
   --destructive: oklch(0.577 0.245 27.325);
@@ -152,6 +161,9 @@
 
 /* Blue theme - calming blue tones with white text */
 .blue {
+  color-scheme: dark;
+  --bird-opacity: 0.21;
+  --bird-filter: brightness(0) invert(1);
   --background: oklch(0.3 0.1 220);
   --foreground: #ffffff;
   --card: oklch(0.35 0.08 220);
@@ -163,7 +175,7 @@
   --secondary: oklch(0.4 0.08 220);
   --secondary-foreground: #ffffff;
   --muted: oklch(0.4 0.08 220);
-  --muted-foreground: oklch(0.8 0.05 220);
+  --muted-foreground: oklch(0.84 0.04 220);
   --accent: oklch(0.4 0.08 220);
   --accent-foreground: #ffffff;
   --destructive: oklch(0.65 0.15 15);
@@ -187,6 +199,9 @@
 
 /* Soft dark theme - less harsh than pure dark */
 .soft-dark {
+  color-scheme: dark;
+  --bird-opacity: 0.19;
+  --bird-filter: brightness(0) invert(1);
   --background: oklch(0.18 0.01 240);
   --foreground: oklch(0.92 0.01 240);
   --card: oklch(0.22 0.01 240);
@@ -198,7 +213,7 @@
   --secondary: oklch(0.28 0.01 240);
   --secondary-foreground: oklch(0.92 0.01 240);
   --muted: oklch(0.28 0.01 240);
-  --muted-foreground: oklch(0.68 0.01 240);
+  --muted-foreground: oklch(0.73 0.01 240);
   --accent: oklch(0.28 0.01 240);
   --accent-foreground: oklch(0.92 0.01 240);
   --destructive: oklch(0.704 0.191 22.216);
@@ -295,7 +310,7 @@
     @apply mb-2;
   }
   .prose li::marker {
-    color: hsl(var(--primary));
+    color: var(--primary);
   }
   .prose blockquote {
     @apply border-l-4 pl-4 italic opacity-80 my-8;
@@ -445,9 +460,9 @@
   /* Inline code styling - only for non-pre code elements */
   .prose :not(pre) > code {
     @apply px-1.5 py-0.5 rounded text-sm font-mono;
-    background-color: hsl(var(--muted));
-    color: hsl(var(--foreground));
-    border: 1px solid hsl(var(--border));
+    background-color: var(--muted);
+    color: var(--foreground);
+    border: 1px solid var(--border);
   }
   
   /* Syntax highlighted code blocks (Shiki) */
@@ -475,8 +490,8 @@
   /* Highlighted lines - use theme colors */
   .prose pre > code [data-highlighted-line],
   .prose pre > code .highlighted {
-    background-color: hsl(var(--accent) / 0.3);
-    border-left: 2px solid hsl(var(--primary));
+    background-color: color-mix(in oklab, var(--accent) 30%, transparent);
+    border-left: 2px solid var(--primary);
     margin-left: -0.5rem;
     padding-left: calc(0.5rem - 2px);
   }
@@ -484,14 +499,14 @@
   /* Character/word highlighting - use theme colors */
   .prose pre > code [data-highlighted-chars],
   .prose pre > code .word {
-    background-color: hsl(var(--primary) / 0.2);
+    background-color: color-mix(in oklab, var(--primary) 20%, transparent);
     @apply rounded px-1;
-    box-shadow: 0 0 0 2px hsl(var(--primary) / 0.1);
+    box-shadow: 0 0 0 2px color-mix(in oklab, var(--primary) 10%, transparent);
   }
   
   .prose mark {
-    background-color: hsl(var(--primary) / 0.2);
-    color: hsl(var(--primary-foreground));
+    background-color: color-mix(in oklab, var(--primary) 20%, transparent);
+    color: var(--foreground);
     @apply font-medium rounded px-1;
   }
 
@@ -576,11 +591,10 @@
   }
 }
 
-/* Decorative SVG color tweaks for themes */
-html.dark .decorative-svg,
-html.soft-dark .decorative-svg,
-html.blue .decorative-svg {
-  filter: brightness(0) invert(1) !important; /* makes them white */
+/* Decorative SVG color and contrast are theme-specific. */
+.decorative-svg {
+  opacity: var(--bird-opacity);
+  filter: var(--bird-filter);
 }
 
 /* Custom font styles */

@@ -39,7 +39,7 @@ function BirdRail({
 }) {
   return (
     <aside
-      className={`decorative-svg pointer-events-none relative row-start-1 hidden min-h-full select-none overflow-hidden opacity-[0.16] min-[1280px]:block ${
+      className={`decorative-svg pointer-events-none relative row-start-1 hidden min-h-full select-none overflow-hidden min-[1280px]:block ${
         side === "left" ? "col-start-1" : "col-start-3"
       }`}
       aria-hidden="true"
@@ -51,7 +51,7 @@ function BirdRail({
           alt=""
           width={160}
           height={160}
-          className={`absolute h-auto ${bird.className}`}
+          className={`bird-decoration absolute h-auto ${bird.className}`}
         />
       ))}
     </aside>
