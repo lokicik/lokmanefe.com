@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useTheme } from "next-themes";
+import { PARROT_PREFERENCE_EVENT } from "@/lib/appearance";
 
 type SpriteState = {
   direction: number;
@@ -11,10 +12,12 @@ type SpriteState = {
 
 const DISPLAY_SIZE = 64;
 const HALF_DISPLAY_SIZE = DISPLAY_SIZE / 2;
-const CURSOR_LANDING_RADIUS = 96;
-const CURSOR_TAKEOFF_TRAVEL = 110;
+const CONTENT_HALF_WIDTH = 448;
+const RAIL_GUTTER = 32;
+const CURSOR_LANDING_RADIUS = 72;
+const CURSOR_TAKEOFF_TRAVEL = 88;
 const FLIGHT_FRAME_MS = 110;
-const FLIGHT_SPEED_PX_PER_SECOND = 140;
+const FLIGHT_SPEED_PX_PER_SECOND = 150;
 const SPRITE_FRAME_COUNT = 4;
 const SPRITE_DIRECTION_COUNT = 8;
 
@@ -23,30 +26,34 @@ function directionFromVector(dx: number, dy: number): number {
   return Math.floor(((degrees + 360 + 22.5) % 360) / 45);
 }
 
-function clampPoint(x: number, y: number): readonly [number, number] {
-  const maxX = Math.max(HALF_DISPLAY_SIZE, window.innerWidth - HALF_DISPLAY_SIZE);
+function clampToRightRail(x: number, y: number): readonly [number, number] {
+  const railStart = window.innerWidth / 2 + CONTENT_HALF_WIDTH;
+  const minX = Math.min(
+    window.innerWidth - HALF_DISPLAY_SIZE,
+    railStart + RAIL_GUTTER
+  );
+  const maxX = Math.max(minX, window.innerWidth - HALF_DISPLAY_SIZE);
   const maxY = Math.max(
     HALF_DISPLAY_SIZE,
-    window.innerHeight - HALF_DISPLAY_SIZE,
+    window.innerHeight - HALF_DISPLAY_SIZE
   );
 
   return [
-    Math.min(Math.max(x, HALF_DISPLAY_SIZE), maxX),
+    Math.min(Math.max(x, minX), maxX),
     Math.min(Math.max(y, HALF_DISPLAY_SIZE), maxY),
   ];
 }
 
 function placeParrot(element: HTMLElement, x: number, y: number): void {
-  const left = Math.round(x - HALF_DISPLAY_SIZE);
-  const top = Math.round(y - HALF_DISPLAY_SIZE);
-  element.style.transform = `translate3d(${left}px, ${top}px, 0)`;
+  element.style.transform = `translate3d(${Math.round(
+    x - HALF_DISPLAY_SIZE
+  )}px, ${Math.round(y - HALF_DISPLAY_SIZE)}px, 0)`;
 }
 
 export function CursorBird() {
-  const wrapperRef = useRef<HTMLButtonElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const { resolvedTheme, theme } = useTheme();
-  const [parrotAllowed, setParrotAllowed] = useState<boolean | null>(null);
-  const [dismissed, setDismissed] = useState(false);
+  const [parrotAllowed, setParrotAllowed] = useState(false);
   const [sprite, setSprite] = useState<SpriteState>({
     direction: 0,
     mode: "idle",
@@ -54,38 +61,40 @@ export function CursorBird() {
   });
 
   useEffect(() => {
-    const reducedMotionQuery = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
+    const eligibilityQuery = window.matchMedia(
+      "(min-width: 1280px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)"
     );
-    const desktopPointerQuery = window.matchMedia(
-      "(hover: hover) and (pointer: fine)",
-    );
+
     const syncEligibility = () => {
       setParrotAllowed(
-        !reducedMotionQuery.matches && desktopPointerQuery.matches,
+        eligibilityQuery.matches &&
+          document.documentElement.dataset.parrotEnabled !== "false"
       );
+    };
+    const handlePreference = (event: Event) => {
+      const enabled = (event as CustomEvent<boolean>).detail;
+      setParrotAllowed(eligibilityQuery.matches && enabled);
     };
 
     syncEligibility();
-    reducedMotionQuery.addEventListener("change", syncEligibility);
-    desktopPointerQuery.addEventListener("change", syncEligibility);
+    eligibilityQuery.addEventListener("change", syncEligibility);
+    window.addEventListener(PARROT_PREFERENCE_EVENT, handlePreference);
 
     return () => {
-      reducedMotionQuery.removeEventListener("change", syncEligibility);
-      desktopPointerQuery.removeEventListener("change", syncEligibility);
+      eligibilityQuery.removeEventListener("change", syncEligibility);
+      window.removeEventListener(PARROT_PREFERENCE_EVENT, handlePreference);
     };
   }, []);
 
   useEffect(() => {
-    if (!parrotAllowed || dismissed) return;
+    if (!parrotAllowed) return;
 
     const wrapper = wrapperRef.current;
     if (!wrapper) return;
 
-
-    let [positionX, positionY] = clampPoint(
-      window.innerWidth / 2,
-      window.innerHeight / 2,
+    let [positionX, positionY] = clampToRightRail(
+      window.innerWidth - 72,
+      window.innerHeight * 0.42
     );
     let targetX = positionX;
     let targetY = positionY;
@@ -105,27 +114,18 @@ export function CursorBird() {
         current.mode === next.mode &&
         current.frame === next.frame
           ? current
-          : next,
+          : next
       );
     };
 
-    const updateTarget = (x: number, y: number) => {
-      [targetX, targetY] = clampPoint(x, y);
-    };
-
     const handleMouseMove = (event: MouseEvent) => {
-      updateTarget(event.clientX, event.clientY);
-    };
-
-    const handleTouch = (event: TouchEvent) => {
-      const touch = event.touches[0] ?? event.changedTouches[0];
-      if (touch) updateTarget(touch.clientX, touch.clientY);
+      [targetX, targetY] = clampToRightRail(event.clientX, event.clientY);
     };
 
     const handleResize = () => {
-      [targetX, targetY] = clampPoint(targetX, targetY);
-      [restTargetX, restTargetY] = clampPoint(restTargetX, restTargetY);
-      [positionX, positionY] = clampPoint(positionX, positionY);
+      [targetX, targetY] = clampToRightRail(targetX, targetY);
+      [restTargetX, restTargetY] = clampToRightRail(restTargetX, restTargetY);
+      [positionX, positionY] = clampToRightRail(positionX, positionY);
       placeParrot(wrapper, positionX, positionY);
     };
 
@@ -138,21 +138,20 @@ export function CursorBird() {
       const distance = Math.hypot(dx, dy);
       const cursorTravelFromRest = Math.hypot(
         targetX - restTargetX,
-        targetY - restTargetY,
+        targetY - restTargetY
       );
-
       const shouldFly = wasFlying
         ? distance > CURSOR_LANDING_RADIUS
         : cursorTravelFromRest > CURSOR_TAKEOFF_TRAVEL;
 
-      if (shouldFly) {
+      if (shouldFly && distance > 0) {
         if (!wasFlying) flightStartedAt = now;
         wasFlying = true;
         direction = directionFromVector(dx, dy);
 
         const step = Math.min(
-          distance - CURSOR_LANDING_RADIUS,
-          (FLIGHT_SPEED_PX_PER_SECOND * deltaMs) / 1000,
+          Math.max(0, distance - CURSOR_LANDING_RADIUS),
+          (FLIGHT_SPEED_PX_PER_SECOND * deltaMs) / 1000
         );
         positionX += (dx / distance) * step;
         positionY += (dy / distance) * step;
@@ -178,21 +177,17 @@ export function CursorBird() {
     };
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    window.addEventListener("touchstart", handleTouch, { passive: true });
-    window.addEventListener("touchmove", handleTouch, { passive: true });
     window.addEventListener("resize", handleResize);
     animationFrame = window.requestAnimationFrame(tick);
 
     return () => {
       window.cancelAnimationFrame(animationFrame);
       window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("touchstart", handleTouch);
-      window.removeEventListener("touchmove", handleTouch);
       window.removeEventListener("resize", handleResize);
     };
-  }, [dismissed, parrotAllowed]);
+  }, [parrotAllowed]);
 
-  if (!parrotAllowed || dismissed) return null;
+  if (!parrotAllowed) return null;
 
   const useBlackSprite =
     theme === "light" ||
@@ -201,41 +196,31 @@ export function CursorBird() {
   const sheetFrame = sprite.mode === "flight" ? sprite.frame + 1 : 0;
 
   return (
-    <button
+    <div
       ref={wrapperRef}
-      type="button"
-      aria-label="Papağanı gizle"
-      tabIndex={-1}
-      onClick={() => setDismissed(true)}
+      aria-hidden="true"
+      className="pointer-events-none fixed left-0 top-0 z-20 h-16 w-16 select-none"
       style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        zIndex: 40,
-        width: DISPLAY_SIZE,
-        height: DISPLAY_SIZE,
-        padding: 0,
-        border: 0,
-        background: "transparent",
-        appearance: "none",
-        cursor: sprite.mode === "idle" ? "pointer" : "default",
-        pointerEvents: sprite.mode === "idle" ? "auto" : "none",
-        userSelect: "none",
         willChange: "transform",
-        transform: "translate3d(-100px, -100px, 0)",
+        transform: "translate3d(110vw, 40vh, 0)",
       }}
     >
       <div
+        className="h-16 w-16"
         style={{
-          width: DISPLAY_SIZE,
-          height: DISPLAY_SIZE,
-          backgroundImage: `url(/assets/parrot/parrot-sprites-${useBlackSprite ? "black" : "white"}.png)`,
-          backgroundPosition: `-${sheetFrame * DISPLAY_SIZE}px -${sprite.direction * DISPLAY_SIZE}px`,
+          backgroundImage: `url(/assets/parrot/parrot-sprites-${
+            useBlackSprite ? "black" : "white"
+          }.png)`,
+          backgroundPosition: `-${sheetFrame * DISPLAY_SIZE}px -${
+            sprite.direction * DISPLAY_SIZE
+          }px`,
           backgroundRepeat: "no-repeat",
-          backgroundSize: `${DISPLAY_SIZE * SPRITE_FRAME_COUNT}px ${DISPLAY_SIZE * SPRITE_DIRECTION_COUNT}px`,
+          backgroundSize: `${
+            DISPLAY_SIZE * SPRITE_FRAME_COUNT
+          }px ${DISPLAY_SIZE * SPRITE_DIRECTION_COUNT}px`,
           imageRendering: "pixelated",
         }}
       />
-    </button>
+    </div>
   );
 }

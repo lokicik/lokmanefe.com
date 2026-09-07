@@ -54,6 +54,9 @@ export function AppearanceScript() {
         root.style.setProperty("--font-body", "var(" + preset.body + ")");
         root.style.setProperty("--font-heading", "var(" + preset.heading + ")");
         root.style.setProperty("--text-scale", String(textSizes[textSizeId]));
+
+        const parrotEnabled = localStorage.getItem(keys.parrotEnabled) !== "false";
+        root.dataset.parrotEnabled = String(parrotEnabled);
       } catch {}
     })();
   `;

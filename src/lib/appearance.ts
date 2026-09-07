@@ -50,12 +50,14 @@ export type TextSizeId = (typeof TEXT_SIZES)[number]["id"];
 export const APPEARANCE_STORAGE_KEYS = {
   preset: "appearance-preset",
   textSize: "text-size",
+  parrotEnabled: "parrot-enabled",
   legacyFont: "selected-font",
   legacyTextSize: "selected-font-size",
 } as const;
 
 export const DEFAULT_APPEARANCE_PRESET_ID: AppearancePresetId = "default";
 export const DEFAULT_TEXT_SIZE_ID: TextSizeId = "normal";
+export const PARROT_PREFERENCE_EVENT = "parrot-preference-change";
 
 export const LEGACY_FONT_TO_PRESET: Record<string, AppearancePresetId> = {
   inter: "default",
