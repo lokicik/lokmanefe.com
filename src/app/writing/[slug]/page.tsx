@@ -21,19 +21,17 @@ type Props = {
 
 // Generate static params at build time
 export async function generateStaticParams() {
-  const writings = await getWritings();
-  return writings
-    .filter((writing) => writing.published)
-    .map((writing) => ({
-      slug: writing.slug,
-    }));
+  const writings = await getWritings({ includeUnlisted: true });
+  return writings.map((writing) => ({
+    slug: writing.slug,
+  }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const writing = await getWritingBySlug(slug);
 
-  if (!writing) {
+  if (!writing || !writing.published) {
     return {
       title: "Writing Not Found",
     };
@@ -127,24 +125,32 @@ export default async function WritingPage({ params }: Props) {
         {/* Header */}
         <header className="mb-12 text-center">
           <div className="mb-4">
-            <div className="flex items-center justify-center gap-4 text-sm text-muted-foreground mb-2">
+            <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm text-muted-foreground">
               <Badge
                 variant={writing.type === "article" ? "default" : "secondary"}
                 className="capitalize"
               >
                 {writing.type}
               </Badge>
-              <div className="flex items-center gap-1">
-                <Calendar className="h-4 w-4" />
-                <time>Published {formatDate(writing.date)}</time>
-              </div>
-              <div className="flex items-center gap-1">
-                <Clock className="h-4 w-4" />
-                <span>{writing.readingTime} min read</span>
-              </div>
-              {writing.wordCount && (
-                <span>{writing.wordCount.toLocaleString()} words</span>
-              )}
+              <span className="inline-flex flex-wrap items-center justify-center gap-x-1.5">
+                <span className="inline-flex items-center gap-1 whitespace-nowrap">
+                  <Calendar aria-hidden="true" className="h-4 w-4" />
+                  <time>{formatDate(writing.date)}</time>
+                </span>
+                <span aria-hidden="true">·</span>
+                <span className="inline-flex items-center gap-1 whitespace-nowrap">
+                  <Clock aria-hidden="true" className="h-4 w-4" />
+                  {writing.readingTime} min
+                </span>
+                {writing.wordCount > 0 && (
+                  <span className="hidden items-center gap-1.5 sm:inline-flex">
+                    <span aria-hidden="true">·</span>
+                    <span className="whitespace-nowrap">
+                      {new Intl.NumberFormat("en-US").format(writing.wordCount)} words
+                    </span>
+                  </span>
+                )}
+              </span>
             </div>
           </div>
 
@@ -171,14 +177,6 @@ export default async function WritingPage({ params }: Props) {
             </div>
           )}
 
-          {/* Social sharing */}
-          <div className="flex justify-center">
-            <SocialShare
-              title={writing.title}
-              url={writingUrl}
-              description={writing.excerpt}
-            />
-          </div>
         </header>
 
         {/* Content with enhanced features */}
@@ -186,7 +184,7 @@ export default async function WritingPage({ params }: Props) {
 
         {/* Footer actions */}
         <footer className="mt-12 pt-8 border-t">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="text-sm text-muted-foreground">
               <p>Was this helpful? Share it with others!</p>
             </div>

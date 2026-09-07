@@ -7,15 +7,16 @@ import { Metadata } from "next";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Writings",
+  title: "Writing",
   description:
-    "A collection of articles and stories on software development, AI, and more.",
+    "Notes on shipping software, debugging systems, and the occasional story.",
   alternates: {
     canonical: "/writing",
   },
   openGraph: {
-    title: "Writings | Lokman Efe",
-    description: "In-depth articles and stories on technology and creativity.",
+    title: "Writing | Lokman Efe",
+    description:
+      "Notes on shipping software, debugging systems, and the occasional story.",
     url: "/writing",
   },
 };
@@ -28,9 +29,9 @@ export default async function WritingsPage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: "Writings | Lokman Efe",
+    name: "Writing | Lokman Efe",
     description:
-      "A collection of articles and stories on software development, AI, and more.",
+      "Notes on shipping software, debugging systems, and the occasional story.",
     url: `${baseUrl}/writing`,
     mainEntity: {
       "@type": "Blog",
@@ -55,7 +56,7 @@ export default async function WritingsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div>Loading…</div>}>
         <WritingsPageContent initialWritings={writings} />
       </Suspense>
     </>

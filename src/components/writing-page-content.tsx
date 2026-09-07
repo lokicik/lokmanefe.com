@@ -1,14 +1,14 @@
 "use client";
 
-import { useState, useCallback, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { MarkdownWriting } from "@/lib/markdown-writing";
+import { ArrowRight, Calendar, ChevronDown, Clock, Search, X } from "lucide-react";
+import type { MarkdownWriting } from "@/lib/markdown-writing";
 import { formatDate } from "@/lib/utils";
-import { WritingsSearch } from "@/components/writing-search";
-import { Clock, Calendar, ChevronDown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Popover,
   PopoverContent,
@@ -22,218 +22,311 @@ interface WritingsPageContentProps {
 export function WritingsPageContent({
   initialWritings,
 }: WritingsPageContentProps) {
-  const [writings, setWritings] = useState<MarkdownWriting[]>(initialWritings);
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const queryFromUrl = searchParams.get("q") ?? "";
+  const [searchQuery, setSearchQuery] = useState(queryFromUrl);
   const [isYearPopoverOpen, setIsYearPopoverOpen] = useState(false);
 
   const activeFilter = searchParams.get("filter") || "all";
   const selectedYear = searchParams.get("year") || "all";
+  const showSearch = initialWritings.length >= 6;
 
-  const handleFilterChange = (filter: "all" | "article" | "story") => {
-    const params = new URLSearchParams(searchParams);
-    params.set("filter", filter);
-    router.push(`${pathname}?${params.toString()}`);
-  };
-
-  const handleYearChange = (year: string) => {
-    const params = new URLSearchParams(searchParams);
-    params.set("year", year);
-    router.push(`${pathname}?${params.toString()}`);
-    setIsYearPopoverOpen(false);
-  };
-
-  const handleFilteredWritingsChange = useCallback(
-    (newWritings: MarkdownWriting[]) => {
-      setWritings(newWritings);
-    },
-    []
+  const counts = useMemo(
+    () => ({
+      all: initialWritings.length,
+      articles: initialWritings.filter((writing) => writing.type === "article")
+        .length,
+      stories: initialWritings.filter((writing) => writing.type === "story")
+        .length,
+    }),
+    [initialWritings]
   );
+  const showTypeFilters = counts.stories > 0;
 
   const availableYears = useMemo(() => {
-    const years = new Set(
-      initialWritings.map((writing) =>
-        new Date(writing.date).getFullYear().toString()
+    return Array.from(
+      new Set(
+        initialWritings.map((writing) =>
+          new Date(writing.date).getFullYear().toString()
+        )
       )
-    );
-    return ["all", ...Array.from(years).sort((a, b) => b.localeCompare(a))];
+    ).sort((a, b) => b.localeCompare(a));
   }, [initialWritings]);
+  const showYearFilter = availableYears.length > 1;
+
+  useEffect(() => {
+    setSearchQuery(queryFromUrl);
+  }, [queryFromUrl]);
+
+  useEffect(() => {
+    if (!showSearch || searchQuery === queryFromUrl) return;
+
+    const timeout = window.setTimeout(() => {
+      const params = new URLSearchParams(searchParams);
+      if (searchQuery.trim()) {
+        params.set("q", searchQuery.trim());
+      } else {
+        params.delete("q");
+      }
+      const query = params.toString();
+      router.replace(query ? `${pathname}?${query}` : pathname, {
+        scroll: false,
+      });
+    }, 250);
+
+    return () => window.clearTimeout(timeout);
+  }, [pathname, queryFromUrl, router, searchParams, searchQuery, showSearch]);
+
+  const updateParam = (key: string, value: string, defaultValue: string) => {
+    const params = new URLSearchParams(searchParams);
+    if (value === defaultValue) {
+      params.delete(key);
+    } else {
+      params.set(key, value);
+    }
+    const query = params.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname, {
+      scroll: false,
+    });
+  };
 
   const filteredWritings = useMemo(() => {
-    let result = initialWritings;
+    const normalizedQuery = showSearch ? searchQuery.trim().toLowerCase() : "";
 
-    if (activeFilter !== "all") {
-      result = result.filter((writing) => writing.type === activeFilter);
-    }
+    return initialWritings.filter((writing) => {
+      if (showTypeFilters && activeFilter !== "all" && writing.type !== activeFilter) {
+        return false;
+      }
+      if (
+        showYearFilter &&
+        selectedYear !== "all" &&
+        new Date(writing.date).getFullYear().toString() !== selectedYear
+      ) {
+        return false;
+      }
+      if (!normalizedQuery) return true;
 
-    if (selectedYear !== "all") {
-      result = result.filter(
-        (writing) =>
-          new Date(writing.date).getFullYear().toString() === selectedYear
-      );
-    }
-
-    return result;
-  }, [initialWritings, activeFilter, selectedYear]);
-
-  const counts = useMemo(() => {
-    return {
-      all: initialWritings.length,
-      articles: initialWritings.filter((w) => w.type === "article").length,
-      stories: initialWritings.filter((w) => w.type === "story").length,
-    };
-  }, [initialWritings]);
+      return [
+        writing.title,
+        writing.excerpt ?? "",
+        writing.content,
+        ...(writing.tags ?? []),
+      ].some((value) => value.toLowerCase().includes(normalizedQuery));
+    });
+  }, [
+    activeFilter,
+    initialWritings,
+    searchQuery,
+    selectedYear,
+    showSearch,
+    showTypeFilters,
+    showYearFilter,
+  ]);
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="mb-12">
-        <div className="mb-4">
-          <h1 className="text-4xl font-bold">Writings</h1>
-        </div>
-        <p className="text-lg text-muted-foreground">
-          Articles, essays, and stories on technology, fiction, and everything
-          in between.
+    <div className="mx-auto max-w-4xl">
+      <header className="mb-10 sm:mb-12">
+        <h1 className="text-4xl font-bold">Writing</h1>
+        <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+          Notes on shipping software, debugging systems, and the occasional story.
         </p>
-      </div>
+      </header>
 
-      {/* Search and filtering */}
-      <div className="mb-8 space-y-4">
-        <WritingsSearch
-          writings={filteredWritings}
-          onFilteredWritingsChange={handleFilteredWritingsChange}
-        />
-        <div className="flex justify-between items-center">
-          <div className="flex gap-2 flex-wrap">
-            <Button
-              variant={activeFilter === "all" ? "default" : "outline"}
-              size="sm"
-              onClick={() => handleFilterChange("all")}
-            >
-              All ({counts.all})
-            </Button>
-            <Button
-              variant={activeFilter === "article" ? "default" : "outline"}
-              size="sm"
-              onClick={() => handleFilterChange("article")}
-            >
-              Articles ({counts.articles})
-            </Button>
-            <Button
-              variant={activeFilter === "story" ? "default" : "outline"}
-              size="sm"
-              onClick={() => handleFilterChange("story")}
-            >
-              Stories ({counts.stories})
-            </Button>
-          </div>
-
-          <Popover open={isYearPopoverOpen} onOpenChange={setIsYearPopoverOpen}>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                size="sm"
-                className="flex items-center gap-2"
-              >
-                <span>
-                  {selectedYear === "all" ? "All Years" : selectedYear}
-                </span>
-                <ChevronDown className="h-4 w-4" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent align="end" className="w-36 p-1">
-              <div className="space-y-1">
-                {availableYears.map((year) => (
+      {(showSearch || showTypeFilters || showYearFilter) && (
+        <section aria-label="Writing filters" className="mb-8 space-y-4">
+          {showSearch && (
+            <div>
+              <label htmlFor="writing-search" className="sr-only">
+                Search writing
+              </label>
+              <div className="relative">
+                <Search
+                  aria-hidden="true"
+                  className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+                />
+                <Input
+                  id="writing-search"
+                  name="writing-search"
+                  type="search"
+                  autoComplete="off"
+                  placeholder="Search writing…"
+                  value={searchQuery}
+                  onChange={(event) => setSearchQuery(event.target.value)}
+                  className="h-11 pl-10 pr-12"
+                />
+                {searchQuery && (
                   <Button
-                    key={year}
-                    variant={selectedYear === year ? "secondary" : "ghost"}
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setSearchQuery("")}
+                    aria-label="Clear writing search"
+                    className="absolute right-0 top-1/2 -translate-y-1/2"
+                  >
+                    <X aria-hidden="true" className="h-4 w-4" />
+                  </Button>
+                )}
+              </div>
+            </div>
+          )}
+
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            {showTypeFilters && (
+              <div className="flex flex-wrap gap-2" aria-label="Writing type">
+                <Button
+                  variant={activeFilter === "all" ? "default" : "outline"}
+                  size="sm"
+                  aria-pressed={activeFilter === "all"}
+                  onClick={() => updateParam("filter", "all", "all")}
+                >
+                  All ({counts.all})
+                </Button>
+                <Button
+                  variant={activeFilter === "article" ? "default" : "outline"}
+                  size="sm"
+                  aria-pressed={activeFilter === "article"}
+                  onClick={() => updateParam("filter", "article", "all")}
+                >
+                  Articles ({counts.articles})
+                </Button>
+                <Button
+                  variant={activeFilter === "story" ? "default" : "outline"}
+                  size="sm"
+                  aria-pressed={activeFilter === "story"}
+                  onClick={() => updateParam("filter", "story", "all")}
+                >
+                  Stories ({counts.stories})
+                </Button>
+              </div>
+            )}
+
+            {showYearFilter && (
+              <Popover
+                open={isYearPopoverOpen}
+                onOpenChange={setIsYearPopoverOpen}
+              >
+                <PopoverTrigger asChild>
+                  <Button variant="outline" size="sm" className="gap-2">
+                    {selectedYear === "all" ? "All years" : selectedYear}
+                    <ChevronDown aria-hidden="true" className="h-4 w-4" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent align="end" className="w-36 p-1">
+                  <Button
+                    variant={selectedYear === "all" ? "secondary" : "ghost"}
                     size="sm"
-                    onClick={() => handleYearChange(year)}
+                    onClick={() => {
+                      updateParam("year", "all", "all");
+                      setIsYearPopoverOpen(false);
+                    }}
                     className="w-full justify-start"
                   >
-                    {year === "all" ? "All Years" : year}
+                    All years
                   </Button>
-                ))}
-              </div>
-            </PopoverContent>
-          </Popover>
-        </div>
-      </div>
+                  {availableYears.map((year) => (
+                    <Button
+                      key={year}
+                      variant={selectedYear === year ? "secondary" : "ghost"}
+                      size="sm"
+                      onClick={() => {
+                        updateParam("year", year, "all");
+                        setIsYearPopoverOpen(false);
+                      }}
+                      className="w-full justify-start"
+                    >
+                      {year}
+                    </Button>
+                  ))}
+                </PopoverContent>
+              </Popover>
+            )}
+          </div>
+        </section>
+      )}
 
-      {writings.length === 0 ? (
-        <div className="text-center py-12">
-          <p className="text-muted-foreground mb-4">No writings found.</p>
-          <p className="text-sm text-muted-foreground">
-            Try adjusting your search or filter criteria.
-          </p>
+      {filteredWritings.length === 0 ? (
+        <div className="border-t py-12 text-center">
+          <p className="text-muted-foreground">No writing matches these filters.</p>
         </div>
       ) : (
-        <div className="space-y-12">
-          {writings.map((writing) => (
-            <article key={writing.slug} className="group">
-              <Link href={`/writing/${writing.slug}`} prefetch={false} className="block">
-                <div className="space-y-4">
-                  {/* Post meta */}
-                  <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
+        <div className="divide-y divide-border border-y border-border">
+          {filteredWritings.map((writing) => {
+            const visibleTags = writing.tags?.slice(0, 3) ?? [];
+            const remainingTags = Math.max(
+              0,
+              (writing.tags?.length ?? 0) - visibleTags.length
+            );
+
+            return (
+              <article key={writing.slug} className="group">
+                <Link
+                  href={`/writing/${writing.slug}`}
+                  prefetch={false}
+                  className="block rounded-sm py-7 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background sm:py-8"
+                >
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-muted-foreground">
                     <Badge
-                      variant={
-                        writing.type === "article" ? "default" : "secondary"
-                      }
+                      variant={writing.type === "article" ? "default" : "secondary"}
                       className="capitalize"
                     >
                       {writing.type}
                     </Badge>
-                    <div className="flex items-center gap-1 whitespace-nowrap">
-                      <Calendar className="h-4 w-4" />
+                    <span className="inline-flex items-center gap-1 whitespace-nowrap">
+                      <Calendar aria-hidden="true" className="h-4 w-4" />
                       <time>{formatDate(writing.date)}</time>
-                    </div>
-                    <div className="flex items-center gap-1 whitespace-nowrap">
-                      <Clock className="h-4 w-4" />
-                      <span>{writing.readingTime} min read</span>
-                    </div>
-                    {writing.wordCount && (
+                    </span>
+                    <span className="inline-flex items-center gap-1 whitespace-nowrap">
+                      <Clock aria-hidden="true" className="h-4 w-4" />
+                      {writing.readingTime} min
+                    </span>
+                    {writing.wordCount > 0 && (
                       <span className="hidden whitespace-nowrap sm:inline">
-                        {writing.wordCount.toLocaleString()} words
+                        {new Intl.NumberFormat("en-US").format(writing.wordCount)} words
                       </span>
                     )}
                   </div>
 
-                  {/* Title */}
-                  <div className="space-y-2">
-                    <h2 className="text-2xl md:text-3xl font-bold group-hover:text-primary transition-colors leading-tight">
-                      {writing.title}
-                    </h2>
-                  </div>
+                  <h2 className="mt-4 text-2xl font-bold leading-tight transition-colors group-hover:text-primary sm:text-3xl">
+                    {writing.title}
+                  </h2>
 
-                  {/* Excerpt */}
                   {writing.excerpt && (
-                    <p className="text-lg text-muted-foreground leading-relaxed">
+                    <p className="mt-3 max-w-3xl text-lg leading-relaxed text-muted-foreground">
                       {writing.excerpt}
                     </p>
                   )}
 
-                  {/* Tags */}
-                  {writing.tags && writing.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-2">
-                      {writing.tags.map((tag) => (
+                  {(visibleTags.length > 0 || remainingTags > 0) && (
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {visibleTags.map((tag) => (
                         <span
                           key={tag}
-                          className="px-2 py-1 rounded-md text-xs font-medium transition-colors bg-muted/50 text-muted-foreground group-hover:bg-muted"
+                          className="rounded-md bg-muted/60 px-2 py-1 text-xs font-medium text-muted-foreground"
                         >
                           {tag}
                         </span>
                       ))}
+                      {remainingTags > 0 && (
+                        <span className="self-center text-xs text-muted-foreground">
+                          +{remainingTags}
+                        </span>
+                      )}
                     </div>
                   )}
 
-                  {/* Read more */}
-                  <div className="text-primary font-medium text-sm group-hover:underline">
-                    Read more →
-                  </div>
-                </div>
-              </Link>
-            </article>
-          ))}
+                  <span className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-primary">
+                    Read
+                    <ArrowRight
+                      aria-hidden="true"
+                      className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+                    />
+                  </span>
+                </Link>
+              </article>
+            );
+          })}
         </div>
       )}
     </div>

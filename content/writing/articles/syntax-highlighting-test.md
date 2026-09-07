@@ -3,7 +3,7 @@ title: "Syntax Highlighting Test"
 date: "2024-01-15"
 excerpt: "Testing VSCode-quality syntax highlighting with multiple languages"
 description: "A test article to verify Shiki syntax highlighting works correctly"
-published: true
+published: false
 tags: ["test", "code", "development"]
 ---
 

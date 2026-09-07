@@ -3,6 +3,7 @@ title: "Professional Job Seeker"
 date: "2025-10-04"
 excerpt: "50 interviews, 1000 rejections, and the ongoing art of not getting hired in tech."
 published: true
+listed: false
 tags: ["job-search", "tech", "ghosting", "interviews", "career"]
 ---
 

@@ -20,6 +20,7 @@ export type MarkdownWriting = {
   excerpt?: string;
   description?: string;
   published: boolean;
+  listed: boolean;
   tags?: string[];
   content: string;
   source: "markdown";
@@ -116,7 +117,8 @@ export function getRelatedWritings(
   }
 
   const otherPosts = allPosts.filter(
-    (post) => post.slug !== currentPost.slug && post.published
+    (post) =>
+      post.slug !== currentPost.slug && post.published && post.listed
   );
 
   // Calculate similarity score based on shared tags
@@ -178,6 +180,7 @@ async function getMarkdownFiles(
         excerpt: data.excerpt,
         description: data.description,
         published: data.published !== false, // Default to true
+        listed: data.listed !== false,
         tags: data.tags || [],
         content,
         source: "markdown",
@@ -196,7 +199,14 @@ async function getMarkdownFiles(
   }
 }
 
-export async function getWritings(): Promise<MarkdownWriting[]> {
+type GetWritingsOptions = {
+  includeUnpublished?: boolean;
+  includeUnlisted?: boolean;
+};
+
+export async function getWritings(
+  options: GetWritingsOptions = {}
+): Promise<MarkdownWriting[]> {
   const articles = await getMarkdownFiles(
     path.join(writingsDirectory, "articles"),
     "article"
@@ -206,7 +216,11 @@ export async function getWritings(): Promise<MarkdownWriting[]> {
     "story"
   );
 
-  const allWritings = [...articles, ...stories];
+  const allWritings = [...articles, ...stories].filter(
+    (writing) =>
+      (options.includeUnpublished || writing.published) &&
+      (options.includeUnlisted || writing.listed)
+  );
 
   // Sort by date (newest first)
   return allWritings.sort(
@@ -250,6 +264,7 @@ export async function getWritingBySlug(
       excerpt: data.excerpt,
       description: data.description,
       published: data.published !== false,
+      listed: data.listed !== false,
       tags: data.tags || [],
       content,
       source: "markdown",
