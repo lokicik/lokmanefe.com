@@ -12,6 +12,7 @@ import { Navigation } from "@/components/navigation";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SideSvgs } from "@/components/side-svgs";
+import { AppearanceScript } from "@/components/appearance-script";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://lokmanefe.com";
 
@@ -106,6 +107,7 @@ export default function RootLayout({
       className={`${inter.variable} ${spaceGrotesk.variable} ${merriweather.variable} ${sourceCode.variable} ${playfair.variable}`}
     >
       <head>
+        <AppearanceScript />
         <meta name="theme-color" content="#0a0a0a" />
         <link
           rel="alternate"
@@ -114,7 +116,7 @@ export default function RootLayout({
           href="/rss"
         />
       </head>
-      <body className={inter.className}>
+      <body>
         <Providers>
           <a
             href="#main-content"
@@ -129,7 +131,7 @@ export default function RootLayout({
               <main
                 id="main-content"
                 tabIndex={-1}
-                className="relative z-10 col-start-2 row-start-1 w-full min-w-0 px-4 py-8 pb-16 focus:outline-none"
+                className="content-area relative z-10 col-start-2 row-start-1 w-full min-w-0 px-4 py-8 pb-16 focus:outline-none"
               >
                 {children}
               </main>

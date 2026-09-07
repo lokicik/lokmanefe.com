@@ -6,8 +6,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-source-code);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -46,6 +46,7 @@
 :root {
   --radius: 0.625rem;
   --text-scale: 1;
+  --font-body: var(--font-inter);
   --font-heading: var(--font-space-grotesk);
   --bird-opacity: 0.17;
   --bird-filter: none;
@@ -249,8 +250,7 @@
 
   body {
     @apply bg-background text-foreground;
-    font-size: calc(1rem * var(--text-scale));
-    font-display: swap; /* Prevent font loading layout shifts */
+    font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
   }
 
   h1,
@@ -270,6 +270,20 @@
   :target {
     scroll-margin-top: 5.5rem;
   }
+}
+
+.content-area {
+  font-size: calc(1rem * var(--text-scale));
+}
+
+.site-navigation,
+.site-footer,
+.appearance-popover,
+button,
+input,
+select,
+textarea {
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
 .touch-target {
@@ -597,23 +611,12 @@
   filter: var(--bird-filter);
 }
 
-/* Custom font styles */
-.font-inter {
-  font-family: "Inter", sans-serif;
-}
-.font-lora {
-  font-family: "Lora", serif;
-}
-.font-work-sans {
-  font-family: "Work Sans", sans-serif;
-}
-
 /* Prose customizations */
 .prose-lg {
   font-size: calc(1.125rem * var(--text-scale));
 }
 .prose-xl {
-  font-size: 1.25rem;
+  font-size: calc(1.25rem * var(--text-scale));
 }
 
 @media (prefers-reduced-motion: reduce) {

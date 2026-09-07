@@ -8,143 +8,124 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  APPEARANCE_PRESETS,
+  APPEARANCE_STORAGE_KEYS,
+  DEFAULT_APPEARANCE_PRESET_ID,
+  DEFAULT_TEXT_SIZE_ID,
+  TEXT_SIZES,
+  isAppearancePresetId,
+  isTextSizeId,
+  type AppearancePresetId,
+  type TextSizeId,
+} from "@/lib/appearance";
 
-const fonts = [
-  { name: "Inter", label: "Inter", value: "inter", cssVar: "--font-inter" },
-  {
-    name: "Space Grotesk",
-    label: "Space",
-    value: "space-grotesk",
-    cssVar: "--font-space-grotesk",
-  },
-  {
-    name: "Merriweather",
-    label: "Merri",
-    value: "merriweather",
-    cssVar: "--font-merriweather",
-  },
-  {
-    name: "Source Code Pro",
-    label: "Code",
-    value: "source-code",
-    cssVar: "--font-source-code",
-  },
-  {
-    name: "Playfair Display",
-    label: "Playfair",
-    value: "playfair",
-    cssVar: "--font-playfair",
-  },
-];
+function applyPreset(presetId: AppearancePresetId) {
+  const preset = APPEARANCE_PRESETS.find((item) => item.id === presetId);
+  if (!preset) return;
 
-const fontSizes = [
-  { name: "Small", value: "14px", scale: 0.875 },
-  { name: "Normal", value: "16px", scale: 1 },
-  { name: "Large", value: "18px", scale: 1.125 },
-  { name: "Extra large", value: "20px", scale: 1.25 },
-];
+  const root = document.documentElement;
+  root.dataset.appearance = presetId;
+  root.style.setProperty("--font-body", `var(${preset.bodyCssVar})`);
+  root.style.setProperty("--font-heading", `var(${preset.headingCssVar})`);
+  localStorage.setItem(APPEARANCE_STORAGE_KEYS.preset, presetId);
+}
+
+function applyTextSize(textSizeId: TextSizeId) {
+  const textSize = TEXT_SIZES.find((item) => item.id === textSizeId);
+  if (!textSize) return;
+
+  const root = document.documentElement;
+  root.dataset.textSize = textSizeId;
+  root.style.setProperty("--text-scale", String(textSize.scale));
+  localStorage.setItem(APPEARANCE_STORAGE_KEYS.textSize, textSizeId);
+}
 
 export function AppearancePicker() {
-  const [selectedFont, setSelectedFont] = React.useState(fonts[0]);
-  const [selectedSize, setSelectedSize] = React.useState(fontSizes[1]);
-  const [usesDefaultPairing, setUsesDefaultPairing] = React.useState(true);
-  const [mounted, setMounted] = React.useState(false);
+  const [selectedPresetId, setSelectedPresetId] =
+    React.useState<AppearancePresetId>(DEFAULT_APPEARANCE_PRESET_ID);
+  const [selectedSizeId, setSelectedSizeId] =
+    React.useState<TextSizeId>(DEFAULT_TEXT_SIZE_ID);
 
   React.useEffect(() => {
-    const savedFont = localStorage.getItem("selected-font");
-    const savedSize = localStorage.getItem("selected-font-size");
+    const root = document.documentElement;
+    const storedPreset = localStorage.getItem(APPEARANCE_STORAGE_KEYS.preset);
+    const storedSize = localStorage.getItem(APPEARANCE_STORAGE_KEYS.textSize);
+    const initialPreset = root.dataset.appearance ?? null;
+    const initialSize = root.dataset.textSize ?? null;
 
-    const font = fonts.find((option) => option.value === savedFont);
-    const size = fontSizes.find((option) => option.value === savedSize);
-
-    if (font) {
-      setSelectedFont(font);
-      setUsesDefaultPairing(false);
+    if (isAppearancePresetId(storedPreset)) {
+      setSelectedPresetId(storedPreset);
+    } else if (isAppearancePresetId(initialPreset)) {
+      setSelectedPresetId(initialPreset);
     }
-    if (size) setSelectedSize(size);
-    setMounted(true);
+
+    if (isTextSizeId(storedSize)) {
+      setSelectedSizeId(storedSize);
+    } else if (isTextSizeId(initialSize)) {
+      setSelectedSizeId(initialSize);
+    }
+
   }, []);
 
-  React.useEffect(() => {
-    if (!mounted) return;
-
-    document.body.style.fontFamily = `var(${selectedFont.cssVar}), ui-sans-serif, system-ui, sans-serif`;
-    if (usesDefaultPairing) {
-      document.documentElement.style.removeProperty("--font-heading");
-    } else {
-      document.documentElement.style.setProperty(
-        "--font-heading",
-        `var(${selectedFont.cssVar})`
-      );
-      localStorage.setItem("selected-font", selectedFont.value);
-    }
-  }, [mounted, selectedFont, usesDefaultPairing]);
-
-  React.useEffect(() => {
-    if (!mounted) return;
-
-    document.documentElement.style.removeProperty("font-size");
-    document.documentElement.style.setProperty(
-      "--text-scale",
-      selectedSize.scale.toString()
-    );
-    localStorage.setItem("selected-font-size", selectedSize.value);
-  }, [mounted, selectedSize]);
-
-  const selectedSizeIndex = fontSizes.findIndex(
-    (option) => option.value === selectedSize.value
+  const selectedSizeIndex = TEXT_SIZES.findIndex(
+    (option) => option.id === selectedSizeId
   );
+  const selectedSize = TEXT_SIZES[selectedSizeIndex] ?? TEXT_SIZES[1];
 
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button
           variant="ghost"
-          size="sm"
-          className="h-10 w-10 p-0 transition-transform active:scale-[0.96]"
+          size="icon"
+          className="touch-target transition-transform active:scale-[0.96]"
+          aria-label="Text appearance"
         >
-          <span aria-hidden className="text-sm font-semibold tracking-tight">
+          <span aria-hidden="true" className="text-sm font-semibold tracking-tight">
             Aa
           </span>
-          <span className="sr-only">Text appearance</span>
         </Button>
       </PopoverTrigger>
       <PopoverContent
         align="end"
         sideOffset={8}
         collisionPadding={8}
-        className="z-[51] w-72 rounded-lg p-3 shadow-lg"
+        className="appearance-popover z-[51] w-72 rounded-lg p-3 shadow-lg"
       >
         <div className="mb-3">
           <p className="text-sm font-semibold">Appearance</p>
-          <p className="text-xs text-muted-foreground">Typeface and text size</p>
+          <p className="text-xs text-muted-foreground">
+            Reading and headings
+          </p>
         </div>
 
         <div className="space-y-2">
           <p className="text-xs font-medium text-muted-foreground">Typeface</p>
           <div className="grid grid-cols-2 gap-2">
-            {fonts.map((font) => {
-              const isSelected = selectedFont.value === font.value;
+            {APPEARANCE_PRESETS.map((preset) => {
+              const isSelected = selectedPresetId === preset.id;
 
               return (
                 <button
-                  key={font.value}
+                  key={preset.id}
                   type="button"
-                  aria-label={font.name}
+                  aria-label={`${preset.name} typeface preset`}
                   aria-pressed={isSelected}
                   onClick={() => {
-                    setUsesDefaultPairing(false);
-                    setSelectedFont(font);
+                    setSelectedPresetId(preset.id);
+                    applyPreset(preset.id);
                   }}
-                  style={{ fontFamily: `var(${font.cssVar})` }}
-                  className={`flex min-h-10 items-center justify-between rounded-md border px-3 text-left text-sm transition-[background-color,border-color,transform] active:scale-[0.96] ${
+                  style={{ fontFamily: `var(${preset.bodyCssVar})` }}
+                  className={`flex min-h-11 items-center justify-between rounded-md border px-3 text-left text-sm transition-[background-color,border-color,transform] active:scale-[0.96] ${
                     isSelected
-                      ? "border-primary/40 bg-accent"
+                      ? "border-primary/50 bg-accent"
                       : "border-border/70 hover:bg-accent/60"
                   }`}
                 >
-                  <span>{font.label}</span>
+                  <span>{preset.label}</span>
                   <Check
+                    aria-hidden="true"
                     className={`ml-2 h-3.5 w-3.5 shrink-0 transition-opacity ${
                       isSelected ? "opacity-100" : "opacity-0"
                     }`}
@@ -160,29 +141,39 @@ export function AppearancePicker() {
           <div className="flex items-center justify-between rounded-md border border-border/70 p-1">
             <Button
               variant="ghost"
-              size="sm"
+              size="icon"
               aria-label="Decrease text size"
-              onClick={() => setSelectedSize(fontSizes[selectedSizeIndex - 1])}
-              disabled={selectedSizeIndex === 0}
-              className="h-10 w-10 p-0 transition-transform active:scale-[0.96]"
+              onClick={() => {
+                const previous = TEXT_SIZES[selectedSizeIndex - 1];
+                if (!previous) return;
+                setSelectedSizeId(previous.id);
+                applyTextSize(previous.id);
+              }}
+              disabled={selectedSizeIndex <= 0}
+              className="touch-target transition-transform active:scale-[0.96]"
             >
-              <Minus className="h-4 w-4" />
+              <Minus aria-hidden="true" className="h-4 w-4" />
             </Button>
             <span
               aria-live="polite"
-              className="min-w-20 text-center text-sm font-medium tabular-nums"
+              className="min-w-24 text-center text-sm font-medium tabular-nums"
             >
-              {selectedSize.name}
+              {selectedSize.name} · {selectedSize.pixels}px
             </span>
             <Button
               variant="ghost"
-              size="sm"
+              size="icon"
               aria-label="Increase text size"
-              onClick={() => setSelectedSize(fontSizes[selectedSizeIndex + 1])}
-              disabled={selectedSizeIndex === fontSizes.length - 1}
-              className="h-10 w-10 p-0 transition-transform active:scale-[0.96]"
+              onClick={() => {
+                const next = TEXT_SIZES[selectedSizeIndex + 1];
+                if (!next) return;
+                setSelectedSizeId(next.id);
+                applyTextSize(next.id);
+              }}
+              disabled={selectedSizeIndex >= TEXT_SIZES.length - 1}
+              className="touch-target transition-transform active:scale-[0.96]"
             >
-              <Plus className="h-4 w-4" />
+              <Plus aria-hidden="true" className="h-4 w-4" />
             </Button>
           </div>
         </div>
