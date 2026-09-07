@@ -8,10 +8,11 @@ import {
   education,
   socialLinks,
   CONTACT_EMAIL,
+  type ProjectHighlight,
 } from "@/lib/home-content";
 import { CursorBird } from "@/components/cursor-bird";
 import { Metadata } from "next";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
 
 // Enable ISR with 1 day revalidation (homepage changes rarely)
 export const revalidate = 86400; // 24 hours
@@ -67,7 +68,94 @@ function SocialIcon({ label }: { label: string }) {
 }
 
 const socialIconLinkClass =
-  "inline-flex h-10 w-10 items-center justify-center rounded-md text-muted-foreground transition-[color,background-color,transform] hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.96]";
+  "inline-flex h-11 w-11 items-center justify-center rounded-md text-muted-foreground transition-[color,background-color,transform] hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.96]";
+
+function FeaturedProject({ project }: { project: ProjectHighlight }) {
+  const content = (
+    <>
+      <div className="min-w-0 py-1">
+        <h3 className="flex items-center gap-1.5 text-xl font-semibold text-primary">
+          {project.name}
+          {project.href && (
+            <ArrowUpRight aria-hidden="true" className="h-4 w-4 shrink-0" />
+          )}
+        </h3>
+        <p className="mt-2 leading-relaxed text-foreground">
+          {project.description}
+        </p>
+      </div>
+      {project.imageUrl && (
+        <Image
+          src={project.imageUrl}
+          alt={project.imageAlt ?? `${project.name} product screenshot`}
+          width={544}
+          height={340}
+          className="aspect-[16/10] w-full rounded-md border border-border bg-muted object-cover shadow-sm transition-[border-color,box-shadow,transform] duration-200 group-hover:border-primary/35 group-hover:shadow-md motion-safe:group-hover:-translate-y-0.5 sm:w-[17rem]"
+        />
+      )}
+    </>
+  );
+
+  const className =
+    "group grid gap-4 rounded-lg py-2 transition-colors sm:grid-cols-[minmax(0,1fr)_17rem] sm:items-center sm:gap-6";
+
+  return project.href ? (
+    <a
+      href={project.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`${className} rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background`}
+      aria-label={`${project.name}, open project`}
+    >
+      {content}
+    </a>
+  ) : (
+    <div className={className}>{content}</div>
+  );
+}
+
+function CompactProject({ project }: { project: ProjectHighlight }) {
+  const content = (
+    <>
+      <div className="min-w-0 py-1">
+        <h3 className="flex items-center gap-1.5 font-semibold text-foreground group-hover:text-primary">
+          {project.name}
+          {project.href && (
+            <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5 shrink-0" />
+          )}
+        </h3>
+        <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+          {project.description}
+        </p>
+      </div>
+      {project.imageUrl && (
+        <Image
+          src={project.imageUrl}
+          alt={project.imageAlt ?? `${project.name} product screenshot`}
+          width={256}
+          height={160}
+          className="aspect-[16/10] w-24 rounded border border-border bg-muted object-cover sm:w-32"
+        />
+      )}
+    </>
+  );
+  const className =
+    "group grid grid-cols-[minmax(0,1fr)_6rem] items-center gap-4 border-t border-border py-4 transition-colors sm:grid-cols-[minmax(0,1fr)_8rem]";
+
+  return project.href ? (
+    <a
+      href={project.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`${className} rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring`}
+      aria-label={`${project.name}, open project`}
+    >
+      {content}
+    </a>
+  ) : (
+    <div className={className}>{content}</div>
+  );
+}
 
 export default function Home() {
   const jsonLd = {
@@ -99,18 +187,18 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-            <CursorBird />
+      <CursorBird />
 
-      <div className="max-w-4xl mx-auto space-y-12">
+      <div className="mx-auto max-w-4xl space-y-16 sm:space-y-20">
         {/* Hero */}
-        <div className="text-center pt-2">
-          <h1 className="text-4xl font-bold mb-2">{hero.name}</h1>
-          <p className="text-lg text-primary font-medium mb-2">{hero.title}</p>
-          <p className="text-lg text-foreground mb-2 max-w-2xl mx-auto">
+        <div className="py-6 text-center sm:py-10">
+          <h1 className="mb-2 text-4xl font-bold sm:text-5xl">{hero.name}</h1>
+          <p className="mb-3 text-lg font-medium text-primary">{hero.title}</p>
+          <p className="mx-auto mb-3 max-w-2xl text-lg leading-relaxed text-foreground">
             {hero.tagline}
           </p>
-          <p className="text-sm text-foreground mb-1">{hero.currentRole}</p>
-          <p className="text-sm text-muted-foreground mb-6">
+          <p className="mb-1 text-sm text-foreground">{hero.currentRole}</p>
+          <p className="mb-6 text-sm text-muted-foreground">
             {hero.availability}
           </p>
           <CVButton />
@@ -168,72 +256,36 @@ export default function Home() {
           </div>
         </section>
 
-        {/* How I Work */}
-        <section>
-          <SectionHeading>How I Work</SectionHeading>
-          <div className="mx-auto max-w-[68ch] space-y-3 text-pretty leading-relaxed text-foreground">
-            {workflow.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
+        {/* Projects */}
+        <section id="projects" className="scroll-mt-24">
+          <SectionHeading>Projects</SectionHeading>
+          <div className="space-y-8 sm:space-y-10">
+            {featuredProjects
+              .filter((project) => project.featured)
+              .map((project) => (
+                <FeaturedProject key={project.name} project={project} />
+              ))}
+          </div>
+
+          <div className="mt-10">
+            <h3 className="mb-1 text-sm font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+              More work
+            </h3>
+            {featuredProjects
+              .filter((project) => !project.featured)
+              .map((project) => (
+                <CompactProject key={project.name} project={project} />
+              ))}
           </div>
         </section>
 
-        {/* Projects */}
-        <section id="projects">
-          <SectionHeading>Projects</SectionHeading>
-          <div className="space-y-6">
-            {featuredProjects.map((project) => {
-              const title = project.href ? (
-                <a
-                  href={project.href}
-                  className="text-primary hover:underline font-medium"
-                >
-                  {project.name}
-                </a>
-              ) : (
-                <span className="font-medium text-foreground">
-                  {project.name}
-                </span>
-              );
-              return (
-                <div
-                  key={project.name}
-                  className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4"
-                >
-                  <div className="flex-1 min-w-0">
-                    <div className="flex flex-wrap items-baseline gap-x-2">
-                      {title}
-                    </div>
-                    <p className="text-foreground leading-relaxed">
-                      {project.description}
-                    </p>
-                  </div>
-                  {project.imageUrl &&
-                    (project.href ? (
-                      <a
-                        href={project.href}
-                        className="shrink-0 block w-40 max-w-full"
-                      >
-                        <Image
-                          src={project.imageUrl}
-                          alt={`${project.name} screenshot`}
-                          width={320}
-                          height={200}
-                          className="w-40 max-w-full aspect-[16/10] object-cover rounded border border-border"
-                        />
-                      </a>
-                    ) : (
-                      <Image
-                        src={project.imageUrl}
-                        alt={`${project.name} screenshot`}
-                        width={320}
-                        height={200}
-                        className="shrink-0 w-40 max-w-full aspect-[16/10] object-cover rounded border border-border"
-                      />
-                    ))}
-                </div>
-              );
-            })}
+        {/* How I Work */}
+        <section>
+          <SectionHeading>How I Work</SectionHeading>
+          <div className="max-w-[68ch] space-y-3 text-pretty leading-relaxed text-foreground">
+            {workflow.map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))}
           </div>
         </section>
 

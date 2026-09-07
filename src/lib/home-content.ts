@@ -108,6 +108,8 @@ export interface ProjectHighlight {
   description: string;
   href?: string;
   imageUrl?: string;
+  imageAlt?: string;
+  featured?: boolean;
 }
 
 export const featuredProjects: ProjectHighlight[] = [
@@ -115,6 +117,8 @@ export const featuredProjects: ProjectHighlight[] = [
     name: "ReadMaxxer",
     href: "https://www.readmaxxer.com/",
     imageUrl: "/projects/readmaxxer.png",
+    imageAlt: "ReadMaxxer speed-reading training dashboard",
+    featured: true,
     description:
       "Built and shipped a production web app for benchmarking and training visual speed through six interactive exercises, with server-authoritative scoring, adaptive workouts, accounts, and subscriptions.",
   },
@@ -122,6 +126,8 @@ export const featuredProjects: ProjectHighlight[] = [
     name: "House Royale",
     href: "https://www.houseroyale.fun/",
     imageUrl: "/projects/houseroyale_ss1.webp",
+    imageAlt: "House Royale property price guessing game",
+    featured: true,
     description:
       "Built an end-to-end multiplayer game where players compete against trained models to estimate prices from real Turkish property listings, including scraped data, live lobbies, and instant scoring.",
   },
@@ -129,12 +135,15 @@ export const featuredProjects: ProjectHighlight[] = [
     name: "agentsurface",
     href: "https://agentsurface.vercel.app/",
     imageUrl: "/projects/agentsurface.png",
+    imageAlt: "agentsurface OpenAPI readiness report",
+    featured: true,
     description:
       "Built a scanner that scores how well coding agents can work with an OpenAPI spec, returning a 0-100 rating and a ranked, fix-by-fix report across six categories.",
   },
   {
     name: "EvalForge",
     imageUrl: "/projects/evalforge.png",
+    imageAlt: "EvalForge prompt evaluation workflow",
     description:
       "Built a prompt evaluation platform for versioning prompts, running curated test cases, scoring outputs with weighted rubrics, and comparing revisions over time.",
   },
@@ -142,6 +151,7 @@ export const featuredProjects: ProjectHighlight[] = [
     name: "lbe.one",
     href: "https://lbe.one/",
     imageUrl: "/projects/lbe-one.png",
+    imageAlt: "lbe.one privacy-minimized route analytics",
     description:
       "Built a personal permalink control plane with immutable routes, revision history, privacy-minimized analytics, validated imports, and authenticated management.",
   },
@@ -149,6 +159,7 @@ export const featuredProjects: ProjectHighlight[] = [
     name: "GDG On Campus Trakya",
     href: "https://www.gdgoncampustu.com/",
     imageUrl: "/projects/gdg-on-campus-trakya.png",
+    imageAlt: "GDG On Campus Trakya community website",
     description:
       "Built and operated a production community platform that handled 2,000+ visitors in three days and 200+ concurrent users during a live event across registrations, interactive experiences, and admin workflows.",
   },
@@ -156,6 +167,7 @@ export const featuredProjects: ProjectHighlight[] = [
     name: "Neologism Engine",
     href: "https://github.com/lokicik/neologism-engine",
     imageUrl: "/projects/neologism-engine.png",
+    imageAlt: "Neologism Engine name generation interface",
     description:
       "Built a client-side naming tool that generates and ranks brand, sci-fi, and fantasy names with phonotactic filters, semantic matching, and a Rust/WebAssembly engine.",
   },
