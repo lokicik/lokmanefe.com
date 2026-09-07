@@ -228,7 +228,6 @@
   /* Prevent layout shifts */
   html {
     scroll-behavior: smooth;
-    overflow-y: scroll; /* Always show scrollbar to prevent layout shifts */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -251,6 +250,21 @@
 
   body[data-radix-scroll-area-viewport] {
     padding-right: 0 !important;
+  }
+
+  :target {
+    scroll-margin-top: 5.5rem;
+  }
+}
+
+.touch-target {
+  min-height: 2.75rem;
+  min-width: 2.75rem;
+}
+
+@media (min-width: 768px) {
+  html {
+    scrollbar-gutter: stable;
   }
 }
 
@@ -586,4 +600,19 @@ html.blue .decorative-svg {
 }
 .prose-xl {
   font-size: 1.25rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }

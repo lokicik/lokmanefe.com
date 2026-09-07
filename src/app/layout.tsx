@@ -12,7 +12,6 @@ import { Navigation } from "@/components/navigation";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SideSvgs } from "@/components/side-svgs";
-import { Github } from "lucide-react";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://lokmanefe.com";
 
@@ -116,53 +115,44 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <Providers>
-          <div className="min-h-screen bg-background relative grid grid-rows-[auto_1fr_auto]">
+          <a
+            href="#main-content"
+            className="skip-link fixed left-4 top-3 z-[60] -translate-y-20 rounded-md bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-lg transition-transform focus:translate-y-0"
+          >
+            Skip to content
+          </a>
+          <div className="relative grid min-h-dvh grid-rows-[auto_1fr_auto] bg-background">
             <Navigation />
             <div className="grid w-full grid-cols-[minmax(0,1fr)_minmax(0,56rem)_minmax(0,1fr)]">
               <SideSvgs />
-              <main className="relative z-10 col-start-2 row-start-1 w-full px-4 py-8 pb-16">
+              <main
+                id="main-content"
+                tabIndex={-1}
+                className="relative z-10 col-start-2 row-start-1 w-full min-w-0 px-4 py-8 pb-16 focus:outline-none"
+              >
                 {children}
               </main>
             </div>
 
-            {/* Footer */}
-            <footer className="border-t bg-background/80 backdrop-blur-sm relative z-0">
-              <div className="max-w-4xl mx-auto px-4 py-6">
-                <div className="text-center text-sm text-muted-foreground space-y-2">
-                  <div>
-                    Built with ❤️ by{" "}
-                    <a
-                      href="https://github.com/lokicik"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-medium text-foreground hover:text-primary transition-colors"
-                    >
-                      Lokman Efe
-                    </a>
-                  </div>
-                  <div className="flex items-center justify-center gap-2">
-                    <span>© {new Date().getFullYear()}</span>
-                    <span>•</span>
-                    <a
-                      href="https://github.com/lokicik/lokmanefe.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:text-primary transition-colors"
-                      title="View Source"
-                    >
-                      <Github className="w-4 h-4" />
-                    </a>
-                    <span>•</span>
-                    <a
-                      href="/rss"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:text-primary transition-colors"
-                    >
-                      RSS Feed
-                    </a>
-                  </div>
-                </div>
+            <footer className="site-footer relative z-0 border-t bg-background/80 backdrop-blur-sm">
+              <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-x-1 px-4 py-5 text-sm text-muted-foreground">
+                <span className="px-2">© {new Date().getFullYear()} Lokman Efe</span>
+                <span aria-hidden="true">·</span>
+                <a
+                  href="https://github.com/lokicik/lokmanefe.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-11 items-center px-2 transition-colors hover:text-primary focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                >
+                  Source
+                </a>
+                <span aria-hidden="true">·</span>
+                <a
+                  href="/rss"
+                  className="inline-flex min-h-11 items-center px-2 transition-colors hover:text-primary focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                >
+                  RSS
+                </a>
               </div>
             </footer>
           </div>

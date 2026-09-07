@@ -30,9 +30,13 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <Button variant="ghost" size="sm" className="h-10 w-10 p-0">
+      <Button
+        variant="ghost"
+        size="icon"
+        className="touch-target"
+        aria-label="Loading theme options"
+      >
         <Sun className="h-[1.2rem] w-[1.2rem]" />
-        <span className="sr-only">Loading theme</span>
       </Button>
     );
   }
@@ -46,11 +50,11 @@ export function ThemeToggle() {
       <PopoverTrigger asChild>
         <Button
           variant="ghost"
-          size="sm"
-          className="h-10 w-10 p-0 transition-transform active:scale-[0.96]"
+          size="icon"
+          className="touch-target transition-transform active:scale-[0.96]"
+          aria-label={`Color theme: ${selectedTheme.name}`}
         >
           <CurrentThemeIcon className="h-[1.2rem] w-[1.2rem]" />
-          <span className="sr-only">Theme: {selectedTheme.name}</span>
         </Button>
       </PopoverTrigger>
       <PopoverContent align="end" className="z-[51] w-36 p-1" sideOffset={8}>
@@ -66,7 +70,8 @@ export function ThemeToggle() {
                   setTheme(themeOption.value);
                   setIsOpen(false);
                 }}
-                className="min-h-10 w-full justify-start transition-transform active:scale-[0.96]"
+                aria-pressed={theme === themeOption.value}
+                className="min-h-11 w-full justify-start transition-transform active:scale-[0.96]"
               >
                 <Icon className="mr-2 h-4 w-4" />
                 <span>{themeOption.name}</span>

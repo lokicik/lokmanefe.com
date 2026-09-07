@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -19,108 +19,110 @@ const navLinks = [
 
 export function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeHash, setActiveHash] = useState("");
   const pathname = usePathname();
 
+  useEffect(() => {
+    const syncHash = () => setActiveHash(window.location.hash);
+    syncHash();
+    window.addEventListener("hashchange", syncHash);
+    return () => window.removeEventListener("hashchange", syncHash);
+  }, [pathname]);
+
+  const isLinkActive = (href: string) => {
+    if (href === "/#projects") {
+      return pathname === "/" && activeHash === "#projects";
+    }
+    if (href === "/") {
+      return pathname === "/" && activeHash !== "#projects";
+    }
+    return pathname.startsWith(href);
+  };
+
+  const navLinkClass = (href: string) =>
+    cn(
+      "relative flex min-h-11 items-center rounded-sm px-1 text-sm font-medium transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+      isLinkActive(href) &&
+        "text-primary after:absolute after:inset-x-1 after:bottom-0 after:h-px after:bg-primary"
+    );
+
   return (
-    <nav className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="max-w-4xl mx-auto px-4">
+    <nav
+      aria-label="Primary navigation"
+      className="site-navigation sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/75"
+    >
+      <div className="mx-auto max-w-4xl px-4">
         <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
           <Link
             href="/"
             aria-label="Lokman Efe, home"
-            className="text-2xl font-bold flex-shrink-0 flex items-center"
+            className="touch-target flex shrink-0 items-center justify-center rounded-sm text-primary transition-colors hover:text-primary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
-            <ParrotIcon size={32} className="text-primary" />
+            <ParrotIcon size={32} />
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6">
-            <div className="flex items-center space-x-4">
-              {navLinks.map((link) => {
-                const isActive =
-                  link.href === "/"
-                    ? pathname === "/"
-                    : !link.href.includes("#") &&
-                      pathname.startsWith(link.href);
-
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    aria-current={isActive ? "page" : undefined}
-                    className={cn(
-                      "relative flex min-h-10 items-center px-1 text-sm font-medium transition-colors hover:text-primary",
-                      isActive &&
-                        "text-primary after:absolute after:inset-x-1 after:bottom-0 after:h-px after:bg-primary"
-                    )}
-                  >
-                    {link.label}
-                  </Link>
-                );
-              })}
+          <div className="hidden items-center gap-6 md:flex">
+            <div className="flex items-center gap-4">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  aria-current={isLinkActive(link.href) ? "page" : undefined}
+                  className={navLinkClass(link.href)}
+                >
+                  {link.label}
+                </Link>
+              ))}
             </div>
 
-            <div className="flex items-center space-x-2 border-l pl-4">
+            <div className="flex items-center gap-1 border-l pl-4">
               <AppearancePicker />
               <ThemeToggle />
             </div>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center space-x-2">
-            <Link
-              href="/#projects"
-              className="inline-flex min-h-10 items-center px-1 text-sm font-medium transition-colors hover:text-primary"
-            >
+          <div className="flex items-center gap-1 md:hidden">
+            <Link href="/#projects" className={navLinkClass("/#projects")}>
               Projects
             </Link>
             <AppearancePicker />
             <ThemeToggle />
             <Button
               variant="ghost"
-              size="sm"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              size="icon"
+              onClick={() => setIsMobileMenuOpen((open) => !open)}
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-navigation"
-              className="h-10 w-10 p-0"
+              aria-label={isMobileMenuOpen ? "Close navigation" : "Open navigation"}
+              className="touch-target"
             >
               {isMobileMenuOpen ? (
-                <X className="h-5 w-5" />
+                <X aria-hidden="true" className="h-5 w-5" />
               ) : (
-                <Menu className="h-5 w-5" />
+                <Menu aria-hidden="true" className="h-5 w-5" />
               )}
-              <span className="sr-only">Toggle menu</span>
             </Button>
           </div>
         </div>
 
-        {/* Mobile Navigation Menu */}
         {isMobileMenuOpen && (
-          <div id="mobile-navigation" className="md:hidden border-t">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              <Link
-                href="/"
-                className="block px-3 py-2 text-base font-medium transition-colors hover:text-primary hover:bg-muted rounded-md"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Home
-              </Link>
-              <Link
-                href="/writing"
-                className="block px-3 py-2 text-base font-medium transition-colors hover:text-primary hover:bg-muted rounded-md"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Writing
-              </Link>
-              <Link
-                href="/reading"
-                className="block px-3 py-2 text-base font-medium transition-colors hover:text-primary hover:bg-muted rounded-md"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Reading
-              </Link>
-            </div>
+          <div id="mobile-navigation" className="border-t pb-3 pt-2 md:hidden">
+            {navLinks
+              .filter((link) => link.href !== "/#projects")
+              .map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  aria-current={isLinkActive(link.href) ? "page" : undefined}
+                  className={cn(
+                    "flex min-h-11 items-center rounded-md px-3 text-base font-medium transition-colors hover:bg-muted hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                    isLinkActive(link.href) && "bg-muted text-primary"
+                  )}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ))}
           </div>
         )}
       </div>
