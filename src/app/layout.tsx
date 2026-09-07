@@ -86,9 +86,12 @@ export const metadata: Metadata = {
     rss: "/rss",
   },
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
-    apple: "/favicon.svg",
+    icon: [
+      { url: "/icon.png?v=parrot-1", type: "image/png", sizes: "48x48" },
+      { url: "/favicon.svg?v=parrot-1", type: "image/svg+xml", sizes: "any" },
+    ],
+    shortcut: "/favicon.ico?v=parrot-1",
+    apple: { url: "/apple-icon.png?v=parrot-1", sizes: "180x180", type: "image/png" },
   },
 };
 
