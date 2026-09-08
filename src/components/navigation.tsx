@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -20,14 +21,44 @@ const navLinks = [
 export function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeHash, setActiveHash] = useState("");
+  const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
 
   useEffect(() => {
-    const syncHash = () => setActiveHash(window.location.hash);
+    const syncHash = () => {
+      setActiveHash(window.location.hash);
+      setIsMobileMenuOpen(false);
+    };
     syncHash();
     window.addEventListener("hashchange", syncHash);
-    return () => window.removeEventListener("hashchange", syncHash);
+    window.addEventListener("popstate", syncHash);
+    return () => {
+      window.removeEventListener("hashchange", syncHash);
+      window.removeEventListener("popstate", syncHash);
+    };
   }, [pathname]);
+
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key !== "Escape" || event.defaultPrevented) return;
+      setIsMobileMenuOpen(false);
+      mobileMenuButtonRef.current?.focus();
+    };
+
+    document.addEventListener("keydown", closeOnEscape);
+    return () => document.removeEventListener("keydown", closeOnEscape);
+  }, [isMobileMenuOpen]);
+
+  const handleNavigate = (href: string) => {
+    // Collapse the header before Next.js measures the anchor's scroll position.
+    // Client-side Link navigation does not always emit a native hashchange.
+    flushSync(() => {
+      setIsMobileMenuOpen(false);
+      setActiveHash(href.includes("#") ? `#${href.split("#")[1]}` : "");
+    });
+  };
 
   const isLinkActive = (href: string) => {
     if (href === "/#projects") {
@@ -55,6 +86,7 @@ export function Navigation() {
         <div className="flex h-16 items-center justify-between">
           <Link
             href="/"
+            onNavigate={() => handleNavigate("/")}
             aria-label="Lokman Efe, home"
             className="touch-target flex shrink-0 items-center justify-center rounded-sm text-primary transition-colors hover:text-primary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
@@ -67,6 +99,7 @@ export function Navigation() {
                 <Link
                   key={link.href}
                   href={link.href}
+                  onNavigate={() => handleNavigate(link.href)}
                   aria-current={isLinkActive(link.href) ? "page" : undefined}
                   className={navLinkClass(link.href)}
                 >
@@ -82,12 +115,18 @@ export function Navigation() {
           </div>
 
           <div className="flex items-center gap-1 md:hidden">
-            <Link href="/#projects" className={navLinkClass("/#projects")}>
+            <Link
+              href="/#projects"
+              onNavigate={() => handleNavigate("/#projects")}
+              aria-current={isLinkActive("/#projects") ? "page" : undefined}
+              className={navLinkClass("/#projects")}
+            >
               Projects
             </Link>
             <AppearancePicker />
             <ThemeToggle />
             <Button
+              ref={mobileMenuButtonRef}
               variant="ghost"
               size="icon"
               onClick={() => setIsMobileMenuOpen((open) => !open)}
@@ -118,7 +157,7 @@ export function Navigation() {
                     "flex min-h-11 items-center rounded-md px-3 text-base font-medium transition-colors hover:bg-muted hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                     isLinkActive(link.href) && "bg-muted text-primary"
                   )}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onNavigate={() => handleNavigate(link.href)}
                 >
                   {link.label}
                 </Link>
