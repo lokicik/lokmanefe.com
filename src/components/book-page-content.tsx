@@ -1,14 +1,12 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { Book } from "@/lib/markdown-books";
+import type { Book } from "@/lib/markdown-books";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { BookOpen, Star, Calendar, ArrowLeft } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { BookOpen, Star, Calendar } from "lucide-react";
+import { ReadingBackLink, ReadingBackLinkFromQuery } from "@/components/reading-back-link";
 import Image from "next/image";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
 type Props = {
   book: Book;
@@ -16,8 +14,6 @@ type Props = {
 };
 
 export function BookPageContent({ book, content }: Props) {
-  const searchParams = useSearchParams();
-  const backUrl = searchParams.get("back");
   const [failedCoverUrl, setFailedCoverUrl] = useState<string | null>(null);
   const hasCover = Boolean(
     book.coverImage && book.coverImage !== failedCoverUrl
@@ -27,12 +23,9 @@ export function BookPageContent({ book, content }: Props) {
     <div className="max-w-4xl mx-auto space-y-8">
       {/* Header */}
       <div className="space-y-4">
-        <Button asChild variant="ghost" size="sm" className="mb-4">
-          <Link href={backUrl || "/reading"} prefetch={false}>
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Reading
-          </Link>
-        </Button>
+        <Suspense fallback={<ReadingBackLink />}>
+          <ReadingBackLinkFromQuery />
+        </Suspense>
 
         <div className="flex flex-col lg:flex-row gap-6">
           {/* Book Cover */}

@@ -8,7 +8,7 @@ import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
 import remarkGfm from "remark-gfm";
-import { Suspense } from "react";
+import { absoluteUrl, person, serializeJsonLd, site, socialImage } from "@/lib/seo";
 
 // Enable ISR with 1 hour revalidation
 export const revalidate = 3600; // 1 hour
@@ -31,24 +31,27 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: book.title,
     description:
       book.description ||
-      `My thoughts and reflections on "${book.title}" by ${book.author}.`,
+      `${book.title} by ${book.author} on ${site.name}'s reading list. Reading status, progress, and any personal notes.`,
     alternates: {
       canonical: `/reading/${slug}`,
     },
     openGraph: {
-      title: `${book.title} | My Reading Notes`,
-      description: book.description || `A summary of my thoughts on the book.`,
+      title: `${book.title} | ${site.name}'s Reading List`,
+      description: book.description || `${book.title} by ${book.author} on ${site.name}'s reading list.`,
       url: `/reading/${slug}`,
       type: "article",
       publishedTime: book.completedDate
         ? new Date(book.completedDate).toISOString()
         : undefined,
-      authors: [book.author],
+      authors: [absoluteUrl("/#about")],
+      modifiedTime: book.lastModified,
+      images: [socialImage(book.title)],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title: book.title,
       description: book.description,
+      images: [socialImage(book.title)],
     },
   };
 }
@@ -68,8 +71,6 @@ export default async function BookPage({ params }: Props) {
     notFound();
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://lokmanefe.com";
-
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Book",
@@ -83,20 +84,18 @@ export default async function BookPage({ params }: Props) {
     description: book.description,
     isbn: book.isbn,
     numberOfPages: book.pages,
-    url: `${baseUrl}/reading/${book.slug}`,
-    review: {
+    url: absoluteUrl(`/reading/${book.slug}`),
+    image: book.coverImage,
+    review: typeof book.rating === "number" && Number.isFinite(book.rating) && book.rating >= 1 && book.rating <= 5 ? {
       "@type": "Review",
       reviewRating: {
         "@type": "Rating",
         ratingValue: book.rating,
-        bestRating: "5",
-        worstRating: "1",
+        bestRating: 5,
+        worstRating: 1,
       },
-      author: {
-        "@type": "Person",
-        name: "Lokman Efe",
-      },
-    },
+      author: person,
+    } : undefined,
   };
 
   // Get the rendered markdown content
@@ -122,11 +121,9 @@ export default async function BookPage({ params }: Props) {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
-      <Suspense fallback={<div>Loading…</div>}>
-        <BookPageContent book={book} content={renderedContent} />
-      </Suspense>
+      <BookPageContent book={book} content={renderedContent} />
     </>
   );
 }

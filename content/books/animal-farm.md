@@ -18,7 +18,7 @@ description: >-
 coverImage: ''
 ---
 
-# Animal Farm by George Orwell
+## Animal Farm by George Orwell
 
 A powerful allegory about revolution, power, and corruption told through the story of farm animals overthrowing their human owner.
 
