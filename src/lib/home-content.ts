@@ -1,15 +1,11 @@
-export const CONTACT_EMAIL = "lokmanbefe@gmail.com";
+import { site } from "@/lib/seo";
 
-export const socialLinks: { label: string; href: string }[] = [
-  { label: "GitHub", href: "https://github.com/lokicik" },
-  { label: "LinkedIn", href: "https://linkedin.com/in/lokmanefe" },
-  { label: "LeetCode", href: "https://leetcode.com/u/lokmanefe/" },
-  { label: "Kaggle", href: "https://kaggle.com/lokmanefe/" },
-];
+export const CONTACT_EMAIL = site.email;
+export const socialLinks = site.profiles;
 
 export const hero = {
-  name: "Lokman Efe",
-  title: "Software Engineer",
+  name: site.name,
+  title: site.jobTitle,
   tagline:
     "High-agency full-stack engineer shipping production SaaS products, AI/RAG workflows, and the integrations behind them.",
   currentRole: "Software Engineer at Bottomless (YC W19)",

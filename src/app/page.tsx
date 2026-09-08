@@ -13,20 +13,18 @@ import {
 import { CursorBird } from "@/components/cursor-bird";
 import { Metadata } from "next";
 import { ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
+import { absoluteUrl, person, serializeJsonLd, site } from "@/lib/seo";
 
 // Enable ISR with 1 day revalidation (homepage changes rarely)
 export const revalidate = 86400; // 24 hours
 
 export const metadata: Metadata = {
-  title: "Full-Stack Software Engineer",
-  description:
-    "Lokman Efe is a high-agency full-stack software engineer building production SaaS products, AI/RAG workflows, and the integrations behind them.",
+  title: { absolute: site.title },
+  description: site.description,
   alternates: {
     canonical: "/",
   },
 };
-
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://lokmanefe.com";
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
@@ -160,40 +158,54 @@ function CompactProject({ project }: { project: ProjectHighlight }) {
 export default function Home() {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Person",
-    name: "Lokman Efe",
-    url: baseUrl,
-    sameAs: [
-      "https://github.com/lokicik",
-      "https://linkedin.com/in/lokmanefe",
-      "https://leetcode.com/u/lokmanefe/",
-      "https://kaggle.com/lokmanefe/",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": absoluteUrl("/#website"),
+        url: absoluteUrl(),
+        name: site.name,
+        alternateName: site.fullName,
+        publisher: { "@id": person["@id"] },
+        inLanguage: "en",
+      },
+      {
+        "@type": "ProfilePage",
+        "@id": absoluteUrl("/#profile"),
+        url: absoluteUrl(),
+        name: site.title,
+        description: site.description,
+        isPartOf: { "@id": absoluteUrl("/#website") },
+        mainEntity: { "@id": person["@id"] },
+      },
+      person,
     ],
-    jobTitle: "Software Engineer",
-    email: `mailto:${CONTACT_EMAIL}`,
-    image: `${baseUrl}/opengraph-image`,
-    description:
-      "High-agency full-stack software engineer building production SaaS products, AI/RAG workflows, and the integrations behind them.",
-    nationality: "Turkish",
-    address: {
-      "@type": "PostalAddress",
-      addressCountry: "TR",
-    },
   };
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
       <CursorBird />
 
       <div className="home-content mx-auto max-w-4xl space-y-16 sm:space-y-20">
         {/* Hero */}
-        <div className="py-6 text-center sm:py-10">
+        <div id="about" className="scroll-mt-24 py-6 text-center sm:py-10">
+          <Image
+            src={site.portrait}
+            alt={site.fullName}
+            width={112}
+            height={112}
+            sizes="112px"
+            priority
+            className="mx-auto mb-5 h-28 w-28 rounded-full border border-border object-cover"
+          />
           <h1 className="mb-2 text-4xl font-bold sm:text-5xl">{hero.name}</h1>
           <p className="mb-3 text-lg font-medium text-primary">{hero.title}</p>
+          <p className="mx-auto mb-3 max-w-2xl text-base leading-relaxed text-muted-foreground">
+            {site.biography}
+          </p>
           <p className="mx-auto mb-3 max-w-2xl text-lg leading-relaxed text-foreground">
             {hero.tagline}
           </p>

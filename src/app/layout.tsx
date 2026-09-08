@@ -14,8 +14,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SideSvgs } from "@/components/side-svgs";
 import { AppearanceScript } from "@/components/appearance-script";
 import { CONTACT_EMAIL } from "@/lib/home-content";
-
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://lokmanefe.com";
+import { absoluteUrl, site, socialImage } from "@/lib/seo";
 
 const inter = Inter({ 
   subsets: ["latin"], 
@@ -50,13 +49,12 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(baseUrl),
+  metadataBase: new URL(site.url),
   title: {
-    default: "Lokman Efe",
+    default: site.title,
     template: "%s | Lokman Efe",
   },
-  description:
-    "Full-stack software engineer building production SaaS products, AI/RAG workflows, and the integrations behind them.",
+  description: site.description,
   keywords: [
     "software engineer",
     "full-stack engineer",
@@ -66,22 +64,22 @@ export const metadata: Metadata = {
     "Next.js",
     "TypeScript",
   ],
-  authors: [{ name: "Lokman Efe" }],
-  creator: "Lokman Efe",
+  authors: [{ name: site.fullName, url: absoluteUrl("/#about") }],
+  creator: site.fullName,
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: baseUrl,
-    title: "Lokman Efe | Software Engineer",
-    description:
-      "Full-stack software engineer building production SaaS products, AI/RAG workflows, and the integrations behind them.",
-    siteName: "Lokman Efe",
+    url: absoluteUrl(),
+    title: site.title,
+    description: site.description,
+    siteName: site.name,
+    images: [socialImage(site.name)],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Lokman Efe | Software Engineer",
-    description:
-      "Full-stack software engineer building production SaaS products, AI/RAG workflows, and the integrations behind them.",
+    title: site.title,
+    description: site.description,
+    images: [socialImage(site.name)],
   },
   other: {
     rss: "/rss",
