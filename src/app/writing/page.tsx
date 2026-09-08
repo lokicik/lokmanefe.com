@@ -1,10 +1,9 @@
 import { getWritings } from "@/lib/markdown-writing";
 import { WritingsPageContent } from "@/components/writing-page-content";
-import { Suspense } from "react";
 import { Metadata } from "next";
-
-// Enable ISR with 1 hour revalidation
-export const revalidate = 3600;
+import { absoluteUrl, person, serializeJsonLd, site, socialImage } from "@/lib/seo";
+import { serializeSearchParams, type ArchiveSearchParams } from "@/lib/archive-params";
+import { filterWritings } from "@/lib/archive-filters";
 
 export const metadata: Metadata = {
   title: "Writing",
@@ -18,13 +17,26 @@ export const metadata: Metadata = {
     description:
       "Notes on shipping software, debugging systems, and the occasional story.",
     url: "/writing",
+    images: [socialImage("Writing")],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Writing | ${site.name}`,
+    images: [socialImage("Writing")],
   },
 };
 
-export default async function WritingsPage() {
+export default async function WritingsPage({ searchParams }: {
+  searchParams: Promise<ArchiveSearchParams>;
+}) {
+  const queryString = serializeSearchParams(await searchParams);
   const writings = await getWritings();
-
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://lokmanefe.com";
+  const filters = new URLSearchParams(queryString);
+  const visibleWritings = filterWritings(writings, {
+    q: filters.get("q") ?? "",
+    filter: filters.get("filter") || "all",
+    year: filters.get("year") || "all",
+  });
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -32,19 +44,18 @@ export default async function WritingsPage() {
     name: "Writing | Lokman Efe",
     description:
       "Notes on shipping software, debugging systems, and the occasional story.",
-    url: `${baseUrl}/writing`,
+    url: absoluteUrl("/writing"),
     mainEntity: {
       "@type": "Blog",
       name: "Lokman Efe's Blog",
-      blogPost: writings.map((writing) => ({
+      blogPost: visibleWritings.map((writing) => ({
         "@type": "BlogPosting",
         headline: writing.title,
-        url: `${baseUrl}/writing/${writing.slug}`,
+        url: absoluteUrl(`/writing/${writing.slug}`),
         datePublished: writing.date,
-        author: {
-          "@type": "Person",
-          name: "Lokman Efe",
-        },
+        dateModified: writing.lastModified,
+        author: person,
+        image: socialImage(writing.title).url,
         description: writing.description || writing.excerpt,
       })),
     },
@@ -54,11 +65,9 @@ export default async function WritingsPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
-      <Suspense fallback={<div>Loading…</div>}>
-        <WritingsPageContent initialWritings={writings} />
-      </Suspense>
+      <WritingsPageContent initialWritings={writings} queryString={queryString} />
     </>
   );
 }

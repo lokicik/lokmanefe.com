@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { ChevronDown, Search, X } from "lucide-react";
+import { filterBooks } from "@/lib/archive-filters";
 import type { Book, BookStatus } from "@/lib/markdown-books";
 import { formatDate } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
@@ -17,6 +18,7 @@ import {
 
 interface ReadingPageContentProps {
   books: Book[];
+  queryString: string;
   stats: {
     totalBooks: number;
     currentlyReading: number;
@@ -32,10 +34,10 @@ interface ReadingPageContentProps {
 
 const numberFormatter = new Intl.NumberFormat("en-US");
 
-export function ReadingPageContent({ books, stats }: ReadingPageContentProps) {
+export function ReadingPageContent({ books, stats, queryString }: ReadingPageContentProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const searchParams = useMemo(() => new URLSearchParams(queryString), [queryString]);
   const queryFromUrl = searchParams.get("q") ?? "";
   const [searchTerm, setSearchTerm] = useState(queryFromUrl);
   const [isYearPopoverOpen, setIsYearPopoverOpen] = useState(false);
@@ -48,7 +50,7 @@ export function ReadingPageContent({ books, stats }: ReadingPageContentProps) {
   }, [queryFromUrl]);
 
   useEffect(() => {
-    if (searchTerm === queryFromUrl) return;
+    if (searchTerm.trim() === queryFromUrl) return;
 
     const timeout = window.setTimeout(() => {
       const params = new URLSearchParams(searchParams);
@@ -66,7 +68,7 @@ export function ReadingPageContent({ books, stats }: ReadingPageContentProps) {
     return () => window.clearTimeout(timeout);
   }, [pathname, queryFromUrl, router, searchParams, searchTerm]);
 
-  const updateParam = (key: string, value: string, defaultValue: string) => {
+  const filterHref = (key: string, value: string, defaultValue: string) => {
     const params = new URLSearchParams(searchParams);
     if (value === defaultValue) {
       params.delete(key);
@@ -74,9 +76,7 @@ export function ReadingPageContent({ books, stats }: ReadingPageContentProps) {
       params.set(key, value);
     }
     const query = params.toString();
-    router.replace(query ? `${pathname}?${query}` : pathname, {
-      scroll: false,
-    });
+    return query ? `${pathname}?${query}` : pathname;
   };
 
   const availableYears = useMemo(() => {
@@ -117,30 +117,10 @@ export function ReadingPageContent({ books, stats }: ReadingPageContentProps) {
     [stats]
   );
 
-  const filteredBooks = useMemo(() => {
-    const normalizedQuery = searchTerm.trim().toLowerCase();
-
-    return books.filter((book) => {
-      if (
-        normalizedQuery &&
-        ![book.title, book.author, ...book.tags].some((value) =>
-          value.toLowerCase().includes(normalizedQuery)
-        )
-      ) {
-        return false;
-      }
-      if (selectedStatus !== "all" && book.status !== selectedStatus) {
-        return false;
-      }
-      if (selectedYear !== "all") {
-        const date = book.completedDate || book.startDate;
-        if (!date || new Date(date).getFullYear().toString() !== selectedYear) {
-          return false;
-        }
-      }
-      return true;
-    });
-  }, [books, searchTerm, selectedStatus, selectedYear]);
+  const filteredBooks = useMemo(
+    () => filterBooks(books, { q: searchTerm, status: selectedStatus, year: selectedYear }),
+    [books, searchTerm, selectedStatus, selectedYear]
+  );
 
   const archiveStats = useMemo(
     () => ({
@@ -207,16 +187,17 @@ export function ReadingPageContent({ books, stats }: ReadingPageContentProps) {
                     selectedStatus === option.value ? "default" : "outline"
                   }
                   size="sm"
-                  aria-pressed={selectedStatus === option.value}
-                  onClick={() =>
-                    updateParam(
-                      "status",
-                      option.value,
-                      "currently-reading"
-                    )
-                  }
+                  asChild
                 >
-                  {option.label} ({numberFormatter.format(option.count)})
+                  <Link
+                    href={filterHref("status", option.value, "currently-reading")}
+                    replace
+                    scroll={false}
+                    prefetch={false}
+                    aria-current={selectedStatus === option.value ? "page" : undefined}
+                  >
+                    {option.label} ({numberFormatter.format(option.count)})
+                  </Link>
                 </Button>
               ))}
             </div>
@@ -241,26 +222,24 @@ export function ReadingPageContent({ books, stats }: ReadingPageContentProps) {
                 <Button
                   variant={selectedYear === "all" ? "secondary" : "ghost"}
                   size="sm"
-                  onClick={() => {
-                    updateParam("year", "all", "all");
-                    setIsYearPopoverOpen(false);
-                  }}
+                  asChild
                   className="w-full justify-start"
                 >
-                  All years
+                  <Link href={filterHref("year", "all", "all")} replace scroll={false} prefetch={false} onClick={() => setIsYearPopoverOpen(false)}>
+                    All years
+                  </Link>
                 </Button>
                 {availableYears.map((year) => (
                   <Button
                     key={year}
                     variant={selectedYear === year ? "secondary" : "ghost"}
                     size="sm"
-                    onClick={() => {
-                      updateParam("year", year, "all");
-                      setIsYearPopoverOpen(false);
-                    }}
+                    asChild
                     className="w-full justify-start"
                   >
-                    {year}
+                    <Link href={filterHref("year", year, "all")} replace scroll={false} prefetch={false} onClick={() => setIsYearPopoverOpen(false)}>
+                      {year}
+                    </Link>
                   </Button>
                 ))}
               </PopoverContent>
@@ -282,7 +261,7 @@ export function ReadingPageContent({ books, stats }: ReadingPageContentProps) {
         {filteredBooks.length > 0 ? (
           <div className="divide-y divide-border">
             {filteredBooks.map((book) => {
-              const backUrl = `${pathname}?${searchParams.toString()}`;
+              const backUrl = queryString ? `${pathname}?${queryString}` : pathname;
               const href = `/reading/${book.slug}?back=${encodeURIComponent(
                 backUrl
               )}`;

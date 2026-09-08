@@ -2,8 +2,9 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ArrowRight, Calendar, ChevronDown, Clock, Search, X } from "lucide-react";
+import { filterWritings } from "@/lib/archive-filters";
 import type { MarkdownWriting } from "@/lib/markdown-writing";
 import { formatDate } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
@@ -17,21 +18,23 @@ import {
 
 interface WritingsPageContentProps {
   initialWritings: MarkdownWriting[];
+  queryString: string;
 }
 
 export function WritingsPageContent({
   initialWritings,
+  queryString,
 }: WritingsPageContentProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const searchParams = useMemo(() => new URLSearchParams(queryString), [queryString]);
   const queryFromUrl = searchParams.get("q") ?? "";
   const [searchQuery, setSearchQuery] = useState(queryFromUrl);
   const [isYearPopoverOpen, setIsYearPopoverOpen] = useState(false);
 
   const activeFilter = searchParams.get("filter") || "all";
   const selectedYear = searchParams.get("year") || "all";
-  const showSearch = initialWritings.length >= 6;
+  const showSearch = initialWritings.length >= 6 || Boolean(queryFromUrl);
 
   const counts = useMemo(
     () => ({
@@ -43,7 +46,7 @@ export function WritingsPageContent({
     }),
     [initialWritings]
   );
-  const showTypeFilters = counts.stories > 0;
+  const showTypeFilters = counts.stories > 0 || activeFilter !== "all";
 
   const availableYears = useMemo(() => {
     return Array.from(
@@ -54,14 +57,14 @@ export function WritingsPageContent({
       )
     ).sort((a, b) => b.localeCompare(a));
   }, [initialWritings]);
-  const showYearFilter = availableYears.length > 1;
+  const showYearFilter = availableYears.length > 1 || selectedYear !== "all";
 
   useEffect(() => {
     setSearchQuery(queryFromUrl);
   }, [queryFromUrl]);
 
   useEffect(() => {
-    if (!showSearch || searchQuery === queryFromUrl) return;
+    if (!showSearch || searchQuery.trim() === queryFromUrl) return;
 
     const timeout = window.setTimeout(() => {
       const params = new URLSearchParams(searchParams);
@@ -79,7 +82,7 @@ export function WritingsPageContent({
     return () => window.clearTimeout(timeout);
   }, [pathname, queryFromUrl, router, searchParams, searchQuery, showSearch]);
 
-  const updateParam = (key: string, value: string, defaultValue: string) => {
+  const filterHref = (key: string, value: string, defaultValue: string) => {
     const params = new URLSearchParams(searchParams);
     if (value === defaultValue) {
       params.delete(key);
@@ -87,43 +90,13 @@ export function WritingsPageContent({
       params.set(key, value);
     }
     const query = params.toString();
-    router.replace(query ? `${pathname}?${query}` : pathname, {
-      scroll: false,
-    });
+    return query ? `${pathname}?${query}` : pathname;
   };
 
-  const filteredWritings = useMemo(() => {
-    const normalizedQuery = showSearch ? searchQuery.trim().toLowerCase() : "";
-
-    return initialWritings.filter((writing) => {
-      if (showTypeFilters && activeFilter !== "all" && writing.type !== activeFilter) {
-        return false;
-      }
-      if (
-        showYearFilter &&
-        selectedYear !== "all" &&
-        new Date(writing.date).getFullYear().toString() !== selectedYear
-      ) {
-        return false;
-      }
-      if (!normalizedQuery) return true;
-
-      return [
-        writing.title,
-        writing.excerpt ?? "",
-        writing.content,
-        ...(writing.tags ?? []),
-      ].some((value) => value.toLowerCase().includes(normalizedQuery));
-    });
-  }, [
-    activeFilter,
-    initialWritings,
-    searchQuery,
-    selectedYear,
-    showSearch,
-    showTypeFilters,
-    showYearFilter,
-  ]);
+  const filteredWritings = useMemo(
+    () => filterWritings(initialWritings, { q: searchQuery, filter: activeFilter, year: selectedYear }),
+    [initialWritings, searchQuery, activeFilter, selectedYear]
+  );
 
   return (
     <div className="mx-auto max-w-4xl">
@@ -178,26 +151,29 @@ export function WritingsPageContent({
                 <Button
                   variant={activeFilter === "all" ? "default" : "outline"}
                   size="sm"
-                  aria-pressed={activeFilter === "all"}
-                  onClick={() => updateParam("filter", "all", "all")}
+                  asChild
                 >
-                  All ({counts.all})
+                  <Link href={filterHref("filter", "all", "all")} replace scroll={false} prefetch={false} aria-current={activeFilter === "all" ? "page" : undefined}>
+                    All ({counts.all})
+                  </Link>
                 </Button>
                 <Button
                   variant={activeFilter === "article" ? "default" : "outline"}
                   size="sm"
-                  aria-pressed={activeFilter === "article"}
-                  onClick={() => updateParam("filter", "article", "all")}
+                  asChild
                 >
-                  Articles ({counts.articles})
+                  <Link href={filterHref("filter", "article", "all")} replace scroll={false} prefetch={false} aria-current={activeFilter === "article" ? "page" : undefined}>
+                    Articles ({counts.articles})
+                  </Link>
                 </Button>
                 <Button
                   variant={activeFilter === "story" ? "default" : "outline"}
                   size="sm"
-                  aria-pressed={activeFilter === "story"}
-                  onClick={() => updateParam("filter", "story", "all")}
+                  asChild
                 >
-                  Stories ({counts.stories})
+                  <Link href={filterHref("filter", "story", "all")} replace scroll={false} prefetch={false} aria-current={activeFilter === "story" ? "page" : undefined}>
+                    Stories ({counts.stories})
+                  </Link>
                 </Button>
               </div>
             )}
@@ -217,26 +193,24 @@ export function WritingsPageContent({
                   <Button
                     variant={selectedYear === "all" ? "secondary" : "ghost"}
                     size="sm"
-                    onClick={() => {
-                      updateParam("year", "all", "all");
-                      setIsYearPopoverOpen(false);
-                    }}
+                    asChild
                     className="w-full justify-start"
                   >
-                    All years
+                    <Link href={filterHref("year", "all", "all")} replace scroll={false} prefetch={false} onClick={() => setIsYearPopoverOpen(false)}>
+                      All years
+                    </Link>
                   </Button>
                   {availableYears.map((year) => (
                     <Button
                       key={year}
                       variant={selectedYear === year ? "secondary" : "ghost"}
                       size="sm"
-                      onClick={() => {
-                        updateParam("year", year, "all");
-                        setIsYearPopoverOpen(false);
-                      }}
+                      asChild
                       className="w-full justify-start"
                     >
-                      {year}
+                      <Link href={filterHref("year", year, "all")} replace scroll={false} prefetch={false} onClick={() => setIsYearPopoverOpen(false)}>
+                        {year}
+                      </Link>
                     </Button>
                   ))}
                 </PopoverContent>

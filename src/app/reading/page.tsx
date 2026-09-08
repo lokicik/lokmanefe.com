@@ -1,10 +1,9 @@
 import { getBooks, getBookStats } from "@/lib/markdown-books";
 import { ReadingPageContent } from "@/components/reading-page-content";
 import { Metadata } from "next";
-import { Suspense } from "react";
-
-// Enable ISR with 1 hour revalidation
-export const revalidate = 3600;
+import { absoluteUrl, serializeJsonLd, site, socialImage } from "@/lib/seo";
+import { serializeSearchParams, type ArchiveSearchParams } from "@/lib/archive-params";
+import { filterBooks } from "@/lib/archive-filters";
 
 export const metadata: Metadata = {
   title: "Reading",
@@ -18,28 +17,42 @@ export const metadata: Metadata = {
     description:
       "Explore the books I'm reading, my progress, and my thoughts on them.",
     url: "/reading",
+    images: [socialImage("Reading")],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Reading | ${site.name}`,
+    images: [socialImage("Reading")],
   },
 };
 
-export default async function ReadingPage() {
+export default async function ReadingPage({ searchParams }: {
+  searchParams: Promise<ArchiveSearchParams>;
+}) {
+  const queryString = serializeSearchParams(await searchParams);
   const books = await getBooks();
+  const filters = new URLSearchParams(queryString);
+  const visibleBooks = filterBooks(books, {
+    q: filters.get("q") ?? "",
+    status: filters.get("status") || "currently-reading",
+    year: filters.get("year") || "all",
+  });
 
   // Calculate all data on the server side
   const stats = getBookStats(books);
 
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://lokmanefe.com";
-
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "WebPage",
+    "@type": "CollectionPage",
     name: "Reading List | Lokman Efe",
     description:
       "A curated collection of my reading journey, including book notes, progress, and literary analytics.",
-    url: `${baseUrl}/reading`,
+    url: absoluteUrl("/reading"),
     mainEntity: {
-      "@type": "CollectionPage",
+      "@type": "ItemList",
       name: "Book Reading List",
-      itemListElement: books.map((book, index) => ({
+      numberOfItems: visibleBooks.length,
+      itemListElement: visibleBooks.map((book, index) => ({
         "@type": "ListItem",
         position: index + 1,
         item: {
@@ -49,7 +62,7 @@ export default async function ReadingPage() {
             "@type": "Person",
             name: book.author,
           },
-          url: `${baseUrl}/reading/${book.slug}`,
+          url: absoluteUrl(`/reading/${book.slug}`),
         },
       })),
     },
@@ -61,11 +74,9 @@ export default async function ReadingPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
-      <Suspense fallback={<div>Loading…</div>}>
-        <ReadingPageContent books={books} stats={stats} />
-      </Suspense>
+      <ReadingPageContent books={books} stats={stats} queryString={queryString} />
     </>
   );
 }
