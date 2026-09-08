@@ -1,15 +1,22 @@
 import { ImageResponse } from "next/og";
 import { ParrotIcon } from "@/components/parrot-icon";
 import { hero } from "@/lib/home-content";
+import { site } from "@/lib/seo";
 
 export const socialImageSize = {
   width: 1200,
   height: 630,
 };
 
-export const socialImageAlt = `Lokman Efe, Software Engineer — ${hero.tagline}`;
+export const socialImageAlt = `${site.fullName} (${site.name}), ${site.jobTitle}`;
 
-export function createSocialImage() {
+export function createSocialImage(rawTitle: string = site.name) {
+  const normalizedTitle = rawTitle.trim().replace(/\s+/g, " ") || site.name;
+  const title = normalizedTitle.length > 180
+    ? `${normalizedTitle.slice(0, 177).trimEnd()}…`
+    : normalizedTitle;
+  const isProfile = title === site.name;
+  const titleSize = title.length > 100 ? 44 : title.length > 60 ? 54 : 72;
   return new ImageResponse(
     (
       <div
@@ -75,7 +82,7 @@ export function createSocialImage() {
             position: "absolute",
             left: 66,
             top: 156,
-            width: 790,
+            width: 1040,
             display: "flex",
             flexDirection: "column",
           }}
@@ -100,37 +107,41 @@ export function createSocialImage() {
                 background: "#8fb1aa",
               }}
             />
-            SOFTWARE ENGINEER
+            {isProfile ? "SOFTWARE ENGINEER" : site.fullName.toUpperCase()}
           </div>
 
           <div
             style={{
               display: "flex",
-              fontSize: 82,
-              lineHeight: 1,
+              fontSize: isProfile ? 82 : titleSize,
+              lineHeight: 1.12,
               fontWeight: 700,
-              letterSpacing: -3,
+              letterSpacing: isProfile ? -3 : -1,
+              wordBreak: "break-word",
             }}
           >
-            Lokman Efe
+            {title}
           </div>
 
           <div
             style={{
-              width: 760,
+              width: 940,
               display: "flex",
               marginTop: 28,
               color: "#c8d3d0",
-              fontSize: 30,
+              fontSize: isProfile ? 28 : 24,
               lineHeight: 1.25,
               fontWeight: 400,
             }}
           >
-            {hero.tagline}
+            {isProfile ? `${site.fullName}. ${hero.tagline}` : site.name}
           </div>
         </div>
       </div>
     ),
-    socialImageSize
+    {
+      ...socialImageSize,
+      headers: { "Cache-Control": "public, max-age=3600, s-maxage=86400" },
+    }
   );
 }
