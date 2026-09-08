@@ -1,8 +1,20 @@
 import type { NextConfig } from "next";
+import { site } from "./src/lib/seo";
 
 const nextConfig: NextConfig = {
   pageExtensions: ["js", "jsx", "ts", "tsx"],
   output: "standalone",
+  async redirects() {
+    return [
+      ...["lokmanefe.com", "lokmanbaturayefe.com", "www.lokmanbaturayefe.com"].map((host) => ({
+        source: "/:path*",
+        has: [{ type: "host" as const, value: host }],
+        destination: `${site.url}/:path*`,
+        permanent: true,
+      })),
+      { source: "/projects", destination: "/#projects", permanent: true },
+    ];
+  },
   images: {
     formats: ['image/webp', 'image/avif'],
     remotePatterns: [
