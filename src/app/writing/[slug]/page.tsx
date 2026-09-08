@@ -11,6 +11,8 @@ import { WritingContent } from "@/components/writing-content";
 import { Clock, Calendar } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Metadata } from "next";
+import Link from "next/link";
+import { absoluteUrl, person, serializeJsonLd, site, socialImage } from "@/lib/seo";
 
 // Enable ISR with 1 hour revalidation
 export const revalidate = 3600; // 1 hour
@@ -49,12 +51,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `/writing/${slug}`,
       type: "article",
       publishedTime: new Date(writing.date).toISOString(),
-      authors: ["Lokman Efe"],
+      authors: [absoluteUrl("/#about")],
+      modifiedTime: writing.lastModified,
+      images: [socialImage(writing.title)],
     },
     twitter: {
       card: "summary_large_image",
       title: writing.title,
       description: writing.excerpt || writing.description,
+      images: [socialImage(writing.title)],
     },
   };
 }
@@ -67,32 +72,19 @@ export default async function WritingPage({ params }: Props) {
     notFound();
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://lokmanefe.com";
-
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: writing.title,
     datePublished: new Date(writing.date).toISOString(),
-    dateModified: writing.updatedAt.toISOString(),
-    author: {
-      "@type": "Person",
-      name: "Lokman Efe",
-      url: baseUrl,
-    },
+    dateModified: writing.lastModified,
+    author: person,
     description: writing.excerpt || writing.description,
-    image: `${baseUrl}/og?title=${encodeURIComponent(writing.title)}`,
-    publisher: {
-      "@type": "Organization",
-      name: "Lokman Efe",
-      logo: {
-        "@type": "ImageObject",
-        url: `${baseUrl}/favicon.svg`,
-      },
-    },
+    image: socialImage(writing.title).url,
+    publisher: { "@id": person["@id"] },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `${baseUrl}/writing/${slug}`,
+      "@id": absoluteUrl(`/writing/${slug}`),
     },
   };
 
@@ -113,13 +105,13 @@ export default async function WritingPage({ params }: Props) {
   }
 
   // Get the full URL for sharing
-  const writingUrl = `${baseUrl}/writing/${writing.slug}`;
+  const writingUrl = absoluteUrl(`/writing/${writing.slug}`);
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
       <article className="max-w-4xl mx-auto">
         {/* Header */}
@@ -135,7 +127,7 @@ export default async function WritingPage({ params }: Props) {
               <span className="inline-flex flex-wrap items-center justify-center gap-x-1.5">
                 <span className="inline-flex items-center gap-1 whitespace-nowrap">
                   <Calendar aria-hidden="true" className="h-4 w-4" />
-                  <time>{formatDate(writing.date)}</time>
+                  <time dateTime={new Date(writing.date).toISOString()}>{formatDate(writing.date)}</time>
                 </span>
                 <span aria-hidden="true">·</span>
                 <span className="inline-flex items-center gap-1 whitespace-nowrap">
@@ -157,6 +149,14 @@ export default async function WritingPage({ params }: Props) {
           <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
             {writing.title}
           </h1>
+
+          <p className="mb-6 text-sm text-muted-foreground">
+            By{" "}
+            <Link href="/#about" rel="author" className="rounded-sm font-medium text-foreground underline underline-offset-4 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+              {site.name}
+            </Link>
+            {" "}({site.fullName})
+          </p>
 
           {writing.excerpt && (
             <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto mb-6">
