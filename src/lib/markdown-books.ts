@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { contentDate } from "@/lib/content-date";
 import { remark } from "remark";
 import html from "remark-html";
 import remarkGfm from "remark-gfm";
@@ -76,6 +77,7 @@ export type Book = {
   notes: BookNote[];
   createdAt: Date;
   updatedAt: Date;
+  lastModified?: string;
   progress: number; // calculated percentage
 };
 
@@ -180,6 +182,7 @@ export async function getBooks(): Promise<Book[]> {
         notes,
         createdAt: data.startDate ? new Date(data.startDate) : stats.birthtime,
         updatedAt: stats.mtime,
+        lastModified: contentDate(data.lastModified),
         progress,
       });
     }
@@ -241,6 +244,7 @@ export async function getBookBySlug(slug: string): Promise<Book | null> {
       notes,
       createdAt: data.startDate ? new Date(data.startDate) : stats.birthtime,
       updatedAt: stats.mtime,
+      lastModified: contentDate(data.lastModified),
       progress,
     };
   } catch (error) {

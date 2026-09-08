@@ -3,13 +3,19 @@ import {
   type MarkdownWriting as MarkdownPost,
 } from "@/lib/markdown-writing";
 import { getBooks, type Book } from "@/lib/markdown-books";
+import { absoluteUrl, site } from "@/lib/seo";
+import { contentDate } from "@/lib/content-date";
 
 // Revalidate RSS feed every 1 hour
 export const revalidate = 3600;
 
 type BlogItem = MarkdownPost & { itemType: "blog"; url: string };
-type BookItem = Book & { itemType: "book"; url: string; date: string };
+type BookItem = Book & { itemType: "book"; url: string; date?: string };
 type RSSItem = BlogItem | BookItem;
+
+function xml(value: string) {
+  return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
+}
 
 export async function GET() {
   const [posts, books] = await Promise.all([getMarkdownPosts(), getBooks()]);
@@ -28,18 +34,18 @@ export async function GET() {
         itemType: "book",
         ...book,
         url: `/reading/${book.slug}`,
-        date: book.completedDate || book.updatedAt.toISOString().split("T")[0],
+        date: book.lastModified || contentDate(book.completedDate) || contentDate(book.startDate),
       })
     ),
-  ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  ].sort((a, b) => (b.date ? new Date(b.date).getTime() : 0) - (a.date ? new Date(a.date).getTime() : 0));
 
   const rss = `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Lokman Efe</title>
-    <description>Blog posts and reading updates from Lokman Efe</description>
-    <link>https://lokmanefe.com</link>
-    <atom:link href="https://lokmanefe.com/rss" rel="self" type="application/rss+xml" />
+    <title>${xml(site.name)}</title>
+    <description>Blog posts and reading updates from ${xml(site.fullName)}</description>
+    <link>${absoluteUrl()}</link>
+    <atom:link href="${absoluteUrl("/rss")}" rel="self" type="application/rss+xml" />
     <language>en-us</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     ${allItems
@@ -55,11 +61,11 @@ export async function GET() {
 
         return `
     <item>
-      <title>${title}</title>
-      <description>${description}</description>
-      <link>https://lokmanefe.com${item.url}</link>
-      <pubDate>${new Date(item.date).toUTCString()}</pubDate>
-      <guid>https://lokmanefe.com${item.url}</guid>
+      <title>${xml(title)}</title>
+      <description>${xml(description)}</description>
+      <link>${xml(absoluteUrl(item.url))}</link>
+      ${item.date ? `<pubDate>${new Date(item.date).toUTCString()}</pubDate>` : ""}
+      <guid>${xml(absoluteUrl(item.url))}</guid>
     </item>`;
       })
       .join("")}

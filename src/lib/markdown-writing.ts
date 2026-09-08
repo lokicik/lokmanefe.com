@@ -7,6 +7,7 @@ import rehypePrettyCode from "rehype-pretty-code";
 import rehypeStringify from "rehype-stringify";
 import remarkRehype from "remark-rehype";
 import { rehypeWrapTables } from "@/lib/rehype-wrap-tables";
+import { contentDate } from "@/lib/content-date";
 
 // Minimal HAST properties type used for rehype-pretty-code visitors.
 type HastProps = { [key: string]: unknown; className?: string | string[] };
@@ -51,6 +52,7 @@ export type MarkdownWriting = {
   source: "markdown";
   createdAt: Date;
   updatedAt: Date;
+  lastModified?: string;
   readingTime: number; // in minutes
   wordCount: number;
   type: WritingType;
@@ -211,6 +213,7 @@ async function getMarkdownFiles(
         source: "markdown",
         createdAt: data.date ? new Date(data.date) : stats.birthtime,
         updatedAt: stats.mtime,
+        lastModified: contentDate(data.lastModified),
         readingTime,
         wordCount,
         type,
@@ -295,6 +298,7 @@ export async function getWritingBySlug(
       source: "markdown",
       createdAt: data.date ? new Date(data.date) : stats.birthtime,
       updatedAt: stats.mtime,
+      lastModified: contentDate(data.lastModified),
       readingTime,
       wordCount,
       type,
