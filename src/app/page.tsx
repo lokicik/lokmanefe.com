@@ -189,7 +189,7 @@ export default function Home() {
       />
       <CursorBird />
 
-      <div className="mx-auto max-w-4xl space-y-16 sm:space-y-20">
+      <div className="home-content mx-auto max-w-4xl space-y-16 sm:space-y-20">
         {/* Hero */}
         <div className="py-6 text-center sm:py-10">
           <h1 className="mb-2 text-4xl font-bold sm:text-5xl">{hero.name}</h1>

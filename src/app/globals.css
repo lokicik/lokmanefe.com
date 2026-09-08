@@ -276,6 +276,21 @@
   font-size: calc(1rem * var(--text-scale));
 }
 
+/* Scale homepage type without changing other routes or the surrounding UI. */
+.home-content {
+  --text-xs: calc(0.75rem * var(--text-scale));
+  --text-sm: calc(0.875rem * var(--text-scale));
+  --text-lg: calc(1.125rem * var(--text-scale));
+  --text-xl: calc(1.25rem * var(--text-scale));
+  --text-2xl: calc(1.5rem * var(--text-scale));
+  --text-4xl: calc(2.25rem * var(--text-scale));
+  --text-5xl: calc(3rem * var(--text-scale));
+}
+
+.home-content [data-slot="button"] {
+  --text-sm: 0.875rem;
+}
+
 .site-navigation,
 .site-footer,
 .appearance-popover,
