@@ -13,6 +13,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SideSvgs } from "@/components/side-svgs";
 import { AppearanceScript } from "@/components/appearance-script";
+import { CONTACT_EMAIL } from "@/lib/home-content";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://lokmanefe.com";
 
@@ -138,24 +139,33 @@ export default function RootLayout({
             </div>
 
             <footer className="site-footer relative z-0 border-t bg-background/80 backdrop-blur-sm">
-              <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-x-1 px-4 py-5 text-sm text-muted-foreground">
+              <div className="mx-auto flex max-w-4xl flex-col items-center justify-center gap-1 px-4 py-5 text-sm text-muted-foreground sm:flex-row">
                 <span className="px-2">© {new Date().getFullYear()} Lokman Efe</span>
-                <span aria-hidden="true">·</span>
-                <a
-                  href="https://github.com/lokicik/lokmanefe.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex min-h-11 items-center px-2 transition-colors hover:text-primary focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                >
-                  Source
-                </a>
-                <span aria-hidden="true">·</span>
-                <a
-                  href="/rss"
-                  className="inline-flex min-h-11 items-center px-2 transition-colors hover:text-primary focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                >
-                  RSS
-                </a>
+                <span aria-hidden="true" className="hidden sm:inline">·</span>
+                <div className="flex items-center gap-x-1">
+                  <a
+                    href="https://github.com/lokicik/lokmanefe.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-11 items-center px-2 transition-colors hover:text-primary focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  >
+                    Source
+                  </a>
+                  <span aria-hidden="true">·</span>
+                  <a
+                    href="/rss"
+                    className="inline-flex min-h-11 items-center px-2 transition-colors hover:text-primary focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  >
+                    RSS
+                  </a>
+                  <span aria-hidden="true">·</span>
+                  <a
+                    href={`mailto:${CONTACT_EMAIL}`}
+                    className="inline-flex min-h-11 items-center px-2 transition-colors hover:text-primary focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  >
+                    Email
+                  </a>
+                </div>
               </div>
             </footer>
           </div>
