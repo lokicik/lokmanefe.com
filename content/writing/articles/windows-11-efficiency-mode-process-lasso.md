@@ -77,7 +77,7 @@ Bitsum [lists Efficiency Mode among the features in its free edition](https://bi
 
 ## Windows 11 WhatsApp Efficiency Mode: why my rule was too broad
 
-If your main symptom is that the Windows WhatsApp app feels slow, start with my [Turkish WhatsApp troubleshooting checklist](/writing/windows-11-whatsapp-cok-yavas). It separates connection delays from a sluggish app before looking at Efficiency Mode.
+If your main symptom is that WhatsApp Desktop feels slow on Windows 11, start with my [WhatsApp lag troubleshooting checklist](/writing/whatsapp-desktop-slow-windows-11). It separates connection delays from a sluggish app before looking at Efficiency Mode.
 
 `msedgewebview2.exe` belongs to Microsoft's WebView2 runtime. Teams, Outlook, Widgets, and other apps can use it too. In Task Manager's Details tab, their WebView2 processes appear under the same executable name. A rule matching that name could therefore change the behavior of apps I never meant to touch. [Microsoft explains the shared process name here](https://learn.microsoft.com/en-us/microsoft-edge/webview2/concepts/end-user-faq).
 

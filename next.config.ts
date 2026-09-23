@@ -12,6 +12,11 @@ const nextConfig: NextConfig = {
         destination: `${site.url}/:path*`,
         permanent: true,
       })),
+      {
+        source: "/writing/windows-11-whatsapp-cok-yavas",
+        destination: "/writing/whatsapp-desktop-slow-windows-11",
+        permanent: true,
+      },
       { source: "/projects", destination: "/#projects", permanent: true },
     ];
   },
