@@ -48,6 +48,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: writing.title,
       description: writing.excerpt || writing.description,
+      locale: writing.language === "tr" ? "tr_TR" : "en_US",
       url: `/writing/${slug}`,
       type: "article",
       publishedTime: new Date(writing.date).toISOString(),
@@ -76,6 +77,7 @@ export default async function WritingPage({ params }: Props) {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: writing.title,
+    inLanguage: writing.language || "en",
     datePublished: new Date(writing.date).toISOString(),
     dateModified: writing.lastModified,
     author: person,
@@ -113,7 +115,7 @@ export default async function WritingPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
-      <article className="writing-article">
+      <article className="writing-article" lang={writing.language || "en"}>
         {/* Header */}
         <header className="mb-12 text-center">
           <div className="mb-4">
@@ -127,18 +129,22 @@ export default async function WritingPage({ params }: Props) {
               <span className="inline-flex flex-wrap items-center justify-center gap-x-1.5">
                 <span className="inline-flex items-center gap-1 whitespace-nowrap">
                   <Calendar aria-hidden="true" className="h-4 w-4" />
-                  <time dateTime={new Date(writing.date).toISOString()}>{formatDate(writing.date)}</time>
+                  <time dateTime={new Date(writing.date).toISOString()}>
+                    {writing.language === "tr"
+                      ? new Intl.DateTimeFormat("tr-TR", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(writing.date))
+                      : formatDate(writing.date)}
+                  </time>
                 </span>
                 <span aria-hidden="true">·</span>
                 <span className="inline-flex items-center gap-1 whitespace-nowrap">
                   <Clock aria-hidden="true" className="h-4 w-4" />
-                  {writing.readingTime} min
+                  {writing.readingTime} {writing.language === "tr" ? "dk" : "min"}
                 </span>
                 {writing.wordCount > 0 && (
                   <span className="hidden items-center gap-1.5 sm:inline-flex">
                     <span aria-hidden="true">·</span>
                     <span className="whitespace-nowrap">
-                      {new Intl.NumberFormat("en-US").format(writing.wordCount)} words
+                      {new Intl.NumberFormat(writing.language === "tr" ? "tr-TR" : "en-US").format(writing.wordCount)} {writing.language === "tr" ? "kelime" : "words"}
                     </span>
                   </span>
                 )}
@@ -151,7 +157,7 @@ export default async function WritingPage({ params }: Props) {
           </h1>
 
           <p className="mb-6 text-sm text-muted-foreground">
-            By{" "}
+            {writing.language === "tr" ? "Yazar" : "By"}{" "}
             <Link href="/#about" rel="author" className="rounded-sm font-medium text-foreground underline underline-offset-4 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
               {site.name}
             </Link>
@@ -186,7 +192,7 @@ export default async function WritingPage({ params }: Props) {
         <footer className="mt-12 pt-8 border-t">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="text-sm text-muted-foreground">
-              <p>Was this helpful? Share it with others!</p>
+              <p>{writing.language === "tr" ? "Faydalı olduysa paylaşabilirsin." : "Was this helpful? Share it with others!"}</p>
             </div>
             <SocialShare
               title={writing.title}

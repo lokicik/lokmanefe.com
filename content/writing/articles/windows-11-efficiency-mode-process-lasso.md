@@ -77,6 +77,8 @@ Bitsum [lists Efficiency Mode among the features in its free edition](https://bi
 
 ## Windows 11 WhatsApp Efficiency Mode: why my rule was too broad
 
+If your main symptom is that the Windows WhatsApp app feels slow, start with my [Turkish WhatsApp troubleshooting checklist](/writing/windows-11-whatsapp-cok-yavas). It separates connection delays from a sluggish app before looking at Efficiency Mode.
+
 `msedgewebview2.exe` belongs to Microsoft's WebView2 runtime. Teams, Outlook, Widgets, and other apps can use it too. In Task Manager's Details tab, their WebView2 processes appear under the same executable name. A rule matching that name could therefore change the behavior of apps I never meant to touch. [Microsoft explains the shared process name here](https://learn.microsoft.com/en-us/microsoft-edge/webview2/concepts/end-user-faq).
 
 Process Lasso can match a process by more than its name, including its path or command line. A WhatsApp-specific rule would need me to identify the right processes first, then test a narrower match. [Bitsum documents those matching options](https://bitsum.com/apps/process-lasso/docs/reference/process-matching/). I haven't verified that rule, and I don't have a record of removing the broad WebView2 rule afterward. I wouldn't copy that setting as a WhatsApp fix.

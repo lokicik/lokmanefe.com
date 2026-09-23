@@ -43,6 +43,7 @@ export type MarkdownWriting = {
   slug: string;
   title: string;
   date: string;
+  language?: string;
   excerpt?: string;
   description?: string;
   published: boolean;
@@ -204,6 +205,7 @@ async function getMarkdownFiles(
         slug,
         title: data.title || slug,
         date: data.date || stats.birthtime.toISOString().split("T")[0],
+        language: data.language,
         excerpt: data.excerpt,
         description: data.description,
         published: data.published !== false, // Default to true
@@ -289,6 +291,7 @@ export async function getWritingBySlug(
       slug,
       title: data.title || slug,
       date: data.date || stats.birthtime.toISOString().split("T")[0],
+      language: data.language,
       excerpt: data.excerpt,
       description: data.description,
       published: data.published !== false,
