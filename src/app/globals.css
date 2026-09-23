@@ -635,6 +635,19 @@ textarea {
 }
 
 /* Prose customizations */
+.writing-article {
+  position: relative;
+  left: 50%;
+  width: calc(100vw - 3rem);
+  max-width: 64rem;
+  transform: translateX(-50%);
+}
+
+.writing-article .prose {
+  max-width: 56rem;
+  margin-inline: auto;
+}
+
 .prose-lg {
   font-size: calc(1.125rem * var(--text-scale));
 }

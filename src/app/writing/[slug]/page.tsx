@@ -113,7 +113,7 @@ export default async function WritingPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
-      <article className="max-w-4xl mx-auto">
+      <article className="writing-article">
         {/* Header */}
         <header className="mb-12 text-center">
           <div className="mb-4">
