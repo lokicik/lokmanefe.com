@@ -1,7 +1,7 @@
 ---
-title: "WhatsApp Desktop Slow on Windows 11? What to Check First"
+title: "WhatsApp Slow on Windows 11: Efficiency Mode and Other Checks"
 date: "2026-09-24"
-excerpt: "If WhatsApp Desktop is slow or lagging on Windows 11, separate connection delays from app lag, then check updates, resource use, Repair, and Efficiency Mode."
+excerpt: "WhatsApp Desktop lagging on Windows 11 with an Efficiency Mode leaf? Check whether the delay comes from your connection, the app, or a background process."
 published: true
 tags: ["windows-11", "whatsapp", "performance", "efficiency-mode"]
 ---

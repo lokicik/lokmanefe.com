@@ -11,6 +11,8 @@ Windows 11 Task Manager kept showing the green leaf beside my ChatGPT, Claude, a
 
 I wanted an app-specific setting that would stick. **Process Lasso's Efficiency Mode → Always → Off rule kept the leaf from returning for ChatGPT and Claude when I reopened them.** I didn't confirm the result after a full Windows reboot or measure whether either app got faster. WhatsApp needed a narrower rule, and I didn't test Codex separately.
 
+If WhatsApp Desktop is the app that feels slow, my [Windows 11 WhatsApp troubleshooting guide](/writing/whatsapp-desktop-slow-windows-11) separates connection delays from app lag and explains what the Efficiency Mode leaf can and cannot tell you.
+
 ## Quick answer: keep Efficiency Mode off for ChatGPT and Claude
 
 1. Open ChatGPT or Claude, then find its process in [Process Lasso](https://bitsum.com/download-process-lasso/). In my case, the process names were `ChatGPT.exe` and `Claude.exe`.
@@ -76,8 +78,6 @@ I didn't benchmark whether the apps got faster, and I don't have a recorded rebo
 Bitsum [lists Efficiency Mode among the features in its free edition](https://bitsum.com/howfree/). I didn't need to buy Pro for this setup.
 
 ## Windows 11 WhatsApp Efficiency Mode: why my rule was too broad
-
-If your main symptom is that WhatsApp Desktop feels slow on Windows 11, start with my [WhatsApp lag troubleshooting checklist](/writing/whatsapp-desktop-slow-windows-11). It separates connection delays from a sluggish app before looking at Efficiency Mode.
 
 `msedgewebview2.exe` belongs to Microsoft's WebView2 runtime. Teams, Outlook, Widgets, and other apps can use it too. In Task Manager's Details tab, their WebView2 processes appear under the same executable name. A rule matching that name could therefore change the behavior of apps I never meant to touch. [Microsoft explains the shared process name here](https://learn.microsoft.com/en-us/microsoft-edge/webview2/concepts/end-user-faq).
 
