@@ -1,17 +1,17 @@
 ---
-title: "Windows 11 Efficiency Mode Keeps Turning On: ChatGPT & Claude"
+title: "Windows 11 Efficiency Mode: ChatGPT, Claude, and WhatsApp"
 date: "2026-09-23"
-lastModified: "2026-09-24"
-excerpt: "The Windows 11 green leaf kept returning for ChatGPT and Claude. Here's the Process Lasso rule that stuck for me, and what I couldn't verify for WhatsApp or Codex."
+lastModified: "2026-09-26"
+excerpt: "Efficiency Mode keeps turning on, or WhatsApp Desktop feels slow on Windows 11? My Process Lasso tests with ChatGPT and Claude, plus WhatsApp troubleshooting checks."
 published: true
-tags: ["windows-11", "efficiency-mode", "process-lasso", "chatgpt", "claude"]
+tags: ["windows-11", "efficiency-mode", "process-lasso", "chatgpt", "claude", "whatsapp"]
 ---
 
 Windows 11 Task Manager kept showing the green leaf beside my ChatGPT, Claude, and WhatsApp processes. Turning **Efficiency Mode** off manually worked for the current process, but the leaf could return after I closed and reopened an app.
 
 I wanted an app-specific setting that would stick. **Process Lasso's Efficiency Mode → Always → Off rule kept the leaf from returning for ChatGPT and Claude when I reopened them.** I didn't confirm the result after a full Windows reboot or measure whether either app got faster. WhatsApp needed a narrower rule, and I didn't test Codex separately.
 
-If WhatsApp Desktop is the app that feels slow, my [Windows 11 WhatsApp troubleshooting guide](/writing/whatsapp-desktop-slow-windows-11) separates connection delays from app lag and explains what the Efficiency Mode leaf can and cannot tell you.
+If WhatsApp Desktop is the app that feels slow on Windows 11, the WhatsApp section below covers connection delays, app lag, and what the Efficiency Mode leaf can and cannot tell you.
 
 ## Quick answer: keep Efficiency Mode off for ChatGPT and Claude
 
@@ -77,7 +77,25 @@ I didn't benchmark whether the apps got faster, and I don't have a recorded rebo
 
 Bitsum [lists Efficiency Mode among the features in its free edition](https://bitsum.com/howfree/). I didn't need to buy Pro for this setup.
 
-## Windows 11 WhatsApp Efficiency Mode: why my rule was too broad
+## WhatsApp Desktop slow on Windows 11: what I would check
+
+I saw the Efficiency Mode leaf beside WhatsApp processes, but I did not measure whether it caused WhatsApp to lag. Before changing a persistent process rule, I would first pin down **what is actually slow**: sending messages and downloading media, or opening the app, scrolling, and switching chats.
+
+### Slow messages or downloads? Check the connection
+
+Try the same action in [WhatsApp Web](https://web.whatsapp.com/). If messages and media are delayed there too, check the connection status and try another network. [WhatsApp's connection guide](https://faq.whatsapp.com/852892549070029/?cms_platform=web&helpref=hc_fnav) identifies poor connectivity as a common cause of slow sending and downloading.
+
+If WhatsApp Web feels responsive but the Windows app does not, move on to the app checks below. This comparison is a clue, not a conclusive diagnosis.
+
+### WhatsApp's Windows app lagging? Check updates, resource use, and Repair
+
+1. **Check for app updates.** If you installed WhatsApp from the Microsoft Store, open the Store and check for updates. [Microsoft explains how](https://support.microsoft.com/en-us/accounts-billing/get-updates-for-apps-and-games-in-microsoft-store).
+2. **Watch what happens during the lag.** Open Task Manager with `Ctrl + Shift + Esc`, expand WhatsApp under **Processes**, and watch CPU and memory use while you reproduce the slowdown. Note which process, if any, has the green leaf. If other apps stutter at the same time, the slowdown may not be specific to WhatsApp.
+3. **Try Repair if it is available.** In Windows 11, go to **Settings → Apps → Installed apps → WhatsApp → Advanced options → Repair**. [Microsoft documents the Repair option](https://support.microsoft.com/en-us/windows/apps/repair-apps-and-programs-in-windows). **Reset** is a separate action that can affect app data and your sign-in, so check its consequences before using it.
+
+### WhatsApp Efficiency Mode: why my Process Lasso rule was too broad
+
+The leaf tells you a process is in Efficiency Mode. It does **not**, by itself, prove why WhatsApp is slow. A useful test is to repeat the same action while the leaf is present and while it is absent, then compare the behavior. I have not recorded that test for WhatsApp.
 
 `msedgewebview2.exe` belongs to Microsoft's WebView2 runtime. Teams, Outlook, Widgets, and other apps can use it too. In Task Manager's Details tab, their WebView2 processes appear under the same executable name. A rule matching that name could therefore change the behavior of apps I never meant to touch. [Microsoft explains the shared process name here](https://learn.microsoft.com/en-us/microsoft-edge/webview2/concepts/end-user-faq).
 

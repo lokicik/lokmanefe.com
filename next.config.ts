@@ -14,7 +14,12 @@ const nextConfig: NextConfig = {
       })),
       {
         source: "/writing/windows-11-whatsapp-cok-yavas",
-        destination: "/writing/whatsapp-desktop-slow-windows-11",
+        destination: "/writing/windows-11-efficiency-mode-process-lasso",
+        permanent: true,
+      },
+      {
+        source: "/writing/whatsapp-desktop-slow-windows-11",
+        destination: "/writing/windows-11-efficiency-mode-process-lasso",
         permanent: true,
       },
       { source: "/projects", destination: "/#projects", permanent: true },
