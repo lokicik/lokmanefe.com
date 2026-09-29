@@ -1,25 +1,57 @@
 ---
-title: "Windows 11 Efficiency Mode: ChatGPT, Claude, and WhatsApp"
+title: "Windows 11 Efficiency Mode: Turn It Off with Process Lasso"
 date: "2026-09-23"
-lastModified: "2026-09-26"
-excerpt: "Efficiency Mode keeps turning on, or WhatsApp Desktop feels slow on Windows 11? My Process Lasso tests with ChatGPT and Claude, plus WhatsApp troubleshooting checks."
+lastModified: "2026-09-30"
+excerpt: "Turn off Windows 11 Efficiency Mode and keep it off with Process Lasso. My ChatGPT and Claude results, plus checks for WhatsApp Desktop lag."
 published: true
 tags: ["windows-11", "efficiency-mode", "process-lasso", "chatgpt", "claude", "whatsapp"]
 ---
 
-Windows 11 Task Manager kept showing the green leaf beside my ChatGPT, Claude, and WhatsApp processes. Turning **Efficiency Mode** off manually worked for the current process, but the leaf could return after I closed and reopened an app.
+Windows 11 Efficiency Mode kept coming back for my chat apps. I could turn it off in Task Manager, but after closing and reopening ChatGPT or Claude, the green leaf could return.
 
-I wanted an app-specific setting that would stick. **Process Lasso's Efficiency Mode → Always → Off rule kept the leaf from returning for ChatGPT and Claude when I reopened them.** I didn't confirm the result after a full Windows reboot or measure whether either app got faster. WhatsApp needed a narrower rule, and I didn't test Codex separately.
+**With Process Lasso running, the programs I add to its Always Off rules reopen without Efficiency Mode.** My documented tests were with `ChatGPT.exe` and `Claude.exe`. The rule has continued to do what I wanted: I don't have to turn the setting off again each time I open those apps.
+
+I also saw the leaf beside WhatsApp processes, but identifying a rule specific to WhatsApp was less straightforward. I haven't measured a speed improvement or completed a separate Windows reboot test, and I didn't test Codex separately.
 
 If WhatsApp Desktop is the app that feels slow on Windows 11, the WhatsApp section below covers connection delays, app lag, and what the Efficiency Mode leaf can and cannot tell you.
 
-## Quick answer: keep Efficiency Mode off for ChatGPT and Claude
+## Quick answer: keep Efficiency Mode off with Process Lasso
 
 1. Open ChatGPT or Claude, then find its process in [Process Lasso](https://bitsum.com/download-process-lasso/). In my case, the process names were `ChatGPT.exe` and `Claude.exe`.
-2. Right-click the process and select **Efficiency Mode → Always → Off**. Choose **Always**, not **Current**, so the rule applies to future matching processes too.
-3. Close and reopen the app. Check the small `e` in Process Lasso's **Rules** column and see whether the green leaf returns in Windows Task Manager.
+2. Right-click the process and select **Efficiency Mode → Always → Off**. **Always** saves a rule for future matching processes; **Current** changes only the running instance.
+3. Close and reopen the app while Process Lasso's background engine is running. Check the small `e` in its **Rules** column, then check the process in Windows Task Manager to see whether the green leaf returns.
 
-That is the result I reproduced for those two apps. [Process Lasso documents the persistent rule](https://bitsum.com/apps/process-lasso/docs/rules/efficiency-mode/). The same executable-name rule is **not** a verified WhatsApp or Codex fix; I explain the limits below.
+You can review saved rules under **Options → CPU → Efficiency Modes**. The lowercase `e` means Always Off; uppercase `E` means Always On. The Rules column shows the saved instruction, so checking the actual process in Task Manager matters too. [Bitsum documents these controls and indicators](https://bitsum.com/apps/process-lasso/docs/rules/efficiency-mode/).
+
+## What is Efficiency Mode in Windows 11?
+
+Efficiency Mode reduces a process's CPU priority and uses **EcoQoS** to favor energy-efficient execution. This can leave more CPU time for active work and reduce power use. The green leaf in Task Manager identifies the efficiency state; it doesn't establish why an app is slow. [Microsoft explains how it works](https://devblogs.microsoft.com/performance-diagnostics/reduce-process-interference-with-task-manager-efficiency-mode/).
+
+Windows Task Manager's Efficiency Mode is separate from Microsoft Edge's browser energy saver. Changing one does not switch off the other. [Microsoft documents that distinction](https://support.microsoft.com/en-us/edge/learn-about-performance-features-in-microsoft-edge). I wanted to control particular app processes on my PC.
+
+## How to turn off Efficiency Mode in Task Manager
+
+1. Press `Ctrl + Shift + Esc` to open Task Manager and select **Processes**.
+2. Find the app. If it has an expandable group, click the arrow to see its individual processes.
+3. Right-click the process with the green leaf and click the checked **Efficiency mode** option to turn it off. Check that the leaf disappears for that process.
+
+These are [Microsoft's steps for changing the running process](https://support.microsoft.com/en-us/edge/learn-about-performance-features-in-microsoft-edge). On my PC, doing this manually didn't keep the setting off after I reopened the apps.
+
+### Why is Efficiency Mode greyed out?
+
+If you cannot turn off Efficiency Mode for an app group, expand it and select an individual child process. Task Manager doesn't let you toggle most process groups as a whole. Some core Windows processes also have the control disabled; selecting a child process will not unlock every case. Microsoft's [Task Manager explanation](https://devblogs.microsoft.com/performance-diagnostics/reduce-process-interference-with-task-manager-efficiency-mode/) covers that restriction.
+
+## Why does Efficiency Mode keep turning on?
+
+An app can request energy-efficient execution itself. [Microsoft describes browsers using power-efficiency APIs](https://devblogs.microsoft.com/performance-diagnostics/reduce-process-interference-with-task-manager-efficiency-mode/) even when the user hasn't enabled the setting in Task Manager. A manual change to one running process therefore isn't a saved preference for every process the app starts later.
+
+That matches the problem I was trying to solve: I would reopen an app and have to check the leaf again. Process Lasso's **Always Off** rule gave me a saved setting that its background engine applies to matching processes.
+
+### Can you disable Efficiency Mode permanently?
+
+For selected processes, Process Lasso provides a persistent Off rule. Here, "permanently" means the rule remains saved and the Governor reapplies it while running. Keeping it enforced depends on that background engine. My result is that matching programs reopen without the leaf while Process Lasso is running; I haven't separately verified behavior after reboot.
+
+Before I got to that rule, I tried the registry. Here is the order of my tests.
 
 ## I tried the Windows registry first
 
@@ -55,7 +87,7 @@ The core engine, called the **Governor**, applies rules in the background. The P
 
 *The GUI startup error I saw during installation.*
 
-## Process Lasso: the Efficiency Mode Always Off rule I set
+## ChatGPT and Claude: my Process Lasso Efficiency Mode rule
 
 With ChatGPT open, I right-clicked **one** `ChatGPT.exe` row in Process Lasso and chose:
 
@@ -67,19 +99,19 @@ Efficiency Mode → Always → OFF
 
 *The checked Off option is under Always. The `e` beside ChatGPT is in the Rules column.*
 
-I repeated that for `Claude.exe`. I didn't have to select every instance or use a process ID. **Always** creates a rule for future processes matching that name; changing the current instance alone would have sent me back to the same problem. Process Lasso marks an Always OFF rule with a small `e` in its Rules column. [Bitsum documents the menu and indicator](https://bitsum.com/apps/process-lasso/docs/rules/efficiency-mode/).
+I repeated that for `Claude.exe`. I didn't have to select every instance or use a process ID. The saved executable-name rules covered matching processes when I reopened ChatGPT and Claude, and the leaves stayed off.
 
 Several Chrome processes were in Efficiency Mode too. I left them alone because I wasn't trying to change how every browser subprocess runs.
 
 WhatsApp wasn't where I expected it in the process list. I put an Always OFF rule on `msedgewebview2.exe` too, though that name could match other apps. Then I closed and reopened the apps and reported that the leaves had gone. The ChatGPT and Claude result was useful. The WebView2 rule needed another look.
 
-I didn't benchmark whether the apps got faster, and I don't have a recorded reboot test with the GUI closed. To check startup behavior, I'd look for a running, automatic Governor service in `services.msc`, restart Windows, then open the apps without launching the Process Lasso window.
+To check startup behavior, I'd look for a running, automatic Governor service in `services.msc`, restart Windows, then open the apps without launching the Process Lasso window. That is a follow-up test I still need to do.
 
 Bitsum [lists Efficiency Mode among the features in its free edition](https://bitsum.com/howfree/). I didn't need to buy Pro for this setup.
 
-## WhatsApp Desktop slow on Windows 11: what I would check
+## Why is WhatsApp Desktop so slow on Windows 11?
 
-I saw the Efficiency Mode leaf beside WhatsApp processes, but I did not measure whether it caused WhatsApp to lag. Before changing a persistent process rule, I would first pin down **what is actually slow**: sending messages and downloading media, or opening the app, scrolling, and switching chats.
+If WhatsApp is lagging on your PC, first pin down **what is actually slow**: sending messages and downloading media, or opening the app, scrolling, and switching chats. I saw the Efficiency Mode leaf beside WhatsApp processes, but I did not measure whether it caused the lag. These checks help narrow down where the delay is happening.
 
 ### Slow messages or downloads? Check the connection
 
@@ -93,7 +125,7 @@ If WhatsApp Web feels responsive but the Windows app does not, move on to the ap
 2. **Watch what happens during the lag.** Open Task Manager with `Ctrl + Shift + Esc`, expand WhatsApp under **Processes**, and watch CPU and memory use while you reproduce the slowdown. Note which process, if any, has the green leaf. If other apps stutter at the same time, the slowdown may not be specific to WhatsApp.
 3. **Try Repair if it is available.** In Windows 11, go to **Settings → Apps → Installed apps → WhatsApp → Advanced options → Repair**. [Microsoft documents the Repair option](https://support.microsoft.com/en-us/windows/apps/repair-apps-and-programs-in-windows). **Reset** is a separate action that can affect app data and your sign-in, so check its consequences before using it.
 
-### WhatsApp Efficiency Mode: why my Process Lasso rule was too broad
+### WhatsApp Efficiency Mode on Windows 11: why my rule was too broad
 
 The leaf tells you a process is in Efficiency Mode. It does **not**, by itself, prove why WhatsApp is slow. A useful test is to repeat the same action while the leaf is present and while it is absent, then compare the behavior. I have not recorded that test for WhatsApp.
 
