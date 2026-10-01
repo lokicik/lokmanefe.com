@@ -1,8 +1,8 @@
 ---
 title: "Windows 11 Efficiency Mode: Turn It Off with Process Lasso"
 date: "2026-09-23"
-lastModified: "2026-09-30"
-excerpt: "Turn off Windows 11 Efficiency Mode and keep it off with Process Lasso. My ChatGPT and Claude results, plus checks for WhatsApp Desktop lag."
+lastModified: "2026-10-01"
+excerpt: "Turn off Windows 11 Efficiency Mode with Process Lasso. WhatsApp Desktop slow or lagging? Try connection checks, app updates and Repair."
 published: true
 tags: ["windows-11", "efficiency-mode", "process-lasso", "chatgpt", "claude", "whatsapp"]
 ---
@@ -13,7 +13,7 @@ Windows 11 Efficiency Mode kept coming back for my chat apps. I could turn it of
 
 I also saw the leaf beside WhatsApp processes, but identifying a rule specific to WhatsApp was less straightforward. I haven't measured a speed improvement or completed a separate Windows reboot test, and I didn't test Codex separately.
 
-If WhatsApp Desktop is the app that feels slow on Windows 11, the WhatsApp section below covers connection delays, app lag, and what the Efficiency Mode leaf can and cannot tell you.
+WhatsApp Desktop slow on Windows 11, or lagging when you switch chats? <a href="#whatsapp-desktop-slow-windows-11" class="underline underline-offset-4">Jump to the WhatsApp troubleshooting steps</a> for connection checks, app updates, Repair, and how to check whether Efficiency Mode makes a difference.
 
 ## Quick answer: keep Efficiency Mode off with Process Lasso
 
@@ -29,7 +29,7 @@ Efficiency Mode reduces a process's CPU priority and uses **EcoQoS** to favor en
 
 Windows Task Manager's Efficiency Mode is separate from Microsoft Edge's browser energy saver. Changing one does not switch off the other. [Microsoft documents that distinction](https://support.microsoft.com/en-us/edge/learn-about-performance-features-in-microsoft-edge). I wanted to control particular app processes on my PC.
 
-## How to turn off Efficiency Mode in Task Manager
+<h2 id="turn-off-efficiency-mode-task-manager">How to turn off Efficiency Mode in Task Manager</h2>
 
 1. Press `Ctrl + Shift + Esc` to open Task Manager and select **Processes**.
 2. Find the app. If it has an expandable group, click the arrow to see its individual processes.
@@ -109,25 +109,27 @@ To check startup behavior, I'd look for a running, automatic Governor service in
 
 Bitsum [lists Efficiency Mode among the features in its free edition](https://bitsum.com/howfree/). I didn't need to buy Pro for this setup.
 
-## Why is WhatsApp Desktop so slow on Windows 11?
+<h2 id="whatsapp-desktop-slow-windows-11">Why is WhatsApp Desktop so slow on Windows 11?</h2>
 
 If WhatsApp is lagging on your PC, first pin down **what is actually slow**: sending messages and downloading media, or opening the app, scrolling, and switching chats. I saw the Efficiency Mode leaf beside WhatsApp processes, but I did not measure whether it caused the lag. These checks help narrow down where the delay is happening.
 
-### Slow messages or downloads? Check the connection
+### How to fix WhatsApp Desktop lag on Windows 11
 
-Try the same action in [WhatsApp Web](https://web.whatsapp.com/). If messages and media are delayed there too, check the connection status and try another network. [WhatsApp's connection guide](https://faq.whatsapp.com/852892549070029/?cms_platform=web&helpref=hc_fnav) identifies poor connectivity as a common cause of slow sending and downloading.
+Work through these checks in order, repeating the action that felt slow after each change:
 
-If WhatsApp Web feels responsive but the Windows app does not, move on to the app checks below. This comparison is a clue, not a conclusive diagnosis.
+1. **For slow messages or downloads, check the connection.** Try the same action in [WhatsApp Web](https://web.whatsapp.com/). If messages and media are delayed there too, check the connection status and try another network. [WhatsApp's connection guide](https://faq.whatsapp.com/852892549070029/?cms_platform=web&helpref=hc_fnav) covers slow sending and downloading. If the browser version responds normally, continue with the Windows app checks. This comparison is a clue, not a conclusive diagnosis.
+2. **Update WhatsApp, then reopen it.** If you installed it from the Microsoft Store, open the Store and select **Check for Updates**. [Microsoft explains how to update Store apps](https://support.microsoft.com/en-us/accounts-billing/get-updates-for-apps-and-games-in-microsoft-store). After any update, reopen WhatsApp and try the same chat or action again.
+3. **Check resource use while the app is lagging.** Open Task Manager with `Ctrl + Shift + Esc`, expand WhatsApp under **Processes**, and watch CPU and memory use while you reproduce the slowdown. Note which process, if any, has the green leaf. If other apps stutter at the same time, the slowdown may not be specific to WhatsApp.
+4. **Test Efficiency Mode on the identified process.** If a WhatsApp child process has the leaf, follow the <a href="#turn-off-efficiency-mode-task-manager" class="underline underline-offset-4">Task Manager steps above</a> to turn it off for that running process. Compare the same action with the leaf present and absent. I have not measured this comparison for WhatsApp. Before saving a Process Lasso rule, read the WebView2 scope issue below; a rule for every `msedgewebview2.exe` can affect other apps.
+5. **Try Repair if it is available.** In Windows 11, go to **Settings → Apps → Installed apps → WhatsApp → Advanced options → Repair**. [Microsoft documents the Repair option](https://support.microsoft.com/en-us/windows/apps/repair-apps-and-programs-in-windows). **Reset** is a separate action that can affect app data and your sign-in, so check its consequences before using it.
 
-### WhatsApp's Windows app lagging? Check updates, resource use, and Repair
+### WhatsApp still slow with Efficiency Mode off?
 
-1. **Check for app updates.** If you installed WhatsApp from the Microsoft Store, open the Store and check for updates. [Microsoft explains how](https://support.microsoft.com/en-us/accounts-billing/get-updates-for-apps-and-games-in-microsoft-store).
-2. **Watch what happens during the lag.** Open Task Manager with `Ctrl + Shift + Esc`, expand WhatsApp under **Processes**, and watch CPU and memory use while you reproduce the slowdown. Note which process, if any, has the green leaf. If other apps stutter at the same time, the slowdown may not be specific to WhatsApp.
-3. **Try Repair if it is available.** In Windows 11, go to **Settings → Apps → Installed apps → WhatsApp → Advanced options → Repair**. [Microsoft documents the Repair option](https://support.microsoft.com/en-us/windows/apps/repair-apps-and-programs-in-windows). **Reset** is a separate action that can affect app data and your sign-in, so check its consequences before using it.
+If turning it off makes no noticeable difference, that test hasn't established Efficiency Mode as the cause. Keep a note of the WhatsApp version, the action that lags, and whether the delay also happens in the browser. Slow message delivery and a freezing chat window can need different follow-up checks.
+
+If [WhatsApp Web](https://web.whatsapp.com/) works better on your PC, it can be a temporary alternative while you investigate the desktop app. I wouldn't assume it will be faster on every machine.
 
 ### WhatsApp Efficiency Mode on Windows 11: why my rule was too broad
-
-The leaf tells you a process is in Efficiency Mode. It does **not**, by itself, prove why WhatsApp is slow. A useful test is to repeat the same action while the leaf is present and while it is absent, then compare the behavior. I have not recorded that test for WhatsApp.
 
 `msedgewebview2.exe` belongs to Microsoft's WebView2 runtime. Teams, Outlook, Widgets, and other apps can use it too. In Task Manager's Details tab, their WebView2 processes appear under the same executable name. A rule matching that name could therefore change the behavior of apps I never meant to touch. [Microsoft explains the shared process name here](https://learn.microsoft.com/en-us/microsoft-edge/webview2/concepts/end-user-faq).
 
