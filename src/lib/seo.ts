@@ -36,7 +36,7 @@ export const person = {
 
 export function socialImage(title: string) {
   return {
-    url: absoluteUrl(`/og?${new URLSearchParams({ title })}`),
+    url: absoluteUrl(`/og/${encodeURIComponent(title)}`),
     width: 1200,
     height: 630,
     alt: `${title} | ${site.name}`,
