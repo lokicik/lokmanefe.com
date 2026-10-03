@@ -15,8 +15,8 @@ import { Metadata } from "next";
 import { ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
 import { absoluteUrl, person, serializeJsonLd, site } from "@/lib/seo";
 
-// Enable ISR with 1 day revalidation (homepage changes rarely)
-export const revalidate = 86400; // 24 hours
+// Homepage data is checked into the repository and changes only on deploy.
+export const revalidate = false;
 
 export const metadata: Metadata = {
   title: { absolute: site.title },

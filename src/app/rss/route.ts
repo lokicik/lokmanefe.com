@@ -6,8 +6,9 @@ import { getBooks, type Book } from "@/lib/markdown-books";
 import { absoluteUrl, site } from "@/lib/seo";
 import { contentDate } from "@/lib/content-date";
 
-// Revalidate RSS feed every 1 hour
-export const revalidate = 3600;
+// The feed is built from repository content, not a live data source.
+export const dynamic = "force-static";
+export const revalidate = false;
 
 type BlogItem = MarkdownPost & { itemType: "blog"; url: string };
 type BookItem = Book & { itemType: "book"; url: string; date?: string };
@@ -37,7 +38,20 @@ export async function GET() {
         date: book.lastModified || contentDate(book.completedDate) || contentDate(book.startDate),
       })
     ),
-  ].sort((a, b) => (b.date ? new Date(b.date).getTime() : 0) - (a.date ? new Date(a.date).getTime() : 0));
+  ].sort((a, b) =>
+    (b.date ? new Date(b.date).getTime() : 0) - (a.date ? new Date(a.date).getTime() : 0)
+    || a.url.localeCompare(b.url, "en")
+  );
+
+  // A rebuild is not a content update. Include edits to older items, and omit
+  // the optional date entirely if the content has no explicit full dates.
+  const contentTimes = allItems.flatMap((item) => [item.date, item.lastModified])
+    .map(contentDate)
+    .filter((date): date is string => Boolean(date))
+    .map((date) => new Date(date).getTime());
+  const lastBuildDate = contentTimes.length
+    ? new Date(Math.max(...contentTimes)).toUTCString()
+    : undefined;
 
   const rss = `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
@@ -47,7 +61,7 @@ export async function GET() {
     <link>${absoluteUrl()}</link>
     <atom:link href="${absoluteUrl("/rss")}" rel="self" type="application/rss+xml" />
     <language>en-us</language>
-    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
+    ${lastBuildDate ? `<lastBuildDate>${lastBuildDate}</lastBuildDate>` : ""}
     ${allItems
       .map((item) => {
         const title =
@@ -75,7 +89,6 @@ export async function GET() {
   return new Response(rss, {
     headers: {
       "Content-Type": "application/rss+xml",
-      "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
     },
   });
 }

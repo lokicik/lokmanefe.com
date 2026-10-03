@@ -3,8 +3,9 @@ import { getWritings } from "@/lib/markdown-writing";
 import { MetadataRoute } from "next";
 import { absoluteUrl } from "@/lib/seo";
 
-// Revalidate sitemap every 1 hour
-export const revalidate = 3600;
+// The indexed Markdown files and their explicit dates change only on deploy.
+export const dynamic = "force-static";
+export const revalidate = false;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const writings = await getWritings();

@@ -14,8 +14,9 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { absoluteUrl, person, serializeJsonLd, site, socialImage } from "@/lib/seo";
 
-// Enable ISR with 1 hour revalidation
-export const revalidate = 3600; // 1 hour
+// Markdown changes ship with a deploy; no request-time regeneration is needed.
+export const revalidate = false;
+export const dynamicParams = false;
 
 type Props = {
   params: Promise<{ slug: string }>;
