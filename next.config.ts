@@ -26,10 +26,27 @@ const nextConfig: NextConfig = {
     ];
   },
   images: {
-    formats: ['image/webp', 'image/avif'],
+    formats: ['image/webp'],
+    // Covers use stable URLs. Changed artwork should get a new URL/version.
+    minimumCacheTTL: 604800, // 7 days; upstream max-age may be longer.
+    // Audited against every coverImage in content/books. Keep the default
+    // size sets: existing responsive images already share those variants.
     remotePatterns: [
-      { protocol: "https", hostname: "**" },
-      { protocol: "http", hostname: "**" }
+      { protocol: "http", hostname: "books.google.com" },
+      ...[
+        "books.google.com",
+        "covers.openlibrary.org",
+        "encrypted-tbn0.gstatic.com",
+        "encrypted-tbn2.gstatic.com",
+        "www.alfakitap.com",
+        "images-na.ssl-images-amazon.com",
+        "upload.wikimedia.org",
+        "images.isbndb.com",
+        "inchiostroeparole.it",
+        "img.kitapyurdu.com",
+        "m.media-amazon.com",
+        "i.dr.com.tr",
+      ].map((hostname) => ({ protocol: "https" as const, hostname })),
     ],
   },
   // Optimize static generation
