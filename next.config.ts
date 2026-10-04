@@ -55,6 +55,10 @@ const nextConfig: NextConfig = {
   },
   // Configure headers for better caching
   async headers() {
+    // `next dev` serves chunks and assets at unhashed URLs, so a year of
+    // immutable caching would keep running stale code after edits.
+    if (process.env.NODE_ENV !== "production") return [];
+
     return [
       {
         source: '/:all*(svg|jpg|png|gif|ico|webp|woff|woff2)',
